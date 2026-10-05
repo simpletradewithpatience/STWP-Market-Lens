@@ -1,334 +1,762 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STWP Daily Market Lens</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3F5F8; --card:#FFFFFF; --line:#E5E8EC; --muted:#6B7280; --text:#111827;
+    --green:#15803D; --green-soft:rgba(22,163,74,.10);
+    --red:#DC2626; --red-soft:rgba(220,38,38,.08);
+    --amber:#B45309; --amber-soft:rgba(245,158,11,.14);
+    --blue:#2563EB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;
+       padding:16px}
+  .num{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+  .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));grid-auto-rows:1fr;gap:16px;max-width:1352px;margin:0 auto}
+  .card{display:flex;flex-direction:column;min-width:0;container-type:inline-size;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .sec{padding:7px 14px;border-top:1px solid var(--line)}
+  .sec:first-child{border-top:none}
+  .label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 
-<!DOCTYPE html>
+  /* header */
+  .top{display:flex;flex-wrap:wrap;gap:2px 10px;justify-content:space-between;align-items:baseline}
+  .name{font-weight:700;font-size:15px;letter-spacing:.02em}
+  .meta{font-size:11px;color:var(--muted)}
+  .price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-top:2px}
+  .price{font-size:24px;font-weight:600}
+  .chg{font-size:14px;font-weight:600}
+  .ohlc{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+  .ohlc div{font-size:10px;color:var(--muted)}
+  .ohlc span{display:block;font-size:12.5px;color:var(--text);margin-top:2px}
+  .note{margin-top:6px;font-size:10.5px;color:var(--amber)}
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>STWP Daily Market Intelligence — 23 September 2026 | Updated</title><style>
-:root{--navy:#0B1730;--navy2:#123B6D;--blue:#1769D1;--blue-soft:#EAF3FF;--teal:#008F83;--teal-soft:#E7F8F5;--green:#078A5B;--green-soft:#E8F7F0;--red:#D92D20;--red-soft:#FDECEA;--ink:#172033;--muted:#64748B;--line:#D7E0EA;--bg:#EEF3F8}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#EAF2FB,#F4F7FB 42%,#EEF3F8);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1250px;margin:auto;padding:22px}
-.header{background:linear-gradient(135deg,var(--navy),var(--navy2) 58%,var(--blue));color:#fff;border-radius:18px;padding:24px 28px;margin-bottom:18px;box-shadow:0 12px 30px rgba(11,23,48,.18)}.brand{font-size:12px;letter-spacing:2px;opacity:.8;font-weight:800}.header h1{margin:6px 0 4px;font-size:28px}.header p{margin:0;opacity:.85;font-size:13px}
-.section-title{display:flex;align-items:end;justify-content:space-between;margin:22px 2px 12px;padding:10px 13px;border-radius:11px;background:#fff;border-left:5px solid var(--blue);box-shadow:0 4px 12px rgba(16,24,40,.04)}.section-title h2{margin:0;font-size:19px;color:var(--navy)}.section-title p{margin:0;color:var(--muted);font-size:12px}
-.index-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.index-card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:16px;padding:16px;box-shadow:0 8px 20px rgba(16,24,40,.07)}.index-card:nth-child(2){border-top-color:var(--teal)}.index-card:nth-child(3){border-top-color:var(--red)}.card-head{display:flex;justify-content:space-between;align-items:center}.eyebrow{font-size:9px;color:var(--blue);font-weight:900;letter-spacing:1.4px;background:var(--blue-soft);padding:4px 7px;border-radius:6px}.card-head h2{font-size:20px;margin:4px 0}.day{font-weight:900;font-size:14px;padding:7px 9px;border-radius:9px}.pos{color:var(--green);background:var(--green-soft)}
-.price-ema-row{display:grid;grid-template-columns:1fr 1.45fr;gap:12px;margin:15px 0}.cmp-box{background:linear-gradient(145deg,#F7F9FC,#EAF3FF);border:1px solid #D9E8FA;border-radius:12px;padding:13px;display:flex;flex-direction:column;justify-content:center}.cmp-box span,.ema-grid span,.ohlc span{font-size:9px;color:var(--muted);font-weight:800}.cmp-box strong{font-size:25px;margin-top:4px}.ema-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.ema-grid div{background:var(--blue-soft);border:1px solid #C9DDF8;border-radius:9px;padding:8px}.ema-grid b{display:block;font-size:12px;margin-top:3px;color:var(--blue)}
-.ohlc{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0}.ohlc div{display:flex;flex-direction:column;gap:3px}.ohlc b{font-size:11px}.levels{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}.level-group{background:#F8FAFC;border:1px solid var(--line);border-radius:10px;padding:9px}.level-group:first-child{background:var(--red-soft)}.level-group:last-child{background:var(--green-soft)}.level-group h3{font-size:10px;margin:0 0 6px;text-transform:uppercase}.level-group:first-child h3{color:var(--red)}.level-group:last-child h3{color:var(--green)}.level{display:flex;justify-content:space-between;font-size:11px;padding:3px 0}.level.r b{color:var(--red)}.level.s b{color:var(--green)}.observation{margin-top:10px;padding:9px 10px;border-radius:10px;background:#F7F9FC;border-left:3px solid var(--blue);display:flex;justify-content:space-between;gap:10px;font-size:10px}.observation span{color:var(--muted)}
-.sector-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;background:#fff;border:1px solid var(--line);padding:14px;border-radius:16px}.sector-row{display:grid;grid-template-columns:1.6fr .9fr .6fr;align-items:center;padding:10px 11px;border:1px solid #e5eaf1;border-radius:10px;background:#fff;font-size:12px}.sector-row b,.sector-row em{text-align:right}.sector-row em{font-style:normal;font-weight:900}.up{color:var(--green);background:var(--green-soft);padding:3px 6px;border-radius:6px}.down{color:var(--red);background:var(--red-soft);padding:3px 6px;border-radius:6px}
-.watch-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.watch-card{background:#fff;border:1px solid var(--line);border-top:3px solid var(--green);border-radius:12px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:8px 10px;box-shadow:0 4px 12px rgba(16,24,40,.04)}.stock-link{display:block;font-size:15px;font-weight:900;color:var(--navy);text-decoration:none;cursor:pointer}.watch-status{display:block;font-size:9px;color:var(--green);font-weight:900;margin-top:3px}.watch-price{font-size:13px;font-weight:900}.watch-tags{grid-column:1/-1;font-size:10px;line-height:1.45;color:var(--muted);margin-top:1px;padding-top:5px;border-top:1px solid var(--line)}.watch-candle{grid-column:1/-1;font-size:10px;color:var(--ink);font-weight:700}
-.footer{margin-top:18px;padding:16px 12px;color:var(--muted);font-size:10px;line-height:1.5;text-align:center;background:#E6EDF6;border-top:1px solid #D3DFEC;border-radius:12px}
-.stock-modal-backdrop{display:none;position:fixed;inset:0;background:rgba(11,23,48,.64);z-index:9999;padding:18px;overflow:auto}.stock-modal{max-width:900px;margin:2vh auto;background:#fff;border:1px solid #D7E4F2;border-radius:18px;padding:22px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.28)}.modal-close{position:absolute;right:14px;top:12px;border:0;background:#F1F5F9;border-radius:50%;width:34px;height:34px;font-size:23px;cursor:pointer}.modal-head{display:flex;justify-content:space-between;align-items:center;padding-right:38px;border-bottom:2px solid #E4ECF5;padding-bottom:15px}.modal-head h2{margin:4px 0;font-size:25px;color:var(--navy)}.modal-badge{font-size:9px;color:var(--green);font-weight:900;background:var(--green-soft);padding:5px 8px;border-radius:999px}.modal-ltp{background:var(--blue-soft);border:1px solid #CFE0F5;padding:10px 14px;border-radius:10px;text-align:right}.modal-ltp small{display:block;color:var(--muted);font-size:8px}.modal-ltp strong{font-size:20px}.detail-section{margin-top:16px;padding:12px;border-radius:12px;background:#fff;border:1px solid #E2E8F0}.detail-section h3{font-size:12px;margin:0 0 8px;padding:6px 9px;border-radius:7px;background:var(--blue-soft);color:var(--navy);border-left:4px solid var(--blue)}.data-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.data-grid>div,.ema-detail>div{border:1px solid #DCE5EF;background:#F8FAFC;border-radius:8px;padding:8px}.data-grid span,.ema-detail span{display:block;font-size:8px;color:var(--muted);font-weight:800}.data-grid b,.ema-detail b{display:block;font-size:11px;margin-top:3px}.ema-detail{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.ema-detail>div{background:var(--blue-soft);border-color:#BDD5F2}.ema-detail b{color:var(--blue)}.trend-box{padding:12px;border-radius:10px;background:#F2FBF7;border-left:4px solid var(--teal);font-size:12px;line-height:1.5}.news-list{display:grid;gap:10px}.news-item{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}.news-item b{display:block;font-size:12px;line-height:1.5}.news-meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:9px;color:var(--muted);font-weight:800}.news-type{background:var(--teal-soft);color:var(--teal);padding:4px 7px;border-radius:999px}.news-source{display:inline-block;margin-top:8px;font-size:10px;font-weight:800;color:var(--blue);text-decoration:none}.analyst-view{border-left:4px solid var(--blue);background:#F7FAFF}.analyst-empty{color:var(--muted);font-size:13px}.analyst-disclaimer{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4}
-@media(max-width:900px){.index-grid{grid-template-columns:1fr}.watch-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.wrap{padding:12px}.header h1{font-size:22px}.price-ema-row{grid-template-columns:1fr 1.6fr}.sector-grid{grid-template-columns:1fr}.watch-grid{grid-template-columns:1fr}.data-grid{grid-template-columns:repeat(2,1fr)}.ema-detail{grid-template-columns:repeat(2,1fr)}}
+  /* bias */
+  .bias{display:flex;align-items:center;gap:8px;padding:5px 14px;font-size:12px;font-weight:600}
+  .dot{width:8px;height:8px;border-radius:50%}
 
-.research-note{margin:0 0 18px;color:#64748b;font-size:13px;line-height:1.55;border-left:3px solid #0f766e;padding:8px 12px;background:#f8fafc;border-radius:8px}
-</style></head><body><div class="wrap"><header class="header"><div class="brand">STWP · DAILY MARKET INTELLIGENCE</div><h1>Index &amp; Sector Intelligence</h1><p>23 September 2026 · TradingView index references, same-day sector snapshot, scanner-led watch list and researched company developments</p></header><div class="section-title"><h2>01 · INDEX COMMAND CENTRE</h2><p>Price structure · OHLC · EMA map · reference levels</p></div><div class="index-grid"><section class="index-card"><div class="card-head"><div><div class="eyebrow">INDEX COMMAND CENTRE</div><h2>NIFTY 50</h2></div><div class="day pos">+0.50%</div></div><div class="price-ema-row"><div class="cmp-box"><span>CMP</span><strong>23,446.80</strong></div><div class="ema-grid"><div><span>EMA 20</span><b>23,610.52</b></div><div><span>EMA 50</span><b>23,862.75</b></div><div><span>EMA 100</span><b>24,014.95</b></div><div><span>EMA 200</span><b>24,241.35</b></div></div></div><div class="ohlc"><div><span>OPEN</span><b>23,352.15</b></div><div><span>HIGH</span><b>23,466.90</b></div><div><span>LOW</span><b>23,349.55</b></div><div><span>CLOSE</span><b>23,446.80</b></div></div><div class="levels"><div class="level-group"><h3>Resistance</h3><div class="level r"><span>R1</span><b>23,492.60</b></div><div class="level r"><span>R2</span><b>23,538.45</b></div><div class="level r"><span>R3</span><b>23,609.95</b></div><div class="level r"><span>R4</span><b>23,655.80</b></div><div class="level r"><span>R5</span><b>23,727.30</b></div></div><div class="level-group"><h3>Support</h3><div class="level s"><span>S1</span><b>23,375.25</b></div><div class="level s"><span>S2</span><b>23,303.75</b></div><div class="level s"><span>S3</span><b>23,257.90</b></div><div class="level s"><span>S4</span><b>23,186.40</b></div><div class="level s"><span>S5</span><b>23,140.55</b></div></div></div><div class="observation"><span>STWP Observation:</span><b>Short-term recovery is visible, with price holding above VWAP / EMA 9, but the broader trend remains under pressure while price trades below EMA 20, 50, 100 &amp; 200.</b></div></section><section class="index-card"><div class="card-head"><div><div class="eyebrow">INDEX COMMAND CENTRE</div><h2>BANK NIFTY</h2></div><div class="day pos">+0.59%</div></div><div class="price-ema-row"><div class="cmp-box"><span>CMP</span><strong>56,548.90</strong></div><div class="ema-grid"><div><span>EMA 20</span><b>56,719.35</b></div><div><span>EMA 50</span><b>56,967.30</b></div><div><span>EMA 100</span><b>56,910.05</b></div><div><span>EMA 200</span><b>56,724.35</b></div></div></div><div class="ohlc"><div><span>OPEN</span><b>56,209.65</b></div><div><span>HIGH</span><b>56,623.80</b></div><div><span>LOW</span><b>56,209.65</b></div><div><span>CLOSE</span><b>56,548.90</b></div></div><div class="levels"><div class="level-group"><h3>Resistance</h3><div class="level r"><span>R1</span><b>56,711.90</b></div><div class="level r"><span>R2</span><b>56,874.95</b></div><div class="level r"><span>R3</span><b>57,126.05</b></div><div class="level r"><span>R4</span><b>57,289.10</b></div><div class="level r"><span>R5</span><b>57,450.20</b></div></div><div class="level-group"><h3>Support</h3><div class="level s"><span>S1</span><b>56,297.75</b></div><div class="level s"><span>S2</span><b>56,046.65</b></div><div class="level s"><span>S3</span><b>55,883.60</b></div><div class="level s"><span>S4</span><b>55,632.50</b></div><div class="level s"><span>S5</span><b>55,469.45</b></div></div></div><div class="observation"><span>STWP Observation:</span><b>Short-term recovery is visible, with price holding above VWAP / EMA 9, but the broader trend remains under pressure while price trades below EMA 20, 50, 100 &amp; 200.</b></div></section><section class="index-card"><div class="card-head"><div><div class="eyebrow">INDEX COMMAND CENTRE</div><h2>SENSEX</h2></div><div class="day pos">+0.40%</div></div><div class="price-ema-row"><div class="cmp-box"><span>CMP</span><strong>74,828.25</strong></div><div class="ema-grid"><div><span>EMA 20</span><b>75,437.97</b></div><div><span>EMA 50</span><b>76,284.14</b></div><div><span>EMA 100</span><b>76,896.38</b></div><div><span>EMA 200</span><b>77,983.59</b></div></div></div><div class="ohlc"><div><span>OPEN</span><b>74,648.32</b></div><div><span>HIGH</span><b>74,973.71</b></div><div><span>LOW</span><b>74,599.88</b></div><div><span>CLOSE</span><b>74,828.25</b></div></div><div class="levels"><div class="level-group"><h3>Resistance</h3><div class="level r"><span>R1</span><b>75,001.37</b></div><div class="level r"><span>R2</span><b>75,174.48</b></div><div class="level r"><span>R3</span><b>75,375.23</b></div><div class="level r"><span>R4</span><b>75,548.34</b></div><div class="level r"><span>R5</span><b>75,749.09</b></div></div><div class="level-group"><h3>Support</h3><div class="level s"><span>S1</span><b>74,627.51</b></div><div class="level s"><span>S2</span><b>74,426.76</b></div><div class="level s"><span>S3</span><b>74,253.65</b></div><div class="level s"><span>S4</span><b>74,052.90</b></div><div class="level s"><span>S5</span><b>73,879.79</b></div></div></div><div class="observation"><span>STWP Observation:</span><b>Short-term recovery is visible, with price holding above VWAP / EMA 9, but the broader trend remains under pressure while price trades below EMA 20, 50, 100 &amp; 200.</b></div></section></div><div class="section-title"><h2>02 · STWP SECTOR INTELLIGENCE</h2><p>23 Sep 2026 same-day sector snapshot</p></div><div class="sector-grid"><div class="sector-row"><span>Nifty Auto</span><b>27,157.55</b><em class="up">+0.26%</em></div><div class="sector-row"><span>Nifty Consumer Durables</span><b>38,176.00</b><em class="up">+0.56%</em></div><div class="sector-row"><span>Nifty Financial Services</span><b>27,643.10</b><em class="up">+0.51%</em></div><div class="sector-row"><span>Nifty FMCG</span><b>46,259.35</b><em class="up">+1.32%</em></div><div class="sector-row"><span>Nifty Healthcare</span><b>16,837.05</b><em class="up">+0.70%</em></div><div class="sector-row"><span>Nifty IT</span><b>28,334.05</b><em class="down">-0.87%</em></div><div class="sector-row"><span>Nifty Media</span><b>1,566.85</b><em class="down">-0.50%</em></div><div class="sector-row"><span>Nifty Metal</span><b>13,302.35</b><em class="up">+2.40%</em></div><div class="sector-row"><span>Nifty Oil &amp; Gas</span><b>10,980.55</b><em class="up">+0.20%</em></div><div class="sector-row"><span>Nifty Pharma</span><b>27,152.10</b><em class="up">+0.90%</em></div><div class="sector-row"><span>Nifty PSU Bank</span><b>8,365.45</b><em class="up">+1.14%</em></div><div class="sector-row"><span>Nifty Private Bank</span><b>27,321.80</b><em class="up">+0.13%</em></div><div class="sector-row"><span>Nifty Realty</span><b>871.00</b><em class="up">+1.10%</em></div><div class="sector-row"><span>Nifty Infra</span><b>9,095.05</b><em class="up">+0.82%</em></div><div class="sector-row"><span>Nifty Energy</span><b>37,759.75</b><em class="up">+0.09%</em></div></div><div class="section-title"><h2>03 · STWP WATCH LIST</h2><p class="research-note">Updated 23 September 2026 after market close · Index levels read from supplied TradingView images · Watch-list status/technical fields taken from the supplied 23-Sep-26 scanner file · Company developments refreshed through current exchange/company/news research.</p><p>Scanner-led strong + developing bullish set · click a stock for full data</p></div><div class="watch-grid"><div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-GABRIEL" onclick="openStock('GABRIEL');return false;">GABRIEL ↗</a>
-<span class="watch-status">76 · STRONG · BULLISH</span>
-<div class="watch-tags">Momentum; EMA 20 Pullback; Bullish Momentum; Swing Trade; 52 Week Vol Breakout</div><div class="watch-candle">Candlestick: Not Detected</div>
+  /* rows */
+  .row{display:flex;justify-content:space-between;font-size:12px;padding:2px 0}
+  .row .k{color:var(--muted)}
+  .tag{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.04em}
+
+  /* ema chips */
+  .chips{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+  .chip{border-radius:6px;padding:3px 4px;text-align:center}
+  .chip b{display:block;font-size:10px;font-weight:600;opacity:.85}
+  .chip span{font-size:11px}
+
+  /* ladder */
+  .ladder{display:flex;flex-direction:column;gap:3px}
+  .lrow{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+  .lv{display:flex;flex-direction:column;align-items:center;font-size:11.5px;padding:2px 4px;border-radius:6px;line-height:1.25}
+  .lv .n{font-weight:600;font-size:10px}
+  .lv .d{color:var(--muted);font-size:10px}
+  .lv.near{outline:1px solid currentColor}
+  .now{display:flex;justify-content:space-between;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:6px;
+       background:rgba(37,99,235,.08);color:var(--blue)}
+
+  /* bars */
+  .bar{height:5px;background:var(--line);border-radius:3px;position:relative;margin:5px 0 3px}
+  .bar i{position:absolute;top:0;bottom:0;left:0;border-radius:3px}
+  .zones{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .big{font-size:16px;font-weight:600}
+  .sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+  .obs{list-style:none;display:flex;flex-direction:column;gap:2px}
+  .obs li{font-size:11.5px;line-height:1.35;padding-left:12px;position:relative}
+  .obs li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;border-radius:50%;background:var(--blue)}
+
+
+  /* sectors */
+  .panel{max-width:1352px;margin:16px auto 0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .ph{display:flex;flex-wrap:wrap;gap:2px 12px;justify-content:space-between;align-items:baseline;padding:8px 14px;border-bottom:1px solid var(--line)}
+  .ph .name{font-size:14px}
+  .strip{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;padding:7px 14px;border-bottom:1px solid var(--line);font-size:12px}
+  .strip .k{color:var(--muted)}
+  .pill{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:6px}
+  .sgrid{display:grid;grid-template-columns:1fr 1fr;padding:0 14px 8px}
+  .sgrid>div{padding-top:4px}
+  .sgrid>div+div{border-left:1px solid var(--line);padding-left:16px;margin-left:16px}
+  .sub2{font-size:10px;color:var(--muted);padding:4px 0 0}
+  .srow{display:grid;grid-template-columns:1.6fr 1fr 1fr;align-items:center;gap:6px;font-size:12px;padding:4px 0;border-bottom:1px solid var(--line)}
+  .shead{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+  .srow .r{text-align:right}
+  .dots{display:flex;gap:4px;justify-content:center}
+  .dots i{width:8px;height:8px;border-radius:50%}
+  .sname{font-weight:600}
+  .sname small{display:block;font-weight:400;font-size:10px;color:var(--muted)}
+  @media(max-width:640px){.sgrid{grid-template-columns:1fr}.sgrid>div+div{border-left:none;padding-left:0;margin-left:0;border-top:1px solid var(--line);margin-top:6px}.srow{font-size:11.5px}}
+
+  /* screener */
+  .scols{display:grid;grid-template-columns:repeat(4,1fr)}
+  .scol{padding:6px 14px 10px}
+  .scol+.scol{border-left:1px solid var(--line)}
+  .stit{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 0 6px;display:flex;align-items:center;gap:6px}
+  .strow{display:grid;grid-template-columns:1fr 70px 62px;gap:6px;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--line)}
+  .strow .r{text-align:right}
+  .slink{font-weight:600;color:var(--blue);text-decoration:none;cursor:pointer;background:none;border:0;font:inherit;font-weight:600;padding:0;text-align:left}
+  .slink:hover{text-decoration:underline}
+  .slink[disabled]{color:var(--text);cursor:default;text-decoration:none}
+  .strow small{display:block;font-size:10px;color:var(--muted);font-weight:400;text-transform:capitalize}
+  .empty{font-size:12px;color:var(--muted);padding:8px 0}
+  @media(max-width:1100px){.scols{grid-template-columns:1fr 1fr}.scol:nth-child(3){border-left:none}.scol:nth-child(n+3){border-top:1px solid var(--line)}}
+  @media(max-width:640px){.scols{grid-template-columns:1fr}.scol+.scol{border-left:none;border-top:1px solid var(--line)}}
+  .fx{display:inline-block;font-style:normal;font-size:9px;font-weight:700;width:14px;height:14px;line-height:14px;text-align:center;border-radius:4px;margin-left:2px;vertical-align:1px}
+  .fx-V{background:var(--green-soft);color:var(--green)}.fx-E{background:var(--amber-soft);color:var(--amber)}.fx-C{background:var(--red-soft);color:var(--red)}
+  .strow .fl{white-space:nowrap}
+
+  /* stock modal */
+  .modal{position:fixed;inset:0;background:rgba(17,24,39,.45);display:none;align-items:flex-start;justify-content:center;padding:24px 12px;overflow-y:auto;z-index:50}
+  .modal.open{display:flex}
+  .mcard{container-type:inline-size;width:100%;max-width:560px;background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.2)}
+  .x{background:none;border:0;font-size:20px;line-height:1;color:var(--muted);cursor:pointer;padding:2px 6px}
+  .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+  .tg{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:6px;background:var(--line);color:var(--text)}
+  .kv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 12px}
+  .kv div{font-size:10px;color:var(--muted)}
+  .kv span{display:block;font-size:12.5px;color:var(--text);margin-top:1px}
+  .news{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .news li{font-size:12px;line-height:1.4}
+  .news .dt{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.04em;display:block}
+  .news a{color:var(--blue);font-size:10.5px;text-decoration:none}
+  @media(max-width:420px){.kv{grid-template-columns:repeat(2,1fr)}}
+
+  /* disclaimer */
+  .disc{padding:10px 14px 14px}
+  .disc h3{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .disc .dg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:8px 24px}
+  .disc .di b{display:block;font-size:11.5px;color:var(--text);margin-bottom:1px}
+  .disc .di p{font-size:11px;line-height:1.5;color:var(--muted)}
+  .disc .risk{margin-top:10px;padding:8px 10px;border-radius:8px;background:var(--red-soft);color:var(--text);font-size:11.5px;line-height:1.5}
+
+  /* page header */
+  .hdr{max-width:1352px;margin:0 auto 14px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:6px 16px;padding:12px 16px;background:var(--card);border:1px solid var(--line);border-radius:16px;border-left:4px solid var(--blue)}
+  .hdr h1{font-size:20px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+  .hdr h1 span{color:var(--blue)}
+  .hdr .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .hdr .dt{font-size:12px;font-weight:600;text-align:right}
+  .hdr .dt small{display:block;font-size:10.5px;font-weight:500;color:var(--muted)}
+  @media(max-width:420px){.hdr{padding:10px 12px}.hdr h1{font-size:17px}.hdr .dt{text-align:left}}
+
+  .foot{padding:6px 14px;font-size:9.5px;color:var(--muted);line-height:1.4;background:#F8FAFC}
+  .foot b{color:var(--text);font-weight:600}
+  @container (max-width:430px){.sec .grid2{grid-template-columns:1fr !important;gap:2px !important}}
+  @media(max-width:420px){
+    body{padding:10px}
+    .wrap{gap:12px}
+    .sec{padding:7px 10px}.bias{padding:5px 10px}.foot{padding:6px 10px}
+    .ohlc{grid-template-columns:repeat(2,1fr);row-gap:4px}
+    .chips{gap:3px}.chip{padding:3px 1px}.chip b{font-size:8.5px}.chip span{font-size:9.5px}
+    .sec.grid2{grid-template-columns:1fr 1fr !important;gap:12px !important}
+    .lv{font-size:10.5px;padding:2px 2px}.lv .d{font-size:9.5px}
+    .ph,.strip{padding-left:10px;padding-right:10px}.sgrid{padding:0 10px 8px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div><h1>STWP Daily <span>Market Lens</span></h1>
+  <div class="sub">Simple Trade With Patience · Indices, sectors &amp; stock screener — for education</div></div>
+  <div class="dt" id="hdrDate">Monday, 5 Oct 2026<small>Data snapshots 3:16 – 4:01 PM IST</small></div>
+</header>
+<div class="wrap" id="cards"></div>
+<div class="panel" id="sectors"></div>
+<div class="panel" id="screener"></div>
+<div class="panel" id="disclaimer">
+  <div class="disc">
+    <h3>⚠ Disclaimer — please read</h3>
+    <div class="dg">
+      <div class="di"><b>Educational purpose only</b><p>This page is published by STWP (Simple Trade With Patience) solely for education and study of market structure, technical indicators and price behaviour. It is not a research report, investment advice, or a recommendation, solicitation or offer to buy, sell or hold any security, derivative or other instrument.</p></div>
+      <div class="di"><b>No personalised advice</b><p>Nothing here considers your financial situation, objectives, risk appetite or tax position. Do not act on any information on this page without your own independent analysis. Consult a SEBI-registered Investment Adviser before making any investment or trading decision.</p></div>
+      <div class="di"><b>Rule-based classifications</b><p>Labels such as "Strong Bullish", "Developing", "Bearish", the V / E / C flags, STWP scores and observations are produced mechanically from indicator values (EMAs, ADX, RSI, volume, pivots). They describe what the data shows on the snapshot date. They are not forecasts, price targets, entry or exit signals, and do not imply any future direction.</p></div>
+      <div class="di"><b>Data sources &amp; accuracy</b><p>Index and stock data come from chart snapshots and scanner exports taken at the times shown (intraday or near close) and may differ from official exchange closing prices. Values may contain errors, omissions or delays, and pivot levels are calculated from the day's high, low and close. Always verify with NSE / BSE before relying on any figure.</p></div>
+      <div class="di"><b>News &amp; board information</b><p>Company board and news items are brief summaries of third-party public sources, linked on each card, as available on the snapshot date. STWP does not verify, endorse or guarantee third-party content. Corporate announcements on the exchange websites are the authoritative source.</p></div>
+      <div class="di"><b>Past performance</b><p>Past price behaviour, indicator readings, scan results and historical patterns are not indicative of future results. Markets can move sharply against any reading shown here, including on circuit-limit and high-volume days.</p></div>
+      <div class="di"><b>Positions &amp; conflicts</b><p>The author, STWP, and associates may or may not hold positions in the securities mentioned. Inclusion of a stock or index on this page is based on the stated rules only and is not an endorsement.</p></div>
+      <div class="di"><b>No liability</b><p>STWP and its team accept no liability for any loss or damage, direct or indirect, arising from the use of this page or its contents. You are solely responsible for your own investment and trading decisions.</p></div>
+    </div>
+    <div class="risk"><b>Investments in the securities market are subject to market risks. Read all related documents carefully before investing.</b><br>
+    Trading in equity derivatives (F&amp;O) carries a high level of risk: as per SEBI studies, 9 out of 10 individual traders in the equity F&amp;O segment incurred net losses. Registration with or certification by any authority does not guarantee performance or returns.</div>
+  </div>
 </div>
-<div class="watch-price">₹1471.4</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-PGIL" onclick="openStock('PGIL');return false;">PGIL ↗</a>
-<span class="watch-status">76 · STRONG · BULLISH</span>
-<div class="watch-tags">Momentum; VWAP Reclaim / Hold; Higher High + Higher Low; Bullish Momentum; 52 Week High; Swing Trade; EMA 20 Pullback; Reversal</div><div class="watch-candle">Candlestick: Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹1300.8</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-WOCKPHARMA" onclick="openStock('WOCKPHARMA');return false;">WOCKPHARMA ↗</a>
-<span class="watch-status">76 · STRONG · BULLISH</span>
-<div class="watch-tags">Momentum; VWAP Reclaim / Hold; Higher High + Higher Low; Bullish Momentum; Swing Trade; Possible Breakout; One day Bullish Stock; EMA 20 Pullback</div><div class="watch-candle">Candlestick: Bullish Tweezer Bottom; Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹2329.7</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-FRONTSP" onclick="openStock('FRONTSP');return false;">FRONTSP ↗</a>
-<span class="watch-status">74 · STRONG · BULLISH</span>
-<div class="watch-tags">Momentum; EMA 20 Pullback; Bullish Momentum</div><div class="watch-candle">Candlestick: Bullish Marubozu; Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹1394.6</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-SUPRIYA" onclick="openStock('SUPRIYA');return false;">SUPRIYA ↗</a>
-<span class="watch-status">74 · STRONG · BULLISH</span>
-<div class="watch-tags">VWAP Reclaim / Hold; Higher High + Higher Low; Bullish Momentum; One day Bullish Stock; Swing Trade</div><div class="watch-candle">Candlestick: Bullish Marubozu; Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹1000.9</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-ROSSTECH" onclick="openStock('ROSSTECH');return false;">ROSSTECH ↗</a>
-<span class="watch-status">72 · STRONG · BULLISH</span>
-<div class="watch-tags">Higher High + Higher Low; Bullish Momentum; 52 Week High; Swing Trade; Momentum; VWAP Reclaim / Hold; One day Bullish Stock</div><div class="watch-candle">Candlestick: Not Detected</div>
-</div>
-<div class="watch-price">₹1494.1</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-RADICO" onclick="openStock('RADICO');return false;">RADICO ↗</a>
-<span class="watch-status">71 · STRONG · BULLISH</span>
-<div class="watch-tags">VWAP Reclaim / Hold; Higher High + Higher Low; EMA 20 Pullback</div><div class="watch-candle">Candlestick: Bullish Marubozu; Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹4601.9</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-POLICYBZR" onclick="openStock('POLICYBZR');return false;">POLICYBZR ↗</a>
-<span class="watch-status">70 · STRONG · BULLISH</span>
-<div class="watch-tags">Momentum; Higher High + Higher Low; EMA 20 Pullback; Bullish Momentum; Swing Trade; Possible Breakout; VWAP Reclaim / Hold</div><div class="watch-candle">Candlestick: Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹1886.3</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-APOLLOHOSP" onclick="openStock('APOLLOHOSP');return false;">APOLLOHOSP ↗</a>
-<span class="watch-status">65 · DEVELOPING · BULLISH</span>
-<div class="watch-tags">Momentum; VWAP Reclaim / Hold; Higher High + Higher Low; EMA 20 Pullback; Bullish Momentum; 52 Week High; Swing Trade; Possible Breakout</div><div class="watch-candle">Candlestick: Bullish Marubozu; Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹9069</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-VIJAYA" onclick="openStock('VIJAYA');return false;">VIJAYA ↗</a>
-<span class="watch-status">65 · DEVELOPING · BULLISH</span>
-<div class="watch-tags">Momentum; EMA 20 Pullback; Bullish Momentum; 52 Week High; Swing Trade; VWAP Reclaim / Hold; Higher High + Higher Low</div><div class="watch-candle">Candlestick: Bullish Engulfing; Bullish Tweezer Bottom; Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹1570.7</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-SWANDEF" onclick="openStock('SWANDEF');return false;">SWANDEF ↗</a>
-<span class="watch-status">64 · DEVELOPING · BULLISH</span>
-<div class="watch-tags">Momentum; Higher High + Higher Low; Bullish Momentum; 52 Week High; Swing Trade</div><div class="watch-candle">Candlestick: Not Detected</div>
-</div>
-<div class="watch-price">₹2776.2</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-CARBORUNIV" onclick="openStock('CARBORUNIV');return false;">CARBORUNIV ↗</a>
-<span class="watch-status">63 · DEVELOPING · BULLISH</span>
-<div class="watch-tags">Higher High + Higher Low; Bullish Momentum; Swing Trade; Possible Breakout; EMA 20 Pullback; Momentum</div><div class="watch-candle">Candlestick: Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹1264.5</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-JINDALSTEL" onclick="openStock('JINDALSTEL');return false;">JINDALSTEL ↗</a>
-<span class="watch-status">62 · DEVELOPING · BULLISH</span>
-<div class="watch-tags">Momentum; VWAP Reclaim / Hold; Higher High + Higher Low; EMA 20 Pullback; Bullish Momentum; Swing Trade; EMA 200 Cutting</div><div class="watch-candle">Candlestick: Strong Bullish Candle</div>
-</div>
-<div class="watch-price">₹1175.3</div>
-</div>
-<div class="watch-card">
-<div class="watch-main">
-<a class="stock-link" href="#stock-SPECTRUM" onclick="openStock('SPECTRUM');return false;">SPECTRUM ↗</a>
-<span class="watch-status">61 · DEVELOPING · BULLISH</span>
-<div class="watch-tags">Higher High + Higher Low; Bullish Momentum; 52 Week High; Swing Trade</div><div class="watch-candle">Candlestick: Not Detected</div>
-</div>
-<div class="watch-price">₹3344.5</div>
-</div></div><div class="footer"><strong>STWP Market Intelligence · Educational market-observation.</strong><br/>Not investment advice, a recommendation, or a solicitation to buy or sell securities. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.<br/><br/>Analyst &amp; Street View research sweep. Coverage varies by stock; absence of a note does not imply absence of analyst coverage.</div><div class="stock-modal-backdrop" id="stock-modal-GABRIEL" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>GABRIEL</h2><span class="modal-badge">76 · STRONG · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1471.4</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>76 · STRONG · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>1495</b></div><div><span>Candlestick Pattern</span><b>Not Detected</b></div>
-<div><span>Support</span><b>1343.47 / 1215.53 / 1139.77</b></div>
-<div><span>Resistance</span><b>1547.17 / 1622.93 / 1750.87</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>1,475.50</b></div><div><span>High</span><b>1,494.90</b></div><div><span>Low</span><b>1,417.30</b></div><div><span>Close</span><b>1,428.10</b></div><div><span>Volume</span><b>1,533,195.00</b></div><div><span>20D Avg Volume</span><b>732,574.85</b></div><div><span>RSI</span><b>55.94</b></div><div><span>MACD</span><b>9.010</b></div><div><span>CCI</span><b>171.38</b></div><div><span>Stochastic</span><b>70.50</b></div><div><span>VWAP</span><b>1,455.15</b></div><div><span>ATR</span><b>73.80</b></div><div><span>Sector</span><b>AUTO ANCILLARIES</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>1,367.48</b></div><div><span>EMA 50</span><b>1,355.62</b></div><div><span>EMA 100</span><b>1,283.59</b></div><div><span>EMA 200</span><b>1,174.26</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><div class="news-meta"><span>21 Sep 2026</span><span class="news-type">Investor / corporate update</span></div><b>Gabriel India notified a non-deal roadshow scheduled for 24 September 2026.</b><a class="news-source" href="https://economictimes.indiatimes.com/gabriel-india-ltd/stocksupdate/companyid-13763.cms" rel="noopener" target="_blank">Source / filing ↗</a></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-WOCKPHARMA" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>WOCKPHARMA</h2><span class="modal-badge">76 · STRONG · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹2329.7</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>76 · STRONG · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>2360</b></div><div><span>Candlestick Pattern</span><b>Bullish Tweezer Bottom; Strong Bullish Candle</b></div>
-<div><span>Support</span><b>2221.2 / 2112.7 / 2043.3</b></div>
-<div><span>Resistance</span><b>2399.1 / 2468.5 / 2577</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>2,199.00</b></div><div><span>High</span><b>2,360.00</b></div><div><span>Low</span><b>2,182.10</b></div><div><span>Close</span><b>2,329.70</b></div><div><span>Volume</span><b>3,834,525.00</b></div><div><span>20D Avg Volume</span><b>1,425,489.45</b></div><div><span>RSI</span><b>68.61</b></div><div><span>MACD</span><b>14.370</b></div><div><span>CCI</span><b>124.83</b></div><div><span>Stochastic</span><b>93.53</b></div><div><span>VWAP</span><b>2,312.48</b></div><div><span>ATR</span><b>102.33</b></div><div><span>Sector</span><b>PHARMACEUTICALS &amp; DRUGS</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>2,096.68</b></div><div><span>EMA 50</span><b>1,998.33</b></div><div><span>EMA 100</span><b>1,879.39</b></div><div><span>EMA 200</span><b>1,723.84</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><b>No material company development identified in the last 2–3 days.</b></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-PGIL" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>PGIL</h2><span class="modal-badge">76 · STRONG · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1300.8</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>76 · STRONG · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>1309.8</b></div><div><span>Candlestick Pattern</span><b>Strong Bullish Candle</b></div>
-<div><span>Support</span><b>1223.93 / 1147.07 / 1104.13</b></div>
-<div><span>Resistance</span><b>1343.73 / 1386.67 / 1463.53</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>1,195.00</b></div><div><span>High</span><b>1,309.80</b></div><div><span>Low</span><b>1,190.00</b></div><div><span>Close</span><b>1,300.80</b></div><div><span>Volume</span><b>767,765.00</b></div><div><span>20D Avg Volume</span><b>235,144.85</b></div><div><span>RSI</span><b>65.61</b></div><div><span>MACD</span><b>5.150</b></div><div><span>CCI</span><b>268.11</b></div><div><span>Stochastic</span><b>95.67</b></div><div><span>VWAP</span><b>1,280.59</b></div><div><span>ATR</span><b>68.12</b></div><div><span>Sector</span><b>TEXTILES &amp; APPAREL</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>1,174.50</b></div><div><span>EMA 50</span><b>1,122.85</b></div><div><span>EMA 100</span><b>1,036.46</b></div><div><span>EMA 200</span><b>930.77</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><div class="news-meta"><span>22 Sep 2026</span><span class="news-type">Capacity expansion</span></div><b>Pearl Global commissioned a new Bangladesh manufacturing and laundry facility adding about 7 million pieces of annual capacity, taking total installed capacity across geographies to about 108 million pieces.</b><a class="news-source" href="https://www.screener.in/company/PGIL/?order=asc" rel="noopener" target="_blank">Source / filing ↗</a></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-FRONTSP" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>FRONTSP</h2><span class="modal-badge">74 · STRONG · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1394.6</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>74 · STRONG · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>1394.6</b></div><div><span>Candlestick Pattern</span><b>Bullish Marubozu; Strong Bullish Candle</b></div>
-<div><span>Support</span><b>1248.47 / 1102.33 / 1029.27</b></div>
-<div><span>Resistance</span><b>1467.67 / 1540.73 / 1686.87</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>1,175.40</b></div><div><span>High</span><b>1,394.60</b></div><div><span>Low</span><b>1,175.40</b></div><div><span>Close</span><b>1,394.60</b></div><div><span>Volume</span><b>353,549.00</b></div><div><span>20D Avg Volume</span><b>30,919.30</b></div><div><span>RSI</span><b>64.07</b></div><div><span>MACD</span><b>9.390</b></div><div><span>CCI</span><b>150.35</b></div><div><span>Stochastic</span><b>100.00</b></div><div><span>VWAP</span><b>1,339.02</b></div><div><span>ATR</span><b>68.32</b></div><div><span>Sector</span><b>AUTO ANCILLARIES</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>1,254.86</b></div><div><span>EMA 50</span><b>1,310.27</b></div><div><span>EMA 100</span><b>1,371.25</b></div><div><span>EMA 200</span><b>1,423.25</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><div class="news-meta"><span>22 Sep 2026</span><span class="news-type">AGM / corporate action</span></div><b>Frontier Springs disclosed the proceedings/outcome of its 46th AGM. The company had fixed 15 September as the record date for the recommended ₹0.70 final dividend, subject to shareholder approval.</b><a class="news-source" href="https://trendlyne.com/latest-news/BSE-Announcements/2889/FRONTSP/frontier-springs-ltd/" rel="noopener" target="_blank">Source / filing ↗</a></div><div class="news-item"><div class="news-meta"><span>23 Sep 2026</span><span class="news-type">Market activity</span></div><b>The stock was reported at a 20% upper price-band move on 23 September; this is market-price information rather than a company order announcement.</b><a class="news-source" href="https://www.thenewsstrike.com/frontsp-cubextub-hit-20-upper-circuit-optiemus-lalithaa-esds-lead-high-value-action-milkymist-manugraph-visl-among-key-movers" rel="noopener" target="_blank">Source / filing ↗</a></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-SUPRIYA" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>SUPRIYA</h2><span class="modal-badge">74 · STRONG · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1000.9</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>74 · STRONG · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>1005</b></div><div><span>Candlestick Pattern</span><b>Bullish Marubozu; Strong Bullish Candle</b></div>
-<div><span>Support</span><b>962.3 / 923.7 / 902.35</b></div>
-<div><span>Resistance</span><b>1022.25 / 1043.6 / 1082.2</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>945.05</b></div><div><span>High</span><b>1,005.00</b></div><div><span>Low</span><b>945.05</b></div><div><span>Close</span><b>1,000.90</b></div><div><span>Volume</span><b>1,007,970.00</b></div><div><span>20D Avg Volume</span><b>346,921.15</b></div><div><span>RSI</span><b>71.32</b></div><div><span>MACD</span><b>12.030</b></div><div><span>CCI</span><b>148.18</b></div><div><span>Stochastic</span><b>97.60</b></div><div><span>VWAP</span><b>991.34</b></div><div><span>ATR</span><b>41.11</b></div><div><span>Sector</span><b>PHARMACEUTICALS</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>894.40</b></div><div><span>EMA 50</span><b>867.96</b></div><div><span>EMA 100</span><b>838.82</b></div><div><span>EMA 200</span><b>793.59</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><div class="news-meta"><span>23 Sep 2026</span><span class="news-type">Regulatory / legal</span></div><b>A company filing reported a court order allowing provisional release of a 200 kg consignment of Ketamine Hydrochloride against a ₹72 lakh deposit; adjudication/criminal proceedings may continue.</b><a class="news-source" href="https://bazaarwatch.com/company/supriya-lifescience-ltd" rel="noopener" target="_blank">Source / filing ↗</a></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-RADICO" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>RADICO</h2><span class="modal-badge">71 · STRONG · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹4601.9</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>71 · STRONG · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>4614.1</b></div><div><span>Candlestick Pattern</span><b>Bullish Marubozu; Strong Bullish Candle</b></div>
-<div><span>Support</span><b>4496.83 / 4391.77 / 4333.13</b></div>
-<div><span>Resistance</span><b>4660.53 / 4719.17 / 4824.23</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>4,450.40</b></div><div><span>High</span><b>4,614.10</b></div><div><span>Low</span><b>4,450.40</b></div><div><span>Close</span><b>4,601.90</b></div><div><span>Volume</span><b>528,324.00</b></div><div><span>20D Avg Volume</span><b>250,055.35</b></div><div><span>RSI</span><b>57.61</b></div><div><span>MACD</span><b>0.787</b></div><div><span>CCI</span><b>87.02</b></div><div><span>Stochastic</span><b>96.13</b></div><div><span>VWAP</span><b>4,589.58</b></div><div><span>ATR</span><b>118.52</b></div><div><span>Sector</span><b>BEVERAGES - ALCOHOLIC</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>4,485.16</b></div><div><span>EMA 50</span><b>4,371.69</b></div><div><span>EMA 100</span><b>4,083.60</b></div><div><span>EMA 200</span><b>3,685.00</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><div class="news-meta"><span>23 Sep 2026</span><span class="news-type">Corporate action</span></div><b>Radico Khaitan disclosed allotment of 6,667 equity shares under its ESOP/ESPS programme.</b><a class="news-source" href="https://economictimes.indiatimes.com/radico-khaitan-ltd/stocksupdate/companyid-12315.cms?companytype=company" rel="noopener" target="_blank">Source / filing ↗</a></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-POLICYBZR" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>POLICYBZR</h2><span class="modal-badge">70 · STRONG · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1886.3</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>70 · STRONG · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>1904.9</b></div><div><span>Candlestick Pattern</span><b>Strong Bullish Candle</b></div>
-<div><span>Support</span><b>1817.9 / 1749.5 / 1706</b></div>
-<div><span>Resistance</span><b>1929.8 / 1973.3 / 2041.7</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>1,800.00</b></div><div><span>High</span><b>1,904.90</b></div><div><span>Low</span><b>1,793.00</b></div><div><span>Close</span><b>1,886.30</b></div><div><span>Volume</span><b>2,477,939.00</b></div><div><span>20D Avg Volume</span><b>1,422,679.60</b></div><div><span>RSI</span><b>61.07</b></div><div><span>MACD</span><b>-3.130</b></div><div><span>CCI</span><b>120.89</b></div><div><span>Stochastic</span><b>90.45</b></div><div><span>VWAP</span><b>1,870.87</b></div><div><span>ATR</span><b>70.15</b></div><div><span>Sector</span><b>INSURANCE</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>1,796.16</b></div><div><span>EMA 50</span><b>1,743.75</b></div><div><span>EMA 100</span><b>1,697.56</b></div><div><span>EMA 200</span><b>1,678.01</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><b>No material company development identified in the last 2–3 days.</b></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-ROSSTECH" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>ROSSTECH</h2><span class="modal-badge">72 · STRONG · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1494.1</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>72 · STRONG · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>1505</b></div><div><span>Candlestick Pattern</span><b>Not Detected</b></div>
-<div><span>Support</span><b>1403.53 / 1312.97 / 1262.23</b></div>
-<div><span>Resistance</span><b>1544.83 / 1595.57 / 1686.13</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>1,494.50</b></div><div><span>High</span><b>1,499.80</b></div><div><span>Low</span><b>1,425.00</b></div><div><span>Close</span><b>1,449.80</b></div><div><span>Volume</span><b>276,498.00</b></div><div><span>20D Avg Volume</span><b>513,528.00</b></div><div><span>RSI</span><b>76.41</b></div><div><span>MACD</span><b>25.080</b></div><div><span>CCI</span><b>149.57</b></div><div><span>Stochastic</span><b>86.04</b></div><div><span>VWAP</span><b>1,454.33</b></div><div><span>ATR</span><b>88.51</b></div><div><span>Sector</span><b>AEROSPACE &amp; DEFENCE</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>1,263.42</b></div><div><span>EMA 50</span><b>1,150.58</b></div><div><span>EMA 100</span><b>1,054.72</b></div><div><span>EMA 200</span><b>928.78</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><b>No material company development identified in the last 2–3 days.</b></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-APOLLOHOSP" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>APOLLOHOSP</h2><span class="modal-badge">65 · DEVELOPING · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹9069</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>65 · DEVELOPING · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>9070.5</b></div><div><span>Candlestick Pattern</span><b>Bullish Marubozu; Strong Bullish Candle</b></div>
-<div><span>Support</span><b>8932.5 / 8796 / 8727</b></div>
-<div><span>Resistance</span><b>9138 / 9207 / 9343.5</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>8,875.00</b></div><div><span>High</span><b>9,070.50</b></div><div><span>Low</span><b>8,865.00</b></div><div><span>Close</span><b>9,069.00</b></div><div><span>Volume</span><b>419,571.00</b></div><div><span>20D Avg Volume</span><b>276,288.55</b></div><div><span>RSI</span><b>60.28</b></div><div><span>MACD</span><b>22.190</b></div><div><span>CCI</span><b>163.79</b></div><div><span>Stochastic</span><b>99.65</b></div><div><span>VWAP</span><b>8,982.51</b></div><div><span>ATR</span><b>164.48</b></div><div><span>Sector</span><b>HOSPITAL &amp; HEALTHCARE SERVICES</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>8,840.12</b></div><div><span>EMA 50</span><b>8,772.11</b></div><div><span>EMA 100</span><b>8,560.27</b></div><div><span>EMA 200</span><b>8,196.27</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><b>No material company development identified in the last 2–3 days.</b></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-VIJAYA" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>VIJAYA</h2><span class="modal-badge">65 · DEVELOPING · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1570.7</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>65 · DEVELOPING · BULLISH</b></div>
-<div><span>Reference / Trigger</span><b>1593.6</b></div><div><span>Candlestick Pattern</span><b>Bullish Engulfing; Bullish Tweezer Bottom; Strong Bullish Candle</b></div>
-<div><span>Support</span><b>1519.73 / 1468.77 / 1431.83</b></div>
-<div><span>Resistance</span><b>1607.63 / 1644.57 / 1695.53</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>1,510.00</b></div><div><span>High</span><b>1,593.60</b></div><div><span>Low</span><b>1,505.70</b></div><div><span>Close</span><b>1,570.70</b></div><div><span>Volume</span><b>209,302.00</b></div><div><span>20D Avg Volume</span><b>157,309.00</b></div><div><span>RSI</span><b>62.37</b></div><div><span>MACD</span><b>3.520</b></div><div><span>CCI</span><b>169.93</b></div><div><span>Stochastic</span><b>89.28</b></div><div><span>VWAP</span><b>1,563.01</b></div><div><span>ATR</span><b>62.71</b></div><div><span>Sector</span><b>DIAGNOSTICS</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>1,501.47</b></div><div><span>EMA 50</span><b>1,448.64</b></div><div><span>EMA 100</span><b>1,362.90</b></div><div><span>EMA 200</span><b>1,249.27</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><b>No material company development identified in the last 2–3 days.</b></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No stock-specific brokerage view was used as a selection criterion for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div><div class="stock-modal-backdrop" id="stock-modal-SWANDEF" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>SWANDEF</h2><span class="modal-badge">64 · DEVELOPING · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹2776.2</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>64 · DEVELOPING · BULLISH</b></div>
-<div><span>Expected Move</span><b>+2.7% → 2851.93 · 1–5 sessions</b></div><div><span>Candlestick Pattern</span><b>Not Detected</b></div>
-<div><span>Support</span><b>2729.17 / 2682.13 / 2644.27</b></div>
-<div><span>Resistance</span><b>2814.07 / 2851.93 / 2898.97</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>2,769.90</b></div><div><span>High</span><b>2,804.90</b></div><div><span>Low</span><b>2,720.00</b></div><div><span>Close</span><b>2,776.20</b></div><div><span>Volume</span><b>36,316.00</b></div><div><span>20D Avg Volume</span><b>25,298.10</b></div><div><span>RSI</span><b>68.91</b></div><div><span>MACD</span><b>17.010</b></div><div><span>CCI</span><b>111.39</b></div><div><span>Stochastic</span><b>94.05</b></div><div><span>VWAP</span><b>2,776.06</b></div><div><span>ATR</span><b>113.63</b></div><div><span>Sector</span><b>SHIPPING</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>2,611.86</b></div><div><span>EMA 50</span><b>2,475.01</b></div><div><span>EMA 100</span><b>2,254.51</b></div><div><span>EMA 200</span><b>1,806.30</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><b>No material company development identified in the last 2–3 days.</b></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No recent stock-specific analyst note was verified in the supplied research files for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div>
-<div class="stock-modal-backdrop" id="stock-modal-CARBORUNIV" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>CARBORUNIV</h2><span class="modal-badge">63 · DEVELOPING · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1264.5</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>63 · DEVELOPING · BULLISH</b></div>
-<div><span>Expected Move</span><b>+3.6% → 1310.37 · 1–5 sessions</b></div><div><span>Candlestick Pattern</span><b>Strong Bullish Candle</b></div>
-<div><span>Support</span><b>1227.03 / 1189.57 / 1166.63</b></div>
-<div><span>Resistance</span><b>1287.43 / 1310.37 / 1347.83</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>1,217.50</b></div><div><span>High</span><b>1,272.90</b></div><div><span>Low</span><b>1,212.50</b></div><div><span>Close</span><b>1,264.50</b></div><div><span>Volume</span><b>597,871.00</b></div><div><span>20D Avg Volume</span><b>419,842.55</b></div><div><span>RSI</span><b>70.43</b></div><div><span>MACD</span><b>17.850</b></div><div><span>CCI</span><b>286.21</b></div><div><span>Stochastic</span><b>96.70</b></div><div><span>VWAP</span><b>1,243.74</b></div><div><span>ATR</span><b>55.88</b></div><div><span>Sector</span><b>ABRASIVES</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>1,126.52</b></div><div><span>EMA 50</span><b>1,107.20</b></div><div><span>EMA 100</span><b>1,070.17</b></div><div><span>EMA 200</span><b>1,023.24</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><b>No material company development identified in the last 2–3 days.</b></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No recent stock-specific analyst note was verified in the supplied research files for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div>
-<div class="stock-modal-backdrop" id="stock-modal-JINDALSTEL" onclick="closeStock(event)">
-<div class="stock-modal">
-<button class="modal-close" onclick="hideStock()">×</button>
-<div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>JINDALSTEL</h2><span class="modal-badge">62 · DEVELOPING · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹1175.3</strong></div></div>
-<div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid">
-<div><span>Status</span><b>62 · DEVELOPING · BULLISH</b></div>
-<div><span>Expected Move</span><b>+3.5% → 1216.17 · 1–5 sessions</b></div><div><span>Candlestick Pattern</span><b>Strong Bullish Candle</b></div>
-<div><span>Support</span><b>1146.53 / 1117.77 / 1097.33</b></div>
-<div><span>Resistance</span><b>1195.73 / 1216.17 / 1244.93</b></div>
-</div></div>
-<div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>1,138.20</b></div><div><span>High</span><b>1,187.40</b></div><div><span>Low</span><b>1,138.20</b></div><div><span>Close</span><b>1,175.30</b></div><div><span>Volume</span><b>994,851.00</b></div><div><span>20D Avg Volume</span><b>773,383.65</b></div><div><span>RSI</span><b>60.68</b></div><div><span>MACD</span><b>-0.070</b></div><div><span>CCI</span><b>75.40</b></div><div><span>Stochastic</span><b>90.65</b></div><div><span>VWAP</span><b>1,172.39</b></div><div><span>ATR</span><b>31.56</b></div><div><span>Sector</span><b>METALS &amp; MINING</b></div></div></div>
-<div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>1,135.71</b></div><div><span>EMA 50</span><b>1,126.61</b></div><div><span>EMA 100</span><b>1,127.27</b></div><div><span>EMA 200</span><b>1,113.44</b></div></div></div>
-<div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><b>No material company development identified in the last 2–3 days.</b></div></div></div>
-<div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No recent stock-specific analyst note was verified in the supplied research files for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div>
-</div>
-</div>
-<div class="stock-modal-backdrop" id="stock-modal-SPECTRUM" onclick="closeStock(event)"><div class="stock-modal"><button class="modal-close" onclick="hideStock()">×</button><div class="modal-head"><div><div class="eyebrow">STWP STOCK DETAIL</div><h2>SPECTRUM</h2><span class="modal-badge">61 · DEVELOPING · BULLISH</span></div><div class="modal-ltp"><small>LTP</small><strong>₹3344.5</strong></div></div><div class="detail-section"><h3>Market Intelligence</h3><div class="data-grid"><div><span>Status</span><b>61 · DEVELOPING · BULLISH</b></div><div><span>Expected Move</span><b>+5.3% → 3,522.83 · 1–5 sessions</b></div><div><span>Candlestick Pattern</span><b>Not Detected</b></div><div><span>Support</span><b>3172.67 / 3000.83 / 2911.67</b></div><div><span>Resistance</span><b>3433.67 / 3522.83 / 3694.67</b></div></div></div><div class="detail-section"><h3>Technical Data</h3><div class="data-grid"><div><span>Open</span><b>3,398.90</b></div><div><span>High</span><b>3,398.90</b></div><div><span>Low</span><b>3,177.30</b></div><div><span>Close</span><b>3,241.60</b></div><div><span>Volume</span><b>11,852.00</b></div><div><span>20D Avg Volume</span><b>12,546.50</b></div><div><span>RSI</span><b>72.85</b></div><div><span>MACD</span><b>62.010</b></div><div><span>CCI</span><b>104.23</b></div><div><span>Stochastic</span><b>87.84</b></div><div><span>VWAP</span><b>3,214.95</b></div><div><span>ATR</span><b>181.41</b></div><div><span>Sector</span><b>ELECTRIC/ELECTRONICS</b></div></div></div><div class="detail-section"><h3>EMA MAP</h3><div class="data-grid"><div><span>EMA 20</span><b>2,808.29</b></div><div><span>EMA 50</span><b>2,464.47</b></div><div><span>EMA 100</span><b>2,150.29</b></div><div><span>EMA 200</span><b>1,872.54</b></div></div></div><div class="detail-section company-news"><h3>Latest Company Developments</h3><div class="news-list"><div class="news-item"><div class="news-meta"><span>22 Sep 2026</span><span class="news-type">Company update</span></div><b>Spectrum Electrical Industries disclosed a general corporate update; recent exchange filings also include the September preferential allotment.</b><a class="news-source" href="https://www.financialexpress.com/market/spectrum-electrical-industries-ltd-share-price/announcement/" rel="noopener" target="_blank">Source / filing ↗</a></div></div></div><div class="detail-section analyst-view"><h3>Analyst &amp; Street View</h3><div class="analyst-empty">No recent stock-specific analyst note was verified in this research sweep for this edition.</div><div class="analyst-disclaimer">Third-party analyst commentary is reproduced as attributed research context. Any rating, target or view belongs to the named analyst/brokerage and is not an STWP recommendation. For personalised investment or research advice, investors should consult a SEBI-registered Research Analyst or other appropriately registered investment professional.</div></div></div></div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeStock()"></div>
+
 <script>
-function openStock(sym){var el=document.getElementById('stock-modal-'+sym);if(!el)return false;el.style.display='block';document.body.style.overflow='hidden';return false;}
-function hideStock(){document.querySelectorAll('.stock-modal-backdrop').forEach(function(el){el.style.display='none';});document.body.style.overflow='';}
-function closeStock(e){if(e.target===e.currentTarget)hideStock();}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')hideStock();});
-</script></div></body></html>
+/* ===== Update these values daily (straight from the chart) ===== */
+const CARDS = [
+{
+  name:"NIFTY 50", tf:"1D", exch:"NSE", stamp:"05 Oct 2026 · 15:50 IST", intraday:false,
+  o:22532.40, h:22621.80, l:22397.10, c:22555.75, chg:133.80,
+  vol:412.5, volAvg:306.58,
+  vwap:22524.90,
+  ema:{9:22822.65,20:23158.10,50:23587.90,100:23849.20,200:24140.55},
+  piv:{R3:22877.35,R2:22749.60,R1:22652.65,S1:22427.95,S2:22300.20,S3:22203.25},
+  rsi:28.15
+},
+{
+  name:"BANK NIFTY", tf:"1D", exch:"NSE", stamp:"05 Oct 2026 · 16:00 IST", intraday:false,
+  o:54840.65, h:55192.65, l:54370.60, c:54714.10, chg:263.35,
+  vol:263.11, volAvg:227.2,
+  vwap:54759.10,
+  ema:{9:55051.80,20:55719.70,50:56429.70,100:56631.45,200:56593.15},
+  piv:{R3:55969.70,R2:55581.15,R1:55147.65,S1:54325.60,S2:53937.05,S3:53503.55},
+  rsi:36.31
+},
+{
+  name:"SENSEX", tf:"1D", exch:"BSE", stamp:"05 Oct 2026 · 16:01 IST", intraday:false,
+  o:72340.95, h:72631.93, l:71840.18, c:72382.47, chg:472.77,
+  vol:45.18, volAvg:18.41,
+  vwap:72284.86,
+  ema:{9:73033.59,20:74050.94,50:75420.56,100:76357.35,200:77631.84},
+  piv:{R3:73521.29,R2:73076.61,R1:72729.54,S1:71937.79,S2:71493.11,S3:71146.04},
+  rsi:30.57
+}
+];
+/* ================================================================ */
+
+const f = (n,d=2)=>n.toLocaleString("en-IN",{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct = (a,b)=>((a-b)/b*100);
+const sgn = n=>{const r=Math.round(n*100)/100||0;return (r>0?"+":"")+f(r)};
+const G="var(--green)",R="var(--red)",A="var(--amber)";
+
+function render(D){
+const prev = D.c - D.chg;
+const chgPct = D.chg/prev*100;
+const emaKeys = Object.keys(D.ema);
+const below = emaKeys.filter(k=>D.c<D.ema[k]).length;
+const above = emaKeys.length-below;
+
+/* bias */
+let bias, bc;
+if(below===5 && D.rsi<30){bias="Bearish structure · Oversold";bc=A}
+else if(below===5){bias="Bearish structure";bc=R}
+else if(above===5 && D.rsi>70){bias="Bullish structure · Overbought";bc=A}
+else if(above===5){bias="Bullish structure";bc=G}
+else {bias="Mixed structure";bc=A}
+
+
+/* ladder */
+const order=["R3","R2","R1","S1","S2","S3"];
+const r1Above = order.filter(k=>k[0]==="R" && D.piv[k]>D.c).pop();     // nearest resistance above
+const s1Below = order.filter(k=>D.piv[k]<D.c)[0];                       // nearest support below
+const cell = k=>{
+  const v=D.piv[k], isR=k[0]==="R", col=isR?R:G, near=(k===r1Above||k===s1Below);
+  return `<div class="lv num ${near?"near":""}" style="color:${col};background:${near?(isR?"var(--red-soft)":"var(--green-soft)"):"transparent"}">
+    <span class="n">${k}</span><span>${f(v)}</span><span class="d">${sgn(v-D.c)}</span></div>`;
+};
+const ladder =
+  `<div class="lrow">${["R3","R2","R1"].map(cell).join("")}</div>`+
+  `<div class="now num"><span>LTP</span><span>${f(D.c)}</span></div>`+
+  `<div class="lrow">${["S1","S2","S3"].map(cell).join("")}</div>`;
+
+/* rsi bar */
+const rsiCol = D.rsi<30?A:D.rsi>70?A:"var(--muted)";
+const rsiZone = D.rsi<30?"Oversold zone":D.rsi>70?"Overbought zone":"Neutral";
+
+const vr = D.vol/D.volAvg;
+
+/* observations — generated from the data above */
+const obs = [];
+const e200 = pct(D.c,D.ema[200]);
+if(below===5) obs.push(`Price is below all 5 EMAs and ${f(Math.abs(e200))}% under EMA 200 — the broader trend remains down.`);
+else if(above===5) obs.push(`Price is above all 5 EMAs and ${f(e200)}% over EMA 200 — the broader trend remains up.`);
+else obs.push(`Price is above ${above} of 5 EMAs — trend alignment is mixed.`);
+obs.push(`Day closed ${D.chg>=0?"up":"down"} ${f(Math.abs(D.chg))} pts and ${D.c>D.vwap?"above":"below"} VWAP (${sgn(D.c-D.vwap)}) — ${D.chg>=0&&D.c>D.vwap?"buyers held control into the close":D.chg<0&&D.c<D.vwap?"sellers held control into the close":"intraday control was mixed"}.`);
+if(r1Above&&s1Below) obs.push(`Price sits between ${s1Below} ${f(D.piv[s1Below])} and ${r1Above} ${f(D.piv[r1Above])}; a move outside this band is the next structural signal.`);
+if(D.rsi<30) obs.push(`RSI ${f(D.rsi)} is in the oversold zone — the market is stretched, though oversold readings can persist in downtrends.`);
+else if(D.rsi>70) obs.push(`RSI ${f(D.rsi)} is in the overbought zone — the market is stretched, though overbought readings can persist in uptrends.`);
+else if(D.rsi<35) obs.push(`RSI ${f(D.rsi)} is neutral but just above the oversold line of 30.`);
+else if(D.rsi<40) obs.push(`RSI ${f(D.rsi)} is neutral but on the weak side, below 40.`);
+else if(D.rsi>60) obs.push(`RSI ${f(D.rsi)} is neutral but on the strong side, above 60.`);
+else obs.push(`RSI ${f(D.rsi)} is neutral.`);
+obs.push(`Volume was ${f(vr)}× its average on a${D.chg>=0?"n up":" down"} day${vr>=2?" — participation was heavy":vr>=1.2?" — participation was notable":""}.`);
+
+return `
+<div class="sec">
+  <div class="top">
+    <div class="name">${D.name}</div>
+    <div class="meta">${D.exch} · ${D.tf} · ${D.stamp}</div>
+  </div>
+  <div class="price-row">
+    <div class="price num">${f(D.c)}</div>
+    <div class="chg num" style="color:${D.chg>=0?G:R}">${sgn(D.chg)} (${sgn(chgPct)}%)</div>
+  </div>
+  <div class="ohlc num">
+    <div>Open<span>${f(D.o)}</span></div>
+    <div>High<span>${f(D.h)}</span></div>
+    <div>Low<span>${f(D.l)}</span></div>
+    <div>Prev C<span>${f(prev)}</span></div>
+  </div>
+  ${D.intraday?`<div class="note">● Intraday snapshot — not final close</div>`:""}
+</div>
+
+<div class="bias" style="background:${bc.replace(")","-soft)").replace("var(--","var(--")};color:${bc}">
+  <span class="dot" style="background:${bc}"></span>${bias}
+</div>
+
+<div class="sec">
+  <div class="label">Trend · EMA stack — ${below}/5 above price</div>
+  <div class="chips num">
+    ${emaKeys.map(k=>{const up=D.c>D.ema[k];return `<div class="chip" style="background:${up?"var(--green-soft)":"var(--red-soft)"};color:${up?G:R}"><b>EMA ${k}</b><span>${f(D.ema[k],0)}</span></div>`}).join("")}
+  </div>
+  <div class="grid2" style="margin-top:4px;gap:14px">
+    <div class="row num"><span class="k">From EMA 200</span><span style="color:${D.c>D.ema[200]?G:R}">${sgn(pct(D.c,D.ema[200]))}%</span></div>
+    <div class="row num"><span class="k">VWAP ${f(D.vwap)}</span><span style="color:${D.c>D.vwap?G:R}">${D.c>D.vwap?"Above":"Below"} ${sgn(D.c-D.vwap)}</span></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="label">Pivot levels</div>
+  <div class="ladder">${ladder}</div>
+</div>
+
+<div class="sec grid2">
+  <div>
+    <div class="label">RSI</div>
+    <div class="big num" style="color:${rsiCol}">${f(D.rsi)}</div>
+    <div class="bar"><i style="width:${D.rsi}%;background:${rsiCol}"></i>
+      <i style="left:30%;width:1px;background:var(--muted)"></i><i style="left:70%;width:1px;background:var(--muted)"></i></div>
+    <div class="sub">${rsiZone}</div>
+  </div>
+  <div>
+    <div class="label">Volume</div>
+    <div class="row num"><span class="k">Today</span><span>${f(D.vol)}M</span></div>
+    <div class="row num"><span class="k">Average</span><span>${f(D.volAvg)}M</span></div>
+  </div>
+</div>
+
+<div class="sec" style="flex:1">
+  <div class="label">Observation</div>
+  <ul class="obs">${obs.map(o=>`<li>${o}</li>`).join("")}</ul>
+</div>
+
+<div class="foot">
+  <b>STWP · Simple Trade With Patience</b><br>
+  For educational purposes only. Not investment advice or a recommendation to buy/sell. Readings are derived from chart indicators and describe structure, not future direction.
+</div>`;
+}
+
+document.getElementById("cards").innerHTML = CARDS.map(D=>`<div class="card">${render(D)}</div>`).join("");
+
+/* ===== Sector data — paste the day's DAILY_WATCHLIST.csv between the backticks ===== */
+const WATCHLIST_CSV = `﻿"Date","Symbol","Lot size","Open","High","Low","Close","Volume","Sma volume","Vwap","Ema 9","Ema 20","Ema 50","Market_cap","Marketcapname"
+"5th Oct'26 3:16:00","BANKNIFTY",30,54840.65,55192.65,54370.6,54713.6,0,0,0,55051.7,55719.65,56429.68,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYFMCG",0,44070.3,44571.3,43929.35,44518.8,0,0,0,44904.82,45449.12,46626.68,0,"smallcap"
+"5th Oct'26 3:16:00","CNXENERGY",0,36565.15,36933.45,36391.9,36581.85,0,0,0,36898.39,37314.08,37935.57,0,"smallcap"
+"5th Oct'26 3:16:00","CNXIT",0,28656.2,28755.2,28060.3,28226.4,0,0,0,28254.13,28776.54,29352.87,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYCHEMICALS",0,28048.75,28311.5,27743.6,27931.05,0,0,0,28512.06,29013.55,29497.06,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYPVTBANK",0,26859.55,26963.85,26558.15,26727.45,0,0,0,26809.03,27038.09,27273.13,0,"smallcap"
+"5th Oct'26 3:16:00","CNXPHARMA",0,26263.95,26374.9,26001.65,26101.35,0,0,0,26568.2,26633.2,26394.82,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYMICROCAP250",0,26047.55,26166.7,25810,25922.5,0,0,0,26174.49,26238.74,25971.42,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYAUTO",0,25412.2,25483.7,25175.6,25386.6,0,0,0,26239.67,26859.53,27418.62,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYFINSERVICE",0,24736.05,24881.4,24517.85,24650.45,0,0,0,24860.56,25197.42,25661.03,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTY100",0,23625.75,23718.35,23479.7,23623.65,0,0,0,23932.88,24281.62,24701.81,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTY",65,22532.4,22621.8,22397.1,22535.45,0,0,0,22818.6,23156.15,23587.11,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTY500",0,21956.6,22048.45,21826.55,21954.4,0,0,0,22254.62,22573.71,22906.13,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYMIDCAP150",0,21734.6,21843.35,21644.95,21733.65,0,0,0,22089.3,22448.44,22757.21,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYMIDSMALLCAP400",0,20281.15,20381.4,20171.2,20278.65,0,0,0,20581.01,20866.17,21060.46,0,"smallcap"
+"5th Oct'26 3:16:00","CNXSMALLCAP",0,19154.85,19237.8,18994.2,19153.75,0,0,0,19377.07,19566.07,19542.02,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYSMALLCAP250",0,17666.6,17752.55,17526.4,17661.85,0,0,0,17877.44,18044.96,18062.64,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYMIDCAP50",0,16915.25,16990,16838.5,16888.65,0,0,0,17220.81,17532.5,17772.67,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYHEALTHCARE",0,16028.65,16104,15894.9,15927.1,0,0,0,16339.94,16461.19,16438.57,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYLARGEMID250",0,15673.7,15742.3,15593.55,15672.65,0,0,0,15903.78,16149.17,16399.59,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYMIDSELECT",0,13637.7,13713.5,13601.7,13628.6,0,0,0,13883.8,14173.61,14430.08,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTY200",0,13106.95,13163.4,13034.5,13107.95,0,0,0,13287.36,13487.66,13713.24,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYMETAL",0,12532.5,12650.1,12389.95,12470.7,0,0,0,12780.91,12919.91,12964.82,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYTOTALMKT",0,12438.7,12490.45,12363.3,12434.9,0,0,0,12602.34,12775.89,12949.16,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYHOUSING",0,11138.85,11226.75,11095.05,11152.2,0,"NaN",0,11079.4,11069.87,11064.77,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYCONSUMPTION",0,10866.45,10937.65,10838.25,10926.95,0,0,0,11161.4,11354.24,11564.34,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYOILANDGAS",0,10505.15,10615.1,10441.5,10514.1,0,0,0,10675.72,10823.08,10992.37,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYSMALLCAP50",0,9579.35,9614.9,9484.55,9560.6,0,0,0,9694.78,9785.72,9753.12,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYCOMMODITIES",0,9166.2,9264.6,9115.9,9173.55,0,0,0,9343.83,9477.33,9650.07,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYINDDEFENCE",0,9156.45,9232.85,9080.65,9159.05,0,0,0,9264.89,9385.34,9458.63,0,"smallcap"
+"5th Oct'26 3:16:00","CNXINFRA",0,8629.7,8701,8629.7,8682.8,0,0,0,8801.13,8937.56,9113.59,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYPSUBANK",0,8003.05,8117.45,7975.3,8012.2,0,0,0,8096.55,8223.9,8360.79,0,"smallcap"
+"5th Oct'26 3:16:00","NIFTYMEDIA",0,1557.8,1576.25,1547.6,1561.5,0,0,0,1554.72,1553.85,1548.61,0,"smallcap"
+"5th Oct'26 3:16:00","CNXREALTY",0,834.45,848.55,834.2,838.45,0,0,0,846.85,857.51,867.96,0,"smallcap"
+"5th Oct'26 3:16:00","INDIAVIX",0,14.43,15.35,13.5,14.82,0,0,0,13.36,12.64,12.47,0,"smallcap"`;
+/* ================================================================================== */
+
+const SECTORS = [
+  ["NIFTYFINSERVICE","Fin Services","Financials"],
+  ["NIFTYPVTBANK","Pvt Bank","Financials"],
+  ["NIFTYPSUBANK","PSU Bank","Financials"],
+  ["CNXIT","IT","Sector"],
+  ["CNXENERGY","Energy","Sector"],
+  ["NIFTYFMCG","FMCG","Sector"],
+  ["NIFTYAUTO","Auto","Sector"],
+  ["CNXPHARMA","Pharma","Sector"],
+  ["NIFTYMETAL","Metal","Sector"],
+  ["CNXREALTY","Realty","Sector"],
+  ["NIFTYMIDCAP150","Midcap 150","Breadth"],
+  ["NIFTYSMALLCAP250","Smallcap 250","Breadth"]
+];
+
+function parseCSV(t){
+  const L=t.trim().split(/\r?\n/), H=L[0].split(",").map(h=>h.replace(/"/g,""));
+  return L.slice(1).map(l=>{const v=l.split(",").map(x=>x.replace(/"/g,""));const o={};H.forEach((h,i)=>o[h]=v[i]);return o});
+}
+function renderSectors(){
+  const rows=parseCSV(WATCHLIST_CSV), by={};
+  rows.forEach(r=>by[r.Symbol]=r);
+  const num=r=>({o:+r.Open,c:+r.Close,e9:+r["Ema 9"],e20:+r["Ema 20"],e50:+r["Ema 50"]});
+  const stamp=rows[0]?rows[0].Date:"";
+
+  /* breadth across every index in the file except NIFTY, BANKNIFTY, VIX */
+  const pool=rows.filter(r=>!["NIFTY","BANKNIFTY","INDIAVIX"].includes(r.Symbol)).map(num);
+  const allBelow=pool.filter(x=>x.c<x.e9&&x.c<x.e20&&x.c<x.e50).length;
+  const allAbove=pool.filter(x=>x.c>x.e9&&x.c>x.e20&&x.c>x.e50).length;
+
+  /* VIX */
+  let vixHtml="";
+  if(by.INDIAVIX){
+    const v=num(by.INDIAVIX), ab=[v.e9,v.e20,v.e50].filter(e=>v.c>e).length;
+    const rising=ab===3, falling=ab===0;
+    vixHtml=`<span><span class="k">India VIX</span> <b class="num">${f(v.c)}</b>
+      <span class="num" style="color:${v.c>=v.o?R:G}">${sgn(pct(v.c,v.o))}% vs open</span></span>
+      <span class="pill" style="background:${rising?"var(--amber-soft)":falling?"var(--green-soft)":"var(--line)"};color:${rising?A:falling?G:"var(--muted)"}">
+      ${rising?"Above EMA 9/20/50 · volatility rising":falling?"Below EMA 9/20/50 · volatility easing":`Above ${ab}/3 EMAs`}</span>`;
+  }
+
+  /* table */
+  const list=SECTORS.filter(s=>by[s[0]]).map(([sym,label,grp])=>{
+    const x=num(by[sym]); return {label,grp,...x,d20:pct(x.c,x.e20),dOpen:pct(x.c,x.o)};
+  }).sort((a,b)=>b.d20-a.d20);
+  const dot=(c,e)=>`<i style="background:${c>e?"var(--green)":"var(--red)"}" title="${c>e?"Above":"Below"} ${f(e)}"></i>`;
+  const name=x=>`<span class="sname">${x.label}<small>${x.grp}</small></span>`;
+  const byOpen=[...list].sort((a,b)=>b.dOpen-a.dOpen);
+  const left=`<div><div class="srow shead"><span>Index</span><span class="r">Close</span><span class="r">vs Open</span></div>`+
+    byOpen.map(x=>`<div class="srow num">${name(x)}<span class="r">${f(x.c)}</span>
+      <span class="r" style="color:${Math.round(x.dOpen*100)===0?"var(--muted)":x.dOpen>0?G:R}">${sgn(x.dOpen)}%</span></div>`).join("")+
+    `<div class="sub2">Sorted by intraday move</div></div>`;
+  const right=`<div><div class="srow shead"><span>Index</span><span style="text-align:center">9·20·50</span><span class="r">vs EMA20</span></div>`+
+    list.map(x=>`<div class="srow num">${name(x)}<span class="dots">${dot(x.c,x.e9)}${dot(x.c,x.e20)}${dot(x.c,x.e50)}</span>
+      <span class="r" style="color:${x.d20>=0?G:R}">${sgn(x.d20)}%</span></div>`).join("")+
+    `<div class="sub2">Sorted by distance from EMA 20</div></div>`;
+  const strongest=list[0], weakest=list[list.length-1];
+
+  document.getElementById("sectors").innerHTML=`
+  <div class="ph"><div class="name">SECTORS</div><div class="meta">NSE · CSV snapshot ${stamp}</div></div>
+  <div class="strip">${vixHtml}
+    <span><span class="k">Breadth</span> <b class="num">${allBelow}/${pool.length}</b> indices below EMA 9, 20 &amp; 50 · <b class="num">${allAbove}</b> above all three</span></div>
+  <div class="sgrid">
+    ${left}${right}
+  </div>
+  <div class="strip" style="border-bottom:none;border-top:1px solid var(--line)">
+    <span><span class="k">Relatively strongest</span> <b>${strongest.label}</b> <span class="num" style="color:${strongest.d20>=0?G:R}">${sgn(strongest.d20)}%</span></span>
+    <span><span class="k">Relatively weakest</span> <b>${weakest.label}</b> <span class="num" style="color:${R}">${sgn(weakest.d20)}%</span></span>
+    <span class="k">"vs Open" is intraday move, not change from previous close.</span>
+  </div>`;
+}
+renderSectors();
+
+/* ===== Stock data — from DAILY scanner sheet, 5 Oct 2026 3:29 PM =====
+   fields: sym, name, sector, o,h,l,c, prevClose, vol, vx5, vx20, [ema9,20,50,100,200],
+           rsi, macd, adx, vwap, cci, stoch, atr, t20, t55, hi52, hi30, maxVol52, stwp, tags, setup */
+const RAW = [
+["DYNAMATECH","Dynamatic Technologies","aerospace & defence",13798,14375,13798,14251,13756,43998,1.05,1.63,[13275.52,12672.96,11909.96,11309.16,10492.17],82.83,168.03,45.81,14093.27,180.93,95.69,543.83,14375,14375,14375,14375,388748,85,"Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade","Higher High + Higher Low"],
+["STLTECH","Sterlite Technologies","industrials",952.4,1003.1,932,1001.25,955.35,3877431,1.52,1.93,[898.27,845.48,747.32,632.17,481.51],75.32,8.41,34.02,981.8,244.87,99.16,51.9,1001.25,1001.25,1003.1,1003.1,50208737,78,"Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade","VWAP Reclaim / Hold|Higher High + Higher Low"],
+["ATLANTAELE","Atlanta Electricals","industrials",1745.5,1888.1,1725,1882.9,1716.5,379316,2.2,3.12,[1702.58,1705.95,1710.88,1652.91,1480.94],63.17,10.45,20.88,1833.91,74.74,98.46,93.91,1958,1958,null,1958,8410016,61,"Three Outside Up|Strong Bullish Candle|Bullish Momentum|Swing Trade","Momentum"],
+["LGEINDIA","LG Electronics India","consumer discretionary",1715,1825,1715,1770.9,1721.8,3145126,5.1,5.68,[1721.41,1694.44,1651.66,1614.56,1596.3],67.71,6.71,29.98,1798.43,178.71,76.06,51.16,1770.9,1770.9,null,1825,null,76,"Swing Trade","Momentum|Higher High + Higher Low"],
+["CYIENT","Cyient","i.t",1115,1173.5,1110,1140.2,1104.6,1623849,2.04,3.33,[1094.32,1074.28,1015.09,975.76,1000.68],65.24,-1.5,27.49,1151.45,266.45,76.75,50.54,1140.2,1174.8,1284.7,1219,11712766,73,"Swing Trade","Momentum|Higher High + Higher Low"],
+["RAYMOND","Raymond","transportation",1198,1316.9,1198,1300.7,1197.2,2241963,0.921,0.327,[1178.14,1056,866.98,732.05,631.85],84.25,12.76,65.3,1259.89,114.62,95.73,78.48,1316.9,1316.9,1316.9,1316.9,22726056,63,"Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade","Higher High + Higher Low"],
+["ROSSTECH","Rossell Techsys","aerospace & defence",1525,1624.9,1508.7,1607.2,1522.3,314638,1.43,0.616,[1474.4,1377.36,1231.44,1110.15,965.89],80.13,15.38,53.7,1567.11,140.81,95.72,85.98,1624.9,1624.9,1624.9,1624.9,5067149,58,"Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade","VWAP Reclaim / Hold|Higher High + Higher Low"],
+["GESHIP","Great Eastern Shipping","transportation",1529.9,1570.5,1523.3,1559.3,1530.6,823469,0.548,0.802,[1516.72,1468.05,1422.02,1404.54,1347.76],70.84,10.45,36.87,1558.21,111.63,89.43,43.97,1583,1598.9,1798,1583,18205845,68,"Bullish Engulfing|Strong Bullish Candle|Bullish Momentum|Swing Trade","Higher High + Higher Low"],
+["RRKABEL","R R Kabel","industrials",2541.5,2654.9,2533.1,2648,2518.2,635507,2.6,1.25,[2528.32,2530.37,2527.81,2370.73,2085.36],58.85,22.86,25.72,2625.7,216.28,97.81,93.33,2648,2928.4,2983.8,2983.8,5778040,68,"Strong Bullish Candle","EMA 20 Pullback"],
+["MANORAMA","Manorama Industries","fmcg",1880.3,1959,1879.9,1944.9,1880.3,299321,1.49,1.23,[1901.24,1909.6,1840.45,1723.1,1586.11],55.31,-14.36,23.81,1930.87,-28.18,51.82,65.46,2132.9,2132.9,2149.5,2149.5,7298393,61,"Three Outside Up|Strong Bullish Candle","EMA 20 Pullback"],
+["QPOWER","Quality Power Electrical Equipments","industrials",1569.8,1640,1569.8,1620.2,1564.6,336640,1.13,0.952,[1563.34,1510.8,1400.99,1286.7,1133.58],63.52,3.3,23.58,1622,142.52,85.7,81.47,1675,1675,1675,1675,9789450,66,"Strong Bullish Candle|Bullish Momentum|Swing Trade","Momentum|Higher High + Higher Low"],
+["NPST","Network People Services Technologies","i.t",1766.5,1850,1761.6,1848,1766.5,70247,0.772,0.295,[1770.19,1748.44,1675.9,1584.78,1559.23],58.61,-5.1,22.83,1812.14,63.44,79.02,110.7,1888.8,1888.8,2138.5,1934,3028115,53,"Bullish Marubozu|Strong Bullish Candle","Higher High + Higher Low|EMA 20 Pullback"],
+["MOTILALOFS","Motilal Oswal Financial Services","financials",991,1018.9,987.9,1011.1,989.9,440299,0.456,0.518,[1006.08,1005.43,980.38,941.18,899.81],52.68,-4.7,20.49,1009.28,-31.78,50.21,29.14,1055,1055,1097.1,1060.2,14328752,51,"Strong Bullish Candle","Higher High + Higher Low|EMA 20 Pullback"],
+["NUVAMA","Nuvama Wealth Management","financials",1709.4,1865,1706,1820.8,1701.4,4036851,7.92,13.55,[1708.87,1716.31,1728.99,1682.99,1586.68],62.09,7.23,15.8,1819.14,98.06,82.99,72.5,1836.4,1980.1,2066,1903.9,5943190,61,"Strong Bullish Candle|Bullish Momentum|Swing Trade","Momentum|EMA 20 Pullback"],
+["KRISHNADEF","Krishna Defence and Allied Industries","aerospace & defence",1020,1201,1006.8,1201,1000.9,1437610,24.59,18.76,[1053.79,1046.57,1081.39,1098.3,1058.71],68.15,14.66,17.7,1162.01,220.03,100,62.77,1201,1367.9,null,1201,null,74,"Above The Stomach|Bullish Marubozu|Strong Bullish Candle|Bullish Momentum|Swing Trade|EMA 200 Cutting","Momentum|EMA 20 Pullback"],
+["DCMSHRIRAM","DCM Shriram","miscellaneous",910.6,1088.2,910.6,1044.55,906.85,971948,6.99,13.55,[964.2,978.38,1004.41,1034.1,1074.73],61.44,0.73,23.06,1043.79,90.13,78.38,45.72,1044.55,1082.1,1414.4,1119.5,7223729,59,"Strong Bullish Candle","Momentum|EMA 20 Pullback"],
+["UNIVCABLES","Universal Cables","industrials",1459.9,1536.8,1456,1520.2,1451.3,214759,2.99,1.77,[1477.91,1493.82,1466.26,1342.79,1157.93],52.56,-1,18.04,1509.85,28.82,86.32,71.33,1649.9,1774.9,1774.9,1735,2488103,63,"Three Inside Up|Strong Bullish Candle","EMA 20 Pullback"],
+["PERSISTENT","Persistent Systems","i.t",5448,5620,5387.5,5530,5367,760382,1.85,1.79,[5370.2,5410.7,5402.27,5339.84,5353.66],54.65,0.486,14.22,5529.34,61.94,61.64,169.63,5759,5910,6599,5910,6170867,52,"","EMA 20 Pullback"],
+["CPPLUS","Aditya Infotech (CP Plus)","consumer discretionary",3858.2,3989.5,3833.5,3989.5,3799.6,255914,1.4,0.981,[3795.78,3723.52,3610.54,3333.77,2815.32],62.56,27.21,16.05,3947.9,129.37,100,167.75,3989.5,3989.5,4094,3989.5,1721755,72,"Strong Bullish Candle|Bullish Momentum|Swing Trade|Possible Breakout","Momentum|VWAP Reclaim / Hold|Higher High + Higher Low"],
+["ECLERX","eClerx Services","i.t",1819.2,1898,1812.1,1884.3,1802.9,142484,0.81,0.9,[1855.8,1876.82,1846.54,1790.68,1782.68],50.76,-12.85,18.15,1866.65,-51.84,47.96,69.76,2017,2062,2497.5,2062,4640842,55,"Strong Bullish Candle","EMA 20 Pullback"],
+["ICICIGI","ICICI Lombard General Insurance","financials",1563,1608,1561.1,1600,1563,1184711,1.14,1.31,[1550.79,1537.65,1577.66,1646.31,1727.33],57.77,17.29,23.57,1595.99,151.61,95.67,46.33,1600,1684,2064.9,1634.8,13018936,62,"Bullish Engulfing|Bullish Tweezer Bottom|Strong Bullish Candle",""],
+["DMART","Avenue Supermarts (DMart)","consumer discretionary",3808.6,3808.6,3545.3,3567,3813,2538532,4.9,5.5,[3745.75,3771.88,3854.01,3943.02,4011.79],33.15,-1.04,24,3622.75,-155.51,6.48,106.21,3880,4124.9,4818,3990,2710202,14,"","Reversal"],
+["BHARTIHEXA","Bharti Hexacom","telecom-service",1389.9,1396.1,1371.4,1380.9,1379.2,528019,4.78,5.8,[1435.92,1476.67,1516.57,1538.15,1567.17],30.97,-13.1,20.7,1380.75,-165.4,7.92,38.76,1567.4,1678.1,1955.6,1616.9,1163665,24,"","Reversal"],
+["RELIANCE","Reliance Industries","energy",1171.2,1193,1171.2,1186.4,1167.7,13621750,0.81,1.1,[1201.84,1229.83,1265.66,1297.1,1335.24],34.95,-5.8,40.66,1181.63,-122.43,25.96,21.27,1333,1345.9,1611.8,1333,42634247,52,"Strong Bullish Candle","Reversal|Deep Oversold + Support"],
+["LT","Larsen & Toubro","realty",3717,3750,3707.8,3750,3693.4,2271819,1.16,1.44,[3788.8,3850.26,3917.75,3942.86,3921.59],38.23,-14.34,22.9,3727.45,-133.02,31.05,68.95,4020.2,4125.3,4440,4125.3,10778730,51,"Above The Stomach|Strong Bullish Candle","Reversal"],
+["PIDILITIND","Pidilite Industries","chemicals",1464.2,1487.7,1458.2,1487.7,1464,789868,0.995,1.25,[1501.48,1538.01,1572.01,1559.17,1529.19],36.09,-7.48,33.53,1471.56,-118.24,21.75,34.15,1638.3,1707.5,1707.5,1687.7,5494105,54,"Bullish Tweezer Bottom|Strong Bullish Candle","Reversal"],
+["360ONE","360 ONE WAM","financials",1033.6,1059.6,1033.3,1050,1040,554586,0.436,0.556,[1054.11,1077.73,1106.55,1110.35,1103.56],39.27,-1.88,31.84,1049.34,-77.79,36.84,29.85,1156.1,1222.9,1236.2,1219.8,5903548,44,"Strong Bullish Candle","Reversal"],
+["GILLETTE","Gillette India","fmcg",6902,7025,6862,7012,6899,20086,0.831,0.912,[7023.51,7137.3,7348.53,7559.35,7884.91],39.48,-8.08,33.51,6946.98,-81.55,31.12,141.36,7564,8100,10553,7564,334551,48,"Bullish Tweezer Bottom|Strong Bullish Candle","Reversal"],
+["BHARTIARTL","Bharti Airtel","telecom-service",1742.3,1779.9,1742.3,1779.9,1741.1,7017519,1.06,1.25,[1782.89,1812.57,1853.67,1874.41,1887.63],41.43,-4.18,28.92,1766.5,-111.14,32.1,31.51,1893.3,2031,2174.5,1954.9,70392750,54,"Morning Star|Bullish Marubozu|Strong Bullish Candle",""],
+["UNITDSPR","United Spirits","fmcg",1335.4,1377.9,1329.7,1369,1335.1,1259125,0.55,1.35,[1379.77,1404.91,1427.48,1412.94,1394.61],40.04,-3.26,31.45,1352.39,-108.24,41.83,34.94,1489.9,1563.4,1563.4,1563.4,10485938,52,"Strong Bullish Candle",""],
+["NAM-INDIA","Nippon Life India Asset Management","financials",1049,1069.5,1046,1061,1046,832988,0.982,0.823,[1094.09,1125.64,1148.15,1124.86,1051.81],34.62,-10.59,25,1060.3,-152.1,20.6,33.76,1196,1269.5,1269.5,1269.5,8464597,28,"EMA 200 Cutting","Reversal|Deep Oversold + Support"]
+];
+
+/* ===== Board info & latest news — researched 5 Oct 2026; each item links its source ===== */
+const INFO = {
+DYNAMATECH:{board:[
+ ["19 May 2026","FY26 results: consolidated revenue ₹1,621 cr. Final dividend ₹5/share (₹10 total for FY26).","https://www.investywise.com/dynamatic-technologies-limited-financial-results-and-leadership-changes/"],
+ ["19 May 2026","Udayant Malhoutra re-appointed CEO & MD for 5 years from 1 Oct 2026; UK hydraulics unit being restructured with production moving to India.","https://www.investywise.com/dynamatic-technologies-limited-financial-results-and-leadership-changes/"]],
+ news:[["Oct 2026","Stock made a fresh 52-week high; no specific company announcement identified as the trigger.","https://www.marketsmojo.com/news/stocks-in-action/dynamatic-technologies-ltd-hits-new-52-week-high-at-rs14120-4214298"]]},
+STLTECH:{board:[
+ ["Jul 2026","Q1 FY27: revenue ₹1,910 cr (vs ₹1,019 cr), net profit ₹197 cr (vs ₹10 cr). Net-debt-free after ₹1,500 cr QIP; order book ₹18,618 cr.","https://www.freepressjournal.in/business/sterlite-technologies-q1-fy27-consolidated-net-profit-jumps-to-197-crore-revenue-up-87-yoy"]],
+ news:[["05 Oct 2026","Market cap crossed ₹50,000 cr; rally linked to a ~$1.2 bn long-term optical connectivity supply agreement for data centres (execution to Dec 2030).","https://www.business-standard.com/markets/news/sterlite-tech-stock-zooms-1069-from-jan-low-m-cap-tops-50-000-crore-126100500529_1.html"]]},
+ATLANTAELE:{board:[
+ ["May 2026","Board meeting on 9 May 2026 to approve FY26 results and consider ESOS 2026.","https://scanx.trade/stock-market-news/companies/atlanta-electricals-limited-schedules-board-meeting-on-may-9-2026-to-approve-fy26-financial-results-and-consider-esos-2026/39624207"]],
+ news:[["22 Jul 2026","Q1 FY27: revenue ₹466.33 cr (+48% YoY), PAT ₹46.84 cr (+50.4%). Order book ₹3,116.63 cr; fresh orders ₹972.42 cr in the quarter.","https://solarquarter.com/2026/07/22/atlanta-electricals-reports-48-revenue-growth-in-q1-fy27-order-book-crosses-inr-3100-crore/"],
+ ["14 May 2026","Disclosed a 2-year debarment by South Bihar Power Distribution Co. over a <₹3 cr transformer contract; company disputes it and calls it not material.","https://scanx.trade/stock-market-news/companies/atlanta-electricals-limited-receives-two-year-debarment-order-from-south-bihar-power-distribution-company-limited/40295731"]]},
+LGEINDIA:{board:[
+ ["13 Aug 2026","Q1 FY27 results: net profit up 27.2% to ₹652.86 cr; revenue up 15.5%.","https://www.business-standard.com/companies/quarterly-results/lg-electronics-india-q1-fy27-results-net-profit-rises-27-2-to-653-crore-126081301905_1.html"]],
+ news:[["05 Oct 2026","Stock hit a record high of ₹1,825 (+6% intraday); reports cite healthy business outlook, AC price hikes and export growth above 30%.","https://www.business-standard.com/amp/markets/news/lg-electronics-surges-6-at-record-high-what-s-driving-stock-price-126100500286_1.html"]]},
+CYIENT:{board:[
+ ["23 Apr 2026","Board approved a buyback of 64 lakh shares at ₹1,125 each (₹720 cr) via tender offer, subject to shareholder approval.","https://www.cyient.com/hubfs/2027/Investors/Buyback/Outcome-of-Board-Meeting-Buyback.pdf"]],
+ news:[["30 Sep 2026","Stock rose 7.41% intraday to ₹1,137.65 and closed +4.72%; no company announcement cited as the trigger.","https://marketsmojo.com/news/stocks-in-action/cyient-ltd-gains-097-5-key-factors-driving-the-weeks-momentum-4212981"]]},
+RAYMOND:{board:[
+ ["03 Oct 2026","Shareholders approved preferential issue of 33,28,686 share warrants to Minerva Ventures Fund (99.998% in favour).","https://www.whalesbook.com/corporate-news/English/consumer-products/Raymond-Shareholders-Approve-Preferential-Issue-of-33-Million-Share-Warrants/6ac1011a61666c732ba396fd"]],
+ news:[["30 Sep 2026","Fresh 52-week / all-time high of ₹1,241.40 intraday; no company announcement cited for the move.","https://marketsmojo.com/news/stocks-in-action/raymond-ltd-gains-257-midweek-despite-market-downturn-4-key-factors-driving-the-move-4213369"]]},
+ROSSTECH:{board:[
+ ["Sep 2026","Board approved private placement of 25.72 lakh shares at ₹1,166 (₹299.99 cr) to SBI Mutual Fund and SBI Optimal Equity Fund; EGM on 15 Oct 2026.","https://www.business-standard.com/amp/markets/capital-market-news/rossell-techsys-to-raise-rs-300-crore-from-sbi-mutual-fund-sbi-optimal-equity-fund-126091900359_1.html"]],
+ news:[["16 Sep 2026","Shares up 101% in six months, hitting a new high.","https://www.business-standard.com/markets/news/rossell-techsys-share-price-zoom-101-in-six-months-hit-new-high-here-s-why-126091600544_1.html"]]},
+GESHIP:{board:[
+ ["03 Aug 2026","Q1 FY27 PAT ₹1,308.84 cr; interim dividend ₹14.40/share (record date 7 Aug 2026).","https://www.investywise.com/the-great-eastern-shipping-company-limited-q1-fy27-financial-results-and-interim-dividend-declared/"]],
+ news:[["2026","Contracted to buy a secondhand 2015-built Kamsarmax dry bulk carrier (81,886 dwt), delivery 7 Aug 2026, funded from internal accruals.","https://scanx.trade/stock-market-news/companies/ge-shipping-contracts-to-buy-secondhand-kamsarmax-dry-bulk-carrier/47654129"]]},
+RRKABEL:{board:[
+ ["27 Jul 2026","Q1 FY27 results approved; final dividend ₹5.50/share for FY26.","https://bottomstreet.com/news/r-r-kabel-outcome-of-board-meeting-2026-07-27/"]],
+ news:[]},
+MANORAMA:{board:[
+ ["14 Aug 2026","Q1 FY27: net profit ₹78.66 cr (+67.6% YoY); sales ₹404.01 cr (+39.5%).","https://www.business-standard.com/amp/markets/capital-market-news/manorama-industries-consolidated-net-profit-rises-67-58-in-the-june-2026-quarter-126081400418_1.html"]],
+ news:[]},
+QPOWER:{board:[
+ ["2026","Board cleared 100% acquisition of Winwin Speciality Insulators for ₹272.34 cr (cash + shares) and a QIP of up to ₹700 cr; EGM on 19 Oct 2026.","https://www.tipranks.com/news/company-announcements/quality-power-electrical-equipments-clears-winwin-acquisition-700-crore-qip"]],
+ news:[]},
+NPST:{board:[
+ ["28 May 2026","FY26: total income ₹209.40 cr (+16%), net profit ₹40.82 cr (−9.7%); company pivoting to international markets.","https://www.whalesbook.com/corporate-news/English/technology/Network-People-Services-Technologies-Ltd-Posts-FY26-Profit-of-indian-rupee4082-Cr-Pivots-to-International-Markets/6a1852a00c0232fe81aa38de"]],
+ news:[]},
+MOTILALOFS:{board:[
+ ["14 Jul 2026","AGM approved ₹6/share dividend, borrowing limit raised to ₹22,500 cr, and reclassification of 11 promoter-group members to public.","https://scanx.trade/stock-market-news/companies/motilal-oswal-financial-services-approves-6-dividend-at-agm/45598624"]],
+ news:[]},
+NUVAMA:{board:[
+ ["30 Jul 2026","Q1 FY27: consolidated total income ₹1,381.96 cr, net profit ₹305.79 cr.","https://www.investywise.com/nuvama-wealth-management-board-meeting-outcome-strategic-moves/"],
+ ["30 Jul 2026","Approved NCDs up to ₹500 cr; Pickright Technologies made wholly owned; up to ₹100 cr investment in Nuvama Asset Management.","https://www.investywise.com/nuvama-wealth-management-board-meeting-outcome-strategic-moves/"]],
+ news:[["05 Oct 2026","Rose up to 9.5% on ~6.4× volume, in line with other capital-market stocks; no company-specific trigger reported.","https://upstox.com/news/market-news/stocks/shipping-corporation-nuvama-wealth-bharti-hexacom-shares-surge-amid-spike-in-volumes/article-201283/"],
+ ["02 Sep 2026","HSBC reported to join CVC, Permira and EQT in bidding for PAG's ~54% stake (~$1.8 bn); a deal would trigger a 26% open offer.","https://www.sahi.com/news/nuvama-wealth-hsbc-joins-private-equity-firms-bidding-for-54-stake-valued-at-1-8-billion-3556-PE1_COR"]]},
+KRISHNADEF:{board:[
+ ["15 Jul 2026","AGM approved ₹1.25/share dividend; MD Ankur Shah re-appointed for 5 years. FY26 net profit up 73% to ₹38.1 cr.","https://scanx.trade/stock-market-news/companies/krishna-defence-declares-12-5-dividend-for-fy-2025-26/45695393"]],
+ news:[["05 Oct 2026","Hit 20% upper circuit after Antique Stock Broking initiated coverage, calling it a shipbuilding 'picks-and-shovels' play; order book ₹117 cr.","https://businesstoday.in/markets/stocks/story/krishna-defence-shares-soar-20-as-picks-and-shovels-play-gets-72-upside-target-559467-2026-10-05"],
+ ["17 Jun 2026","Won ₹45.64 cr Ministry of Defence order for special steel for a shipbuilding project (8-month execution).","https://www.business-standard.com/markets/capital-market-news/krishna-defence-rises-after-securing-rs-45-64-crore-defence-order-126061700231_1.html"]]},
+DCMSHRIRAM:{board:[
+ ["28 Jul 2026","Q1 FY27: revenue ₹3,564 cr (+9%); PAT ₹147 cr excluding exceptional items (+28%). Chemicals revenue +33%.","https://www.investywise.com/dcm-shriram-q1-fy27-earnings-conference-call-transcript/"]],
+ news:[["05 Oct 2026","Hit 20% upper circuit; no specific reason was reported for the move.","https://tradebrains.in/indian-markets/dcm-shriram-krishna-defence-and-8-other-stocks-that-hit-the-20-upper-circuit-today-are-you-holding-any-12625809"]]},
+UNIVCABLES:{board:[
+ ["07 Aug 2026","Power cable capex raised to ~₹617 cr; JV Birla Furukawa plans ~$500 mn optical fibre expansion by Dec 2028; Nishant Saigal named CFO from 21 Oct 2026.","https://www.tipranks.com/news/company-announcements/universal-cables-greenlights-major-capacity-expansions-and-cfo-transition"]],
+ news:[["08 Aug 2026","Q1 FY27: net profit ₹70.14 cr (+108.75% YoY); sales ₹945.06 cr (+57.5%).","https://www.business-standard.com/amp/markets/capital-market-news/universal-cables-consolidated-net-profit-rises-108-75-in-the-june-2026-quarter-126080800202_1.html"]]},
+PERSISTENT:{board:[
+ ["02 Aug 2026","Q1 FY27: revenue ₹4,303 cr (+29.1%), net profit ₹483 cr (+13.7%). Approved acquiring up to 100% of Nagarro SE at €81/share with €1.4 bn bridge financing.","https://scanx.trade/stock-market-news/companies/persistent-systems-q1-results-net-profit-up-13-7-yoy-nagarro-deal-approved/47208155"]],
+ news:[["Oct 2026","Holds 83.25% of Nagarro; additional acceptance period runs to 6 Oct; shareholder vote on 5 Oct on the deal financing.","https://www.ad-hoc-news.de/boerse/news/nebenwerte/persistent-secures-83-25-percent-nagarro-stake-persistent-stock-faces/70209497"]]},
+CPPLUS:{board:[
+ ["13 Aug 2026","Q1 FY27: revenue ₹1,402 cr (+89.5%), PAT ₹142 cr (+332.5%). FY27 revenue guidance ₹6,000–6,500 cr maintained.","https://www.investing.com/news/company-news/aditya-infotech-q1-fy27-slides-tripledigit-growth-market-share-doubles-93CH-4856798"]],
+ news:[]},
+ECLERX:{board:[
+ ["17 Aug 2026","FY26 net profit ₹706 cr (+30.5%); final dividend ₹1/share; AGM held 8 Sep 2026.","https://scanx.trade/stock-market-news/companies/eclerx-services-fy26-results-net-profit-up-30-5-inr-7-062-million-yoy/48518924"]],
+ news:[]},
+ICICIGI:{board:[
+ ["Q1 FY27","Q1 FY27 net profit fell 46% YoY to ₹403 cr; combined ratio 107.2%.","https://www.whalesbook.com/news/English/insurance/ICICI-Lombard-Shares-Rise-4percent-As-Tech-Pivot-Targets-Margins/6abe02e95aacb956d087ba99"]],
+ news:[["01 Oct 2026","Unveiled digital plan targeting 90% digital servicing by FY29 and faster product launches; stock rose 4%.","https://www.whalesbook.com/news/English/insurance/ICICI-Lombard-Shares-Rise-4percent-As-Tech-Pivot-Targets-Margins/6abe02e95aacb956d087ba99"]]},
+DMART:{board:[
+ ["10 Oct 2026","Full Q2 FY27 results due.","https://www.indmoney.com/blog/stocks/avenue-supermarts-q2-fy27-business-update-analysis"]],
+ news:[["Oct 2026","Q2 FY27 business update: standalone revenue ₹19,206 cr (+18.4% YoY), 518 stores. Shares fell on concerns over growth quality and missing profit data.","https://www.indmoney.com/blog/stocks/avenue-supermarts-q2-fy27-business-update-analysis"]]},
+BHARTIHEXA:{board:[
+ ["04 Aug 2026","Q1 FY27: revenue ₹2,509 cr (+10.9%), PAT ₹482 cr (+23.2%).","https://univest.in/blogs/bharti-hexacom-share-price-q1-fy27-results-4-august-2026"]],
+ news:[["05 Oct 2026","Volume jumped ~4.6× average with a 1.2% intraday gain; no specific catalyst reported.","https://upstox.com/news/market-news/stocks/shipping-corporation-nuvama-wealth-bharti-hexacom-shares-surge-amid-spike-in-volumes/article-201283/"]]},
+RELIANCE:{board:[
+ ["17 Jul 2026","Board approved Q1 FY27 results; consolidated profit reported at ₹23,196 cr.","https://www.psuconnect.in/financial/reliance-q1-fy27-results-consolidated-profit-at-23-196-cr"]],
+ news:[["04 Oct 2026","Report says the Jio Platforms IPO is expected around early November 2026; size and pricing not officially confirmed.","https://telecomtalk.info/reliance-jio-ipo-update-in-october2026-one/1012490/"]]},
+LT:{board:[
+ ["Q1 FY27","Q1 FY27: PAT ₹4,123 cr (+14%), revenue ₹67,942 cr (+7%), order inflow ₹1,08,014 cr; order book ₹7.79 lakh cr.","https://www.whalesbook.com/corporate-news/English/industrial-goodsservices/Larsen-and-Toubro-Q1-FY27-Profit-Up-14percent-to-indian-rupee4123-Cr-Order-Inflows-Rise-14percent/6a74a5aa10bce1fd20425ea0"]],
+ news:[["05 Oct 2026","Won power transmission & distribution orders of about ₹10,000 cr across Saudi Arabia, UAE and India.","https://www.business-standard.com/companies/news/larsen-toubro-power-transmission-orders-saudi-uae-india-renewable-energy-126100500349_1.html"]]},
+PIDILITIND:{board:[
+ ["04 Aug 2026","Q1 FY27: net profit ₹872.41 cr (+29.7%), revenue ₹4,551.55 cr (+21.3%).","https://www.kotakneo.com/news/stocks/pidilite-industries-q1-2026-27-results-pat-rises-30-to-rs-872-crore-revenue-up-21/"]],
+ news:[["28 Sep 2026","Partnered with South Korea's Hwaseung Chemical for high-performance sports footwear adhesives in India.","https://ad-hoc-news.de/boerse/news/nebenwerte/pidilite-partners-with-hwaseung-chemical-as-motilal-oswal-rates-pidilite-stock-neutral/70229539"]]},
+"360ONE":{board:[
+ ["23 Sep 2026","Board appointed Aashish Agarwal (ex-Jefferies) as CEO from 15 Feb 2027; Karan Bhagat to become Vice Chairman and remain MD.","https://www.business-standard.com/amp/markets/capital-market-news/360-one-wam-climbs-after-appointing-aashish-agarwal-as-ceo-126092300322_1.html"],
+ ["16 Jul 2026","Q1 FY27: net profit ₹330.53 cr (+16.1%), total income ₹1,273 cr (+29.9%); AUM ₹7.77 lakh cr.","https://www.business-standard.com/companies/quarterly-results/360-one-wam-q1fy27-profit-revenue-aum-results-126071600821_1.html"]],
+ news:[]},
+GILLETTE:{board:[
+ ["27 May 2026","FY26: PAT ₹654 cr on revenue ₹3,100 cr; total dividend ₹240/share for the year.","https://www.whalesbook.com/corporate-news/English/consumer-products/Gillette-India-Reports-indian-rupee654-Cr-Profit-for-FY26-Declares-indian-rupee240-Dividend/6a77102310bce1fd20464e73"]],
+ news:[]},
+BHARTIARTL:{board:[
+ ["Jul 2026","Final dividend ₹24/share for FY26, record date 24 Jul 2026.","https://www.businesstoday.in/markets/stocks/story/rs-24-dividend-per-share-bharti-airtel-fixes-record-date-for-payment-check-details-542177-2026-07-10"]],
+ news:[["01 Oct 2026","Traded near its 52-week low despite Q1 FY27 revenue +18.4% to ₹58,539 cr and adjusted PAT +35.5%; bundled Apple services with premium postpaid plans.","https://www.ad-hoc-news.de/boerse/news/corporate-news/bharti-airtel-stock-traded-near-its-52-week-low-after-q1-growth/70226131"]]},
+UNITDSPR:{board:[
+ ["Oct 2026","EVP & Financial Controller Nimish Shah to leave effective 12 Oct 2026.","https://www.ad-hoc-news.de/boerse/news/corporate-news/united-spirits-stock-gains-2-16-percent-as-cautious-signals-build/70231434"]],
+ news:[["05 Oct 2026","Q1 FY27 net sales ₹2,708 cr with profit below its recent average; stock up 2.16% on the day.","https://www.ad-hoc-news.de/boerse/news/corporate-news/united-spirits-stock-gains-2-16-percent-as-cautious-signals-build/70231434"]]},
+"NAM-INDIA":{board:[
+ ["23 Jul 2026","Q1 FY27: net profit ₹503.70 cr (+27.2%), revenue ₹766.87 cr (+26.4%).","https://www.business-standard.com/amp/markets/capital-market-news/nippon-life-india-asset-management-consolidated-net-profit-rises-27-16-in-the-june-2026-quarter-126072300126_1.html"]],
+ news:[]}
+};
+
+
+/* ===== Classification rule (applied to every stock above) =====
+   Liquidity: turnover (close × volume) ≥ ₹10 cr, else excluded
+   Strong Bullish:      above all 5 EMAs and ADX ≥ 20
+   Developing Bullish:  above EMA 9, 20 and 50 (not Strong)
+   Strong Bearish:      below all 5 EMAs and ADX ≥ 20
+   Developing Bearish:  below EMA 9, 20 and 50 (not Strong)
+   Flags: Vol ✓ = volume ≥ 1.5× 20-day avg · Extended = RSI > 75 or > 50% above EMA 200 · Circuit = move ≥ 19.5% */
+const STOCKS = RAW.map(r=>{
+  const [sym,name,sector,o,h,l,c,prev,vol,vx5,vx20,e,rsi,macd,adx,vwap,cci,stoch,atr,t20,t55,hi52,hi30,vmax,stwp,tags,setup]=r;
+  const P=(h+l+c)/3;
+  const piv={P,R1:2*P-l,S1:2*P-h,R2:P+(h-l),S2:P-(h-l),R3:h+2*(P-l),S3:l-2*(h-P)};
+  const ab=e.filter(x=>c>x).length, bl=e.filter(x=>c<x).length;
+  const turnover=c*vol/1e7;
+  let group=null;
+  if(turnover>=10){
+    if(ab===5&&adx>=20) group="SB";
+    else if(c>e[0]&&c>e[1]&&c>e[2]) group="DB";
+    else if(bl===5&&adx>=20) group="SR";
+    else if(c<e[0]&&c<e[1]&&c<e[2]) group="DR";
+  }
+  const chg=c-prev, chp=chg/prev*100, ext200=(c-e[4])/e[4]*100;
+  const flags=[];
+  if(vx20>=1.5) flags.push("Vol ✓");
+  if(rsi>75||ext200>50) flags.push("Extended");
+  if(Math.abs(chp)>=19.5) flags.push("Circuit");
+  return {sym,name,sector,o,h,l,c,prev,vol,vx5,vx20,ema:{9:e[0],20:e[1],50:e[2],100:e[3],200:e[4]},rsi,macd,adx,vwap,cci,stoch,atr,t20,t55,hi52,hi30,vmax,stwp,
+    tags:tags?tags.split("|"):[],setup:setup?setup.split("|"):[],piv,ab,bl,turnover,group,chg,chp,ext200,flags,
+    board:(INFO[sym]||{}).board||[],news:(INFO[sym]||{}).news||[]};
+});
+const BY = Object.fromEntries(STOCKS.map(s=>[s.sym,s]));
+const GROUPS = {SB:["Strong Bullish",G],DB:["Developing Bullish",A],SR:["Strong Bearish",R],DR:["Developing Bearish","#9A3412"]};
+
+const fI = n=>n==null?"—":n.toLocaleString("en-IN");
+const fN = (n,d)=>n==null?"—":f(n,d);
+const flagTag = t=>`<span class="tg" style="${t==="Vol ✓"?`background:var(--green-soft);color:${G}`:t==="Extended"?`background:var(--amber-soft);color:${A}`:`background:var(--red-soft);color:${R}`}">${t}</span>`;
+
+function renderScreener(){
+  const col=k=>{
+    const [title,color]=GROUPS[k];
+    const rows=STOCKS.filter(s=>s.group===k).sort((a,b)=>k[1]==="R"?a.chp-b.chp:b.chp-a.chp);
+    return `<div class="scol">
+    <div class="stit" style="color:${color}"><span class="dot" style="background:${color}"></span>${title} <span style="color:var(--muted);font-weight:500">(${rows.length})</span></div>
+    ${rows.length?`<div class="strow shead"><span>Stock · Sector</span><span class="r">Close</span><span class="r">% Chg</span></div>`+
+      rows.map(s=>`<div class="strow num">
+        <span><button class="slink" onclick="openStock('${s.sym}')">${s.sym}</button>${s.flags.length?` <span class="fl">${s.flags.map(t=>t==="Vol ✓"?"V":t==="Extended"?"E":"C").map(x=>`<i class="fx fx-${x}">${x}</i>`).join("")}</span>`:""}<small>${s.sector}</small></span>
+        <span class="r">${f(s.c)}</span><span class="r" style="color:${s.chp>=0?G:R}">${sgn(s.chp)}%</span></div>`).join("")
+      :`<div class="empty">No stocks in this group today.</div>`}
+  </div>`};
+  document.getElementById("screener").innerHTML=`
+  <div class="ph"><div class="name">STOCK SCREENER</div><div class="meta">Scanner snapshot 5 Oct 2026 · 3:29 PM · tap a name for its card</div></div>
+  <div class="scols">${col("SB")}${col("DB")}${col("SR")}${col("DR")}</div>
+  <div class="strip" style="border-bottom:none;border-top:1px solid var(--line)">
+    <span class="k"><b>Rule:</b> Strong = price above (bullish) or below (bearish) all 5 EMAs with ADX ≥ 20. Developing = above / below EMA 9, 20 &amp; 50. Turnover under ₹10 cr excluded.</span>
+    <span class="k"><i class="fx fx-V">V</i> Volume ≥ 1.5× 20D avg &nbsp; <i class="fx fx-E">E</i> Extended &nbsp; <i class="fx fx-C">C</i> ~20% circuit move</span>
+    <span class="k">Rule-based classifications for study, not recommendations.</span>
+  </div>`;
+}
+
+function openStock(sym){
+  const S=BY[sym]; if(!S) return;
+  const [gTitle,gCol]=GROUPS[S.group]||["Unclassified","var(--muted)"];
+  const bear=S.group==="SR"||S.group==="DR";
+  const ek=Object.keys(S.ema);
+  const pv=["R3","R2","R1","S1","S2","S3"];
+  const rA=pv.filter(k=>k[0]==="R"&&S.piv[k]>S.c).pop(), sB=pv.filter(k=>k[0]==="S"&&S.piv[k]<S.c)[0];
+  const cell=k=>{const v=S.piv[k],isR=k[0]==="R",col=isR?R:G,near=(k===rA||k===sB);
+    return `<div class="lv num ${near?"near":""}" style="color:${col};background:${near?(isR?"var(--red-soft)":"var(--green-soft)"):"transparent"}"><span class="n">${k}</span><span>${f(v)}</span><span class="d">${sgn(v-S.c)}</span></div>`};
+
+  const obs=[];
+  obs.push(S.ab===5?`Price is above all 5 EMAs and ${f(S.ext200)}% over EMA 200 — trend alignment is up.`:
+           S.bl===5?`Price is below all 5 EMAs and ${f(Math.abs(S.ext200))}% under EMA 200 — trend alignment is down.`:
+           `Price is above ${S.ab} of 5 EMAs (${S.c>S.ema[200]?"above":"below"} EMA 200) — alignment is mixed.`);
+  obs.push(`Day closed ${S.chg>=0?"up":"down"} ${f(Math.abs(S.chp))}% and ${S.c>=S.vwap?"above":"below"} VWAP (${sgn(S.c-S.vwap)}).`+
+           (S.h>S.c&&(S.h-S.c)/(S.h-S.l||1)>0.4?` It closed well off the day's high of ${f(S.h)}.`:""));
+  obs.push(`Volume was ${f(S.vx20)}× its 20-day average — participation was ${S.vx20>=2?"heavy":S.vx20>=1.5?"above normal":S.vx20>=0.8?"normal":"light"}.`);
+  obs.push(`ADX ${f(S.adx)} — ${S.adx<20?"trend strength has not built yet":S.adx<25?"trend strength is developing":S.adx<40?"trend strength is established":"trend strength is very strong"}.`);
+  obs.push(`RSI ${f(S.rsi)} ${S.rsi>75?"is overbought — the move is stretched":S.rsi>60?"is on the strong side of neutral":S.rsi<30?"is oversold":S.rsi<40?"is on the weak side of neutral":"is neutral"}.`);
+  if(bear&&S.setup.includes("Reversal")) obs.push(`Scanner flags a reversal attempt (${S.setup.join(", ")}) within a downtrend — the trend has not turned while price stays below the EMAs.`);
+  if(S.flags.includes("Circuit")) obs.push(`A ~20% circuit move in one session — circuit days can bring thin liquidity and sharp follow-up swings.`);
+  if(rA) obs.push(`Nearest resistance ${rA} ${f(S.piv[rA])} is ${f(pct(S.piv[rA],S.c))}% above; nearest support ${sB||"—"} ${sB?f(S.piv[sB]):""}${sB?` is ${f(Math.abs(pct(S.piv[sB],S.c)))}% below`:""}.`);
+
+  const li=a=>a.length?a.map(n=>`<li><span class="dt">${n[0]}</span>${n[1]} <a href="${n[2]}" target="_blank" rel="noopener">Source ↗</a></li>`).join(""):
+    `<li style="color:var(--muted)">No recent item found in the sources checked.</li>`;
+
+  document.getElementById("modal").innerHTML=`<div class="mcard">
+  <div class="sec">
+    <div class="top" style="flex-wrap:nowrap;align-items:flex-start"><div><div class="name">${S.sym}</div><div class="meta">${S.name} · <span style="text-transform:capitalize">${S.sector}</span></div></div>
+      <button class="x" onclick="closeStock()" aria-label="Close">×</button></div>
+    <div class="price-row"><div class="price num">${f(S.c)}</div>
+      <div class="chg num" style="color:${S.chg>=0?G:R}">${sgn(S.chg)} (${sgn(S.chp)}%)</div></div>
+    <div class="ohlc num"><div>Open<span>${f(S.o)}</span></div><div>High<span>${f(S.h)}</span></div><div>Low<span>${f(S.l)}</span></div><div>Prev C<span>${f(S.prev)}</span></div></div>
+    <div class="tags">
+      <span class="tg" style="background:${gCol};color:#fff">${gTitle.toUpperCase()}</span>
+      ${S.flags.map(flagTag).join("")}
+      <span class="tg">STWP ${S.stwp}</span>
+      ${S.setup.map(t=>`<span class="tg">${t}</span>`).join("")}
+      ${S.tags.map(t=>`<span class="tg" style="background:rgba(37,99,235,.08);color:var(--blue)">${t}</span>`).join("")}
+    </div>
+    <div class="note" style="color:var(--muted)">Scanner snapshot 05 Oct 2026 · 3:29 PM · turnover ₹${f(S.turnover,1)} cr</div>
+  </div>
+
+  <div class="sec">
+    <div class="label">Trend · EMA stack — price above ${S.ab}/5</div>
+    <div class="chips num">${ek.map(k=>{const up=S.c>S.ema[k];return `<div class="chip" style="background:${up?"var(--green-soft)":"var(--red-soft)"};color:${up?G:R}"><b>EMA ${k}</b><span>${f(S.ema[k])}</span></div>`}).join("")}</div>
+    <div class="grid2" style="margin-top:4px;gap:14px">
+      <div class="row num"><span class="k">From EMA 200</span><span style="color:${S.c>S.ema[200]?G:R}">${sgn(S.ext200)}%</span></div>
+      <div class="row num"><span class="k">VWAP ${f(S.vwap)}</span><span style="color:${S.c>S.vwap?G:R}">${S.c>=S.vwap?"Above":"Below"} ${sgn(S.c-S.vwap)}</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="label">Support &amp; resistance · Pivot ${f(S.piv.P)} (for next session)</div>
+    <div class="ladder"><div class="lrow">${["R3","R2","R1"].map(cell).join("")}</div>
+      <div class="now num"><span>CLOSE</span><span>${f(S.c)}</span></div>
+      <div class="lrow">${["S1","S2","S3"].map(cell).join("")}</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="label">Momentum</div>
+    <div class="kv num">
+      <div>RSI<span>${f(S.rsi)}</span></div><div>MACD<span>${f(S.macd)}</span></div><div>ADX<span>${f(S.adx)}</span></div>
+      <div>CCI<span>${f(S.cci)}</span></div><div>Stochastic<span>${f(S.stoch)}</span></div><div>ATR<span>${f(S.atr)}</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="label">Volume &amp; range</div>
+    <div class="kv num">
+      <div>Volume<span>${fI(S.vol)}</span></div><div>vs 5D avg<span>${f(S.vx5)}×</span></div><div>vs 20D avg<span>${f(S.vx20)}×</span></div>
+      <div>52W high<span>${fN(S.hi52)}</span></div><div>30D high<span>${fN(S.hi30)}</span></div><div>Max vol (52W)<span>${fI(S.vmax)}</span></div>
+      <div>20D turtle<span>${fN(S.t20)}</span></div><div>55D turtle<span>${fN(S.t55)}</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="label">Company board info</div>
+    <ul class="news">${li(S.board)}</ul>
+  </div>
+
+  <div class="sec">
+    <div class="label">Latest news</div>
+    <ul class="news">${li(S.news)}</ul>
+  </div>
+
+  <div class="sec">
+    <div class="label">Observation</div>
+    <ul class="obs">${obs.map(o=>`<li>${o}</li>`).join("")}</ul>
+  </div>
+
+  <div class="foot"><b>STWP · Simple Trade With Patience</b><br>For educational purposes only. Not investment advice or a recommendation to buy/sell. News and board items are summarised from the linked public sources as of 5 Oct 2026; verify before relying on them.</div>
+  </div>`;
+  const m=document.getElementById("modal"); m.classList.add("open"); m.scrollTop=0;
+  document.body.style.overflow="hidden";
+}
+function closeStock(){document.getElementById("modal").classList.remove("open");document.body.style.overflow=""}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeStock()});
+renderScreener();
+</script>
+</body>
+</html>
