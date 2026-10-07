@@ -166,7 +166,7 @@
 <header class="hdr">
   <div><h1>STWP Daily <span>Market Lens</span></h1>
   <div class="sub">Simple Trade With Patience · Indices, sectors &amp; stock screener — for education</div></div>
-  <div class="dt" id="hdrDate">Monday, 5 Oct 2026<small>Data snapshots 3:16 – 4:01 PM IST</small></div>
+  <div class="dt" id="hdrDate">Wednesday, 7 Oct 2026<small>Indices at close · sectors &amp; stocks 3:29 PM IST</small></div>
 </header>
 <div class="wrap" id="cards"></div>
 <div class="panel" id="sectors"></div>
@@ -194,31 +194,31 @@
 /* ===== Update these values daily (straight from the chart) ===== */
 const CARDS = [
 {
-  name:"NIFTY 50", tf:"1D", exch:"NSE", stamp:"05 Oct 2026 · 15:50 IST", intraday:false,
-  o:22532.40, h:22621.80, l:22397.10, c:22555.75, chg:133.80,
-  vol:412.5, volAvg:306.58,
-  vwap:22524.90,
-  ema:{9:22822.65,20:23158.10,50:23587.90,100:23849.20,200:24140.55},
-  piv:{R3:22877.35,R2:22749.60,R1:22652.65,S1:22427.95,S2:22300.20,S3:22203.25},
-  rsi:28.15
+  name:"NIFTY 50", tf:"1D", exch:"NSE", stamp:"07 Oct 2026 · close", intraday:false,
+  o:22690.45, h:22717.65, l:22546.30, c:22603.05, chg:-173.05,
+  vol:359.03, volAvg:319.11,
+  vwap:22622.35,
+  ema:{9:22771.30,20:23072.30,50:23518.70,100:23803.70,200:24111.80},
+  piv:{R3:22869.70,R2:22793.70,R1:22698.35,S1:22527.00,S2:22451.00,S3:22355.65},
+  rsi:33.13
 },
 {
-  name:"BANK NIFTY", tf:"1D", exch:"NSE", stamp:"05 Oct 2026 · 16:00 IST", intraday:false,
-  o:54840.65, h:55192.65, l:54370.60, c:54714.10, chg:263.35,
-  vol:263.11, volAvg:227.2,
-  vwap:54759.10,
-  ema:{9:55051.80,20:55719.70,50:56429.70,100:56631.45,200:56593.15},
-  piv:{R3:55969.70,R2:55581.15,R1:55147.65,S1:54325.60,S2:53937.05,S3:53503.55},
-  rsi:36.31
+  name:"BANK NIFTY", tf:"1D", exch:"NSE", stamp:"07 Oct 2026 · close", intraday:false,
+  o:54968.70, h:55340.70, l:54636.20, c:55055.55, chg:-72.85,
+  vol:267.71, volAvg:238.15,
+  vwap:55010.80,
+  ema:{9:55064.80,20:55605.50,50:56326.80,100:56571.10,200:56563.40},
+  piv:{R3:56089.95,R2:55715.30,R1:55385.45,S1:54680.95,S2:54306.30,S3:53976.45},
+  rsi:40.87
 },
 {
-  name:"SENSEX", tf:"1D", exch:"BSE", stamp:"05 Oct 2026 · 16:01 IST", intraday:false,
-  o:72340.95, h:72631.93, l:71840.18, c:72382.47, chg:472.77,
-  vol:45.18, volAvg:18.41,
-  vwap:72284.86,
-  ema:{9:73033.59,20:74050.94,50:75420.56,100:76357.35,200:77631.84},
-  piv:{R3:73521.29,R2:73076.61,R1:72729.54,S1:71937.79,S2:71493.11,S3:71146.04},
-  rsi:30.57
+  name:"SENSEX", tf:"1D", exch:"BSE", stamp:"07 Oct 2026 · close", intraday:false,
+  o:72965.38, h:73018.82, l:72468.72, c:72638.70, chg:-429.11,
+  vol:18.7, volAvg:19.49,
+  vwap:72708.75,
+  ema:{9:72960.09,20:73831.73,50:75222.82,100:76219.86,200:77537.20},
+  piv:{R3:73498.87,R2:73258.85,R1:72948.77,S1:72398.67,S2:72158.65,S3:71848.57},
+  rsi:35.6
 }
 ];
 /* ================================================================ */
@@ -349,41 +349,41 @@ document.getElementById("cards").innerHTML = CARDS.map(D=>`<div class="card">${r
 
 /* ===== Sector data — paste the day's DAILY_WATCHLIST.csv between the backticks ===== */
 const WATCHLIST_CSV = `﻿"Date","Symbol","Lot size","Open","High","Low","Close","Volume","Sma volume","Vwap","Ema 9","Ema 20","Ema 50","Market_cap","Marketcapname"
-"5th Oct'26 3:16:00","BANKNIFTY",30,54840.65,55192.65,54370.6,54713.6,0,0,0,55051.7,55719.65,56429.68,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYFMCG",0,44070.3,44571.3,43929.35,44518.8,0,0,0,44904.82,45449.12,46626.68,0,"smallcap"
-"5th Oct'26 3:16:00","CNXENERGY",0,36565.15,36933.45,36391.9,36581.85,0,0,0,36898.39,37314.08,37935.57,0,"smallcap"
-"5th Oct'26 3:16:00","CNXIT",0,28656.2,28755.2,28060.3,28226.4,0,0,0,28254.13,28776.54,29352.87,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYCHEMICALS",0,28048.75,28311.5,27743.6,27931.05,0,0,0,28512.06,29013.55,29497.06,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYPVTBANK",0,26859.55,26963.85,26558.15,26727.45,0,0,0,26809.03,27038.09,27273.13,0,"smallcap"
-"5th Oct'26 3:16:00","CNXPHARMA",0,26263.95,26374.9,26001.65,26101.35,0,0,0,26568.2,26633.2,26394.82,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYMICROCAP250",0,26047.55,26166.7,25810,25922.5,0,0,0,26174.49,26238.74,25971.42,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYAUTO",0,25412.2,25483.7,25175.6,25386.6,0,0,0,26239.67,26859.53,27418.62,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYFINSERVICE",0,24736.05,24881.4,24517.85,24650.45,0,0,0,24860.56,25197.42,25661.03,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTY100",0,23625.75,23718.35,23479.7,23623.65,0,0,0,23932.88,24281.62,24701.81,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTY",65,22532.4,22621.8,22397.1,22535.45,0,0,0,22818.6,23156.15,23587.11,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTY500",0,21956.6,22048.45,21826.55,21954.4,0,0,0,22254.62,22573.71,22906.13,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYMIDCAP150",0,21734.6,21843.35,21644.95,21733.65,0,0,0,22089.3,22448.44,22757.21,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYMIDSMALLCAP400",0,20281.15,20381.4,20171.2,20278.65,0,0,0,20581.01,20866.17,21060.46,0,"smallcap"
-"5th Oct'26 3:16:00","CNXSMALLCAP",0,19154.85,19237.8,18994.2,19153.75,0,0,0,19377.07,19566.07,19542.02,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYSMALLCAP250",0,17666.6,17752.55,17526.4,17661.85,0,0,0,17877.44,18044.96,18062.64,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYMIDCAP50",0,16915.25,16990,16838.5,16888.65,0,0,0,17220.81,17532.5,17772.67,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYHEALTHCARE",0,16028.65,16104,15894.9,15927.1,0,0,0,16339.94,16461.19,16438.57,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYLARGEMID250",0,15673.7,15742.3,15593.55,15672.65,0,0,0,15903.78,16149.17,16399.59,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYMIDSELECT",0,13637.7,13713.5,13601.7,13628.6,0,0,0,13883.8,14173.61,14430.08,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTY200",0,13106.95,13163.4,13034.5,13107.95,0,0,0,13287.36,13487.66,13713.24,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYMETAL",0,12532.5,12650.1,12389.95,12470.7,0,0,0,12780.91,12919.91,12964.82,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYTOTALMKT",0,12438.7,12490.45,12363.3,12434.9,0,0,0,12602.34,12775.89,12949.16,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYHOUSING",0,11138.85,11226.75,11095.05,11152.2,0,"NaN",0,11079.4,11069.87,11064.77,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYCONSUMPTION",0,10866.45,10937.65,10838.25,10926.95,0,0,0,11161.4,11354.24,11564.34,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYOILANDGAS",0,10505.15,10615.1,10441.5,10514.1,0,0,0,10675.72,10823.08,10992.37,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYSMALLCAP50",0,9579.35,9614.9,9484.55,9560.6,0,0,0,9694.78,9785.72,9753.12,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYCOMMODITIES",0,9166.2,9264.6,9115.9,9173.55,0,0,0,9343.83,9477.33,9650.07,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYINDDEFENCE",0,9156.45,9232.85,9080.65,9159.05,0,0,0,9264.89,9385.34,9458.63,0,"smallcap"
-"5th Oct'26 3:16:00","CNXINFRA",0,8629.7,8701,8629.7,8682.8,0,0,0,8801.13,8937.56,9113.59,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYPSUBANK",0,8003.05,8117.45,7975.3,8012.2,0,0,0,8096.55,8223.9,8360.79,0,"smallcap"
-"5th Oct'26 3:16:00","NIFTYMEDIA",0,1557.8,1576.25,1547.6,1561.5,0,0,0,1554.72,1553.85,1548.61,0,"smallcap"
-"5th Oct'26 3:16:00","CNXREALTY",0,834.45,848.55,834.2,838.45,0,0,0,846.85,857.51,867.96,0,"smallcap"
-"5th Oct'26 3:16:00","INDIAVIX",0,14.43,15.35,13.5,14.82,0,0,0,13.36,12.64,12.47,0,"smallcap"`;
+"7th Oct'26 3:29:00","BANKNIFTY",30,54968.7,55340.7,54636.2,55055.55,0,0,0,55064.81,55605.49,56326.78,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYFMCG",0,45012.7,45051.5,44641.4,44800.85,0,0,0,44939.9,45371.12,46503.73,0,"smallcap"
+"7th Oct'26 3:29:00","CNXENERGY",0,36840.5,36866.3,36601.6,36683.45,0,0,0,36859.82,37220.69,37848.5,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYCHEMICALS",0,28536.5,28543.65,28175.25,28305.55,0,0,0,28482.58,28909.78,29416.34,0,"smallcap"
+"7th Oct'26 3:29:00","CNXIT",0,27993.25,28109.45,27714.65,27757.85,0,0,0,28145.62,28630.21,29247.2,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYPVTBANK",0,27030.05,27240.3,26852.1,27115.9,0,0,0,26914.77,27049.57,27259.87,0,"smallcap"
+"7th Oct'26 3:29:00","CNXPHARMA",0,26518.7,26656.4,26357.3,26436.55,0,0,0,26540.91,26608.5,26402.85,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYMICROCAP250",0,26237.6,26322.4,26099.65,26191.65,0,0,0,26189.48,26234.86,25990.37,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYAUTO",0,25409.45,25470.55,25067.15,25138.9,0,0,0,25912.4,26584.88,27259.78,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYFINSERVICE",0,24882.2,25015.5,24755.55,24916.4,0,0,0,24886.17,25149.46,25605.11,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTY100",0,23800.2,23814.15,23640.35,23697.75,0,0,0,23880.43,24193.24,24632.32,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTY",65,22690.45,22717.65,22546.3,22603.05,0,0,0,22771.29,23072.31,23518.7,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTY500",0,22146.35,22156.8,21997.05,22059.9,0,0,0,22209.59,22494.16,22847.07,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYMIDCAP150",0,21947.8,21958.8,21772.3,21838,0,0,0,22024.23,22351.58,22692.65,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYMIDSMALLCAP400",0,20508.9,20532.6,20368.8,20445.7,0,0,0,20546.25,20797.5,21016.54,0,"smallcap"
+"7th Oct'26 3:29:00","CNXSMALLCAP",0,19456,19578.1,19358.8,19506.95,0,0,0,19413.91,19549.96,19536.96,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYSMALLCAP250",0,17910.6,17969.35,17815.85,17917.75,0,0,0,17888.64,18020.04,18050.68,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYMIDCAP50",0,17089.2,17089.45,16938.9,16990.85,0,0,0,17161.53,17447.11,17718.22,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYHEALTHCARE",0,16073,16138.7,16003.1,16059.15,0,0,0,16246.57,16392.48,16411.26,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYLARGEMID250",0,15808.4,15810.35,15692.3,15734.8,0,0,0,15862.79,16084.82,16353.24,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYMIDSELECT",0,13811.9,13831.45,13708.05,13757.2,0,0,0,13851.88,14105.61,14381.68,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTY200",0,13214.3,13218.95,13122.45,13155.9,0,0,0,13257.46,13436.98,13674.56,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYTOTALMKT",0,12545.45,12552.45,12461.75,12497.7,0,0,0,12578.42,12732.92,12917.74,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYMETAL",0,12525.05,12552.85,12302.45,12306.7,0,0,0,12660.57,12836.05,12926.25,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYHOUSING",0,11032.45,11095.7,10973.55,11061.2,0,"NaN",0,11061.2,11061.2,11061.2,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYCONSUMPTION",0,11029.5,11031.35,10951.75,10976.65,0,0,0,11112.65,11295.46,11523.43,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYOILANDGAS",0,10625,10658.7,10578.9,10622.8,0,0,0,10664.89,10791.14,10965.87,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYSMALLCAP50",0,9706,9771.8,9660.6,9728.5,0,0,0,9702.55,9772.99,9750.2,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYINDDEFENCE",0,9335.1,9336.5,9198.6,9215.35,0,0,0,9270.9,9367.54,9445.67,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYCOMMODITIES",0,9198.15,9209.35,9088.7,9107.25,0,0,0,9280.94,9422.28,9613.64,0,"smallcap"
+"7th Oct'26 3:29:00","CNXINFRA",0,8776.9,8793.15,8708.05,8728.5,0,0,0,8787.33,8906.37,9086.95,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYPSUBANK",0,7984.85,8128.15,7921.85,8088.7,0,0,0,8081.22,8192.66,8336.94,0,"smallcap"
+"7th Oct'26 3:29:00","NIFTYMEDIA",0,1578,1591.2,1566.45,1578.5,0,0,0,1561.43,1557.31,1550.47,0,"smallcap"
+"7th Oct'26 3:29:00","CNXREALTY",0,834.7,837.05,821.75,822.6,0,0,0,840.65,852.55,865.08,0,"smallcap"
+"7th Oct'26 3:29:00","INDIAVIX",0,14.12,14.32,13.61,13.89,0,0,0,13.5,12.84,12.57,0,"smallcap"`;
 /* ================================================================================== */
 
 const SECTORS = [
@@ -459,144 +459,95 @@ function renderSectors(){
 }
 renderSectors();
 
-/* ===== Stock data — from DAILY scanner sheet, 5 Oct 2026 3:29 PM =====
+/* ===== Stock data — from DAILY scanner sheet, 7 Oct 2026 3:29 PM =====
    fields: sym, name, sector, o,h,l,c, prevClose, vol, vx5, vx20, [ema9,20,50,100,200],
            rsi, macd, adx, vwap, cci, stoch, atr, t20, t55, hi52, hi30, maxVol52, stwp, tags, setup */
 const RAW = [
-["DYNAMATECH","Dynamatic Technologies","aerospace & defence",13798,14375,13798,14251,13756,43998,1.05,1.63,[13275.52,12672.96,11909.96,11309.16,10492.17],82.83,168.03,45.81,14093.27,180.93,95.69,543.83,14375,14375,14375,14375,388748,85,"Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade","Higher High + Higher Low"],
-["STLTECH","Sterlite Technologies","industrials",952.4,1003.1,932,1001.25,955.35,3877431,1.52,1.93,[898.27,845.48,747.32,632.17,481.51],75.32,8.41,34.02,981.8,244.87,99.16,51.9,1001.25,1001.25,1003.1,1003.1,50208737,78,"Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade","VWAP Reclaim / Hold|Higher High + Higher Low"],
-["ATLANTAELE","Atlanta Electricals","industrials",1745.5,1888.1,1725,1882.9,1716.5,379316,2.2,3.12,[1702.58,1705.95,1710.88,1652.91,1480.94],63.17,10.45,20.88,1833.91,74.74,98.46,93.91,1958,1958,null,1958,8410016,61,"Three Outside Up|Strong Bullish Candle|Bullish Momentum|Swing Trade","Momentum"],
-["LGEINDIA","LG Electronics India","consumer discretionary",1715,1825,1715,1770.9,1721.8,3145126,5.1,5.68,[1721.41,1694.44,1651.66,1614.56,1596.3],67.71,6.71,29.98,1798.43,178.71,76.06,51.16,1770.9,1770.9,null,1825,null,76,"Swing Trade","Momentum|Higher High + Higher Low"],
-["CYIENT","Cyient","i.t",1115,1173.5,1110,1140.2,1104.6,1623849,2.04,3.33,[1094.32,1074.28,1015.09,975.76,1000.68],65.24,-1.5,27.49,1151.45,266.45,76.75,50.54,1140.2,1174.8,1284.7,1219,11712766,73,"Swing Trade","Momentum|Higher High + Higher Low"],
-["RAYMOND","Raymond","transportation",1198,1316.9,1198,1300.7,1197.2,2241963,0.921,0.327,[1178.14,1056,866.98,732.05,631.85],84.25,12.76,65.3,1259.89,114.62,95.73,78.48,1316.9,1316.9,1316.9,1316.9,22726056,63,"Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade","Higher High + Higher Low"],
-["ROSSTECH","Rossell Techsys","aerospace & defence",1525,1624.9,1508.7,1607.2,1522.3,314638,1.43,0.616,[1474.4,1377.36,1231.44,1110.15,965.89],80.13,15.38,53.7,1567.11,140.81,95.72,85.98,1624.9,1624.9,1624.9,1624.9,5067149,58,"Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade","VWAP Reclaim / Hold|Higher High + Higher Low"],
-["GESHIP","Great Eastern Shipping","transportation",1529.9,1570.5,1523.3,1559.3,1530.6,823469,0.548,0.802,[1516.72,1468.05,1422.02,1404.54,1347.76],70.84,10.45,36.87,1558.21,111.63,89.43,43.97,1583,1598.9,1798,1583,18205845,68,"Bullish Engulfing|Strong Bullish Candle|Bullish Momentum|Swing Trade","Higher High + Higher Low"],
-["RRKABEL","R R Kabel","industrials",2541.5,2654.9,2533.1,2648,2518.2,635507,2.6,1.25,[2528.32,2530.37,2527.81,2370.73,2085.36],58.85,22.86,25.72,2625.7,216.28,97.81,93.33,2648,2928.4,2983.8,2983.8,5778040,68,"Strong Bullish Candle","EMA 20 Pullback"],
-["MANORAMA","Manorama Industries","fmcg",1880.3,1959,1879.9,1944.9,1880.3,299321,1.49,1.23,[1901.24,1909.6,1840.45,1723.1,1586.11],55.31,-14.36,23.81,1930.87,-28.18,51.82,65.46,2132.9,2132.9,2149.5,2149.5,7298393,61,"Three Outside Up|Strong Bullish Candle","EMA 20 Pullback"],
-["QPOWER","Quality Power Electrical Equipments","industrials",1569.8,1640,1569.8,1620.2,1564.6,336640,1.13,0.952,[1563.34,1510.8,1400.99,1286.7,1133.58],63.52,3.3,23.58,1622,142.52,85.7,81.47,1675,1675,1675,1675,9789450,66,"Strong Bullish Candle|Bullish Momentum|Swing Trade","Momentum|Higher High + Higher Low"],
-["NPST","Network People Services Technologies","i.t",1766.5,1850,1761.6,1848,1766.5,70247,0.772,0.295,[1770.19,1748.44,1675.9,1584.78,1559.23],58.61,-5.1,22.83,1812.14,63.44,79.02,110.7,1888.8,1888.8,2138.5,1934,3028115,53,"Bullish Marubozu|Strong Bullish Candle","Higher High + Higher Low|EMA 20 Pullback"],
-["MOTILALOFS","Motilal Oswal Financial Services","financials",991,1018.9,987.9,1011.1,989.9,440299,0.456,0.518,[1006.08,1005.43,980.38,941.18,899.81],52.68,-4.7,20.49,1009.28,-31.78,50.21,29.14,1055,1055,1097.1,1060.2,14328752,51,"Strong Bullish Candle","Higher High + Higher Low|EMA 20 Pullback"],
-["NUVAMA","Nuvama Wealth Management","financials",1709.4,1865,1706,1820.8,1701.4,4036851,7.92,13.55,[1708.87,1716.31,1728.99,1682.99,1586.68],62.09,7.23,15.8,1819.14,98.06,82.99,72.5,1836.4,1980.1,2066,1903.9,5943190,61,"Strong Bullish Candle|Bullish Momentum|Swing Trade","Momentum|EMA 20 Pullback"],
-["KRISHNADEF","Krishna Defence and Allied Industries","aerospace & defence",1020,1201,1006.8,1201,1000.9,1437610,24.59,18.76,[1053.79,1046.57,1081.39,1098.3,1058.71],68.15,14.66,17.7,1162.01,220.03,100,62.77,1201,1367.9,null,1201,null,74,"Above The Stomach|Bullish Marubozu|Strong Bullish Candle|Bullish Momentum|Swing Trade|EMA 200 Cutting","Momentum|EMA 20 Pullback"],
-["DCMSHRIRAM","DCM Shriram","miscellaneous",910.6,1088.2,910.6,1044.55,906.85,971948,6.99,13.55,[964.2,978.38,1004.41,1034.1,1074.73],61.44,0.73,23.06,1043.79,90.13,78.38,45.72,1044.55,1082.1,1414.4,1119.5,7223729,59,"Strong Bullish Candle","Momentum|EMA 20 Pullback"],
-["UNIVCABLES","Universal Cables","industrials",1459.9,1536.8,1456,1520.2,1451.3,214759,2.99,1.77,[1477.91,1493.82,1466.26,1342.79,1157.93],52.56,-1,18.04,1509.85,28.82,86.32,71.33,1649.9,1774.9,1774.9,1735,2488103,63,"Three Inside Up|Strong Bullish Candle","EMA 20 Pullback"],
-["PERSISTENT","Persistent Systems","i.t",5448,5620,5387.5,5530,5367,760382,1.85,1.79,[5370.2,5410.7,5402.27,5339.84,5353.66],54.65,0.486,14.22,5529.34,61.94,61.64,169.63,5759,5910,6599,5910,6170867,52,"","EMA 20 Pullback"],
-["CPPLUS","Aditya Infotech (CP Plus)","consumer discretionary",3858.2,3989.5,3833.5,3989.5,3799.6,255914,1.4,0.981,[3795.78,3723.52,3610.54,3333.77,2815.32],62.56,27.21,16.05,3947.9,129.37,100,167.75,3989.5,3989.5,4094,3989.5,1721755,72,"Strong Bullish Candle|Bullish Momentum|Swing Trade|Possible Breakout","Momentum|VWAP Reclaim / Hold|Higher High + Higher Low"],
-["ECLERX","eClerx Services","i.t",1819.2,1898,1812.1,1884.3,1802.9,142484,0.81,0.9,[1855.8,1876.82,1846.54,1790.68,1782.68],50.76,-12.85,18.15,1866.65,-51.84,47.96,69.76,2017,2062,2497.5,2062,4640842,55,"Strong Bullish Candle","EMA 20 Pullback"],
-["ICICIGI","ICICI Lombard General Insurance","financials",1563,1608,1561.1,1600,1563,1184711,1.14,1.31,[1550.79,1537.65,1577.66,1646.31,1727.33],57.77,17.29,23.57,1595.99,151.61,95.67,46.33,1600,1684,2064.9,1634.8,13018936,62,"Bullish Engulfing|Bullish Tweezer Bottom|Strong Bullish Candle",""],
-["DMART","Avenue Supermarts (DMart)","consumer discretionary",3808.6,3808.6,3545.3,3567,3813,2538532,4.9,5.5,[3745.75,3771.88,3854.01,3943.02,4011.79],33.15,-1.04,24,3622.75,-155.51,6.48,106.21,3880,4124.9,4818,3990,2710202,14,"","Reversal"],
-["BHARTIHEXA","Bharti Hexacom","telecom-service",1389.9,1396.1,1371.4,1380.9,1379.2,528019,4.78,5.8,[1435.92,1476.67,1516.57,1538.15,1567.17],30.97,-13.1,20.7,1380.75,-165.4,7.92,38.76,1567.4,1678.1,1955.6,1616.9,1163665,24,"","Reversal"],
-["RELIANCE","Reliance Industries","energy",1171.2,1193,1171.2,1186.4,1167.7,13621750,0.81,1.1,[1201.84,1229.83,1265.66,1297.1,1335.24],34.95,-5.8,40.66,1181.63,-122.43,25.96,21.27,1333,1345.9,1611.8,1333,42634247,52,"Strong Bullish Candle","Reversal|Deep Oversold + Support"],
-["LT","Larsen & Toubro","realty",3717,3750,3707.8,3750,3693.4,2271819,1.16,1.44,[3788.8,3850.26,3917.75,3942.86,3921.59],38.23,-14.34,22.9,3727.45,-133.02,31.05,68.95,4020.2,4125.3,4440,4125.3,10778730,51,"Above The Stomach|Strong Bullish Candle","Reversal"],
-["PIDILITIND","Pidilite Industries","chemicals",1464.2,1487.7,1458.2,1487.7,1464,789868,0.995,1.25,[1501.48,1538.01,1572.01,1559.17,1529.19],36.09,-7.48,33.53,1471.56,-118.24,21.75,34.15,1638.3,1707.5,1707.5,1687.7,5494105,54,"Bullish Tweezer Bottom|Strong Bullish Candle","Reversal"],
-["360ONE","360 ONE WAM","financials",1033.6,1059.6,1033.3,1050,1040,554586,0.436,0.556,[1054.11,1077.73,1106.55,1110.35,1103.56],39.27,-1.88,31.84,1049.34,-77.79,36.84,29.85,1156.1,1222.9,1236.2,1219.8,5903548,44,"Strong Bullish Candle","Reversal"],
-["GILLETTE","Gillette India","fmcg",6902,7025,6862,7012,6899,20086,0.831,0.912,[7023.51,7137.3,7348.53,7559.35,7884.91],39.48,-8.08,33.51,6946.98,-81.55,31.12,141.36,7564,8100,10553,7564,334551,48,"Bullish Tweezer Bottom|Strong Bullish Candle","Reversal"],
-["BHARTIARTL","Bharti Airtel","telecom-service",1742.3,1779.9,1742.3,1779.9,1741.1,7017519,1.06,1.25,[1782.89,1812.57,1853.67,1874.41,1887.63],41.43,-4.18,28.92,1766.5,-111.14,32.1,31.51,1893.3,2031,2174.5,1954.9,70392750,54,"Morning Star|Bullish Marubozu|Strong Bullish Candle",""],
-["UNITDSPR","United Spirits","fmcg",1335.4,1377.9,1329.7,1369,1335.1,1259125,0.55,1.35,[1379.77,1404.91,1427.48,1412.94,1394.61],40.04,-3.26,31.45,1352.39,-108.24,41.83,34.94,1489.9,1563.4,1563.4,1563.4,10485938,52,"Strong Bullish Candle",""],
-["NAM-INDIA","Nippon Life India Asset Management","financials",1049,1069.5,1046,1061,1046,832988,0.982,0.823,[1094.09,1125.64,1148.15,1124.86,1051.81],34.62,-10.59,25,1060.3,-152.1,20.6,33.76,1196,1269.5,1269.5,1269.5,8464597,28,"EMA 200 Cutting","Reversal|Deep Oversold + Support"]
+["PTCIL", "PTC Industries", "castings, forgings & fasteners", 23850.0, 24800.0, 23755.0, 24685.0, 23125.0, 117090, 6.22, 5.4, [22878.48, 22496.44, 21346.46, 20014.84, 18645.32], 69.06, 57.09, 37.8, 24253.43, 235.19, 96.5, 957.31, 24685.0, 24685.0, 24800.0, 24800.0, 284135, 83, "Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade", "Momentum|VWAP Reclaim / Hold|Higher High + Higher Low"],
+["DYNAMATECH", "Dynamatic Technologies", "aerospace & defence", 14180.0, 14252.0, 13660.0, 13723.0, 14279.0, 29509.0, 0.752, 1.0, [13525.58, 12911.35, 12070.32, 11414.6, 10561.63], 68.39, 131.15, 46.66, 13914.83, 110.56, 74.27, 525.47, 14409.0, 14409.0, 14409.0, 14409.0, 388748, 26, "Swing Trade", "Momentum"],
+["ZSARACOM", "ZSARACOM", "financials", 9950.0, 10300.0, 9950.0, 10282.0, 9961.0, 12.0, 0.408, 0.348, [10132.56, 10383.34, 10812.32, 10811.61, 10590.04], 46.09, 23.36, 25.29, 10145.91, -40.24, 72.8, 407.37, 11276.0, 13076.0, null, 12270.0, null, 48, "Bullish Marubozu|Strong Bullish Candle", ""],
+["DIVISLAB", "Divi's Laboratories", "healthcare", 9500.5, 9660.0, 9494.0, 9588.0, 9550.0, 422217, 0.78, 0.817, [9434.92, 9349.31, 8868.21, 8190.01, 7483.07], 61.5, -39.36, 36.02, 9570.08, 96.67, 77.04, 215.9, 9740.0, 9740.0, 9740.0, 9740.0, 1927570, 66, "Swing Trade", "Momentum|Higher High + Higher Low"],
+["POLYCAB", "POLYCAB", "industrials", 8130.5, 8335.5, 8038.0, 8310.0, 8147.0, 531310, 0.798, 1.32, [8191.84, 8310.95, 8607.17, 8693.14, 8410.09], 46.61, 22.38, 29.47, 8168.98, -14.44, 73.62, 184.21, 8463.0, 9445.0, 10126.0, 9445.0, 1837111, 57, "Bullish Tweezer Bottom|Strong Bullish Candle", ""],
+["GILLETTE", "GILLETTE", "fmcg", 7060.0, 7284.0, 7006.0, 7223.5, 7057.0, 26580.0, 1.06, 1.15, [7064.64, 7136.01, 7331.45, 7542.32, 7869.85], 51.79, 18.74, 30.46, 7149.47, 11.91, 74.41, 166.94, 7564.0, 8100.0, 10553.0, 7564.0, 334551, 57, "", "EMA 20 Pullback"],
+["AMBER", "AMBER", "consumer discretionary", 6810.0, 6925.0, 6767.5, 6925.0, 6869.0, 91287.0, 0.499, 0.723, [6816.58, 6949.37, 7167.37, 7292.54, 7282.17], 46.85, -5.92, 30.18, 6853.63, -38.8, 63.05, 212.09, 7308.0, 7701.0, 8974.0, 7794.0, 3136273, 46, "Strong Bullish Candle", ""],
+["JKCEMENT", "JKCEMENT", "building materials", 4960.0, 5081.5, 4952.0, 5047.0, 4960.0, 39360.0, 0.401, 0.678, [4999.16, 5021.14, 5130.23, 5244.31, 5375.01], 49.97, 14.2, 19.98, 5024.23, 37.98, 62.36, 150.96, 5184.5, 5762.0, 7000.0, 5310.0, 546446, 43, "Bullish Tweezer Bottom|Strong Bullish Candle", "EMA 20 Pullback"],
+["KEI", "KEI", "industrials", 4560.2, 4688.9, 4495.0, 4677.7, 4557.4, 220874, 0.608, 0.429, [4591.46, 4687.08, 4918.39, 4976.39, 4817.01], 46.33, 33.13, 27.8, 4614.43, 36.52, 75.49, 130.2, 4722.5, 5873.0, 5899.0, 5740.3, 3728753, 48, "Strong Bullish Candle", ""],
+["CENTUM", "CENTUM", "aerospace & defence", 4452.0, 4498.8, 4330.1, 4345.9, 4451.0, 78371.0, 0.505, 0.538, [4570.17, 4449.45, 4104.17, 3768.25, 3350.07], 49.88, -57.03, 32.36, 4376.14, -37.73, 6.91, 238.48, 4920.7, 4920.7, 4999.5, 4999.5, 1736851, 20, "", ""],
+["RADICO", "Radico Khaitan", "fmcg", 4451.0, 4531.2, 4425.3, 4495.0, 4460.1, 460029, 1.11, 1.66, [4417.57, 4439.42, 4383.65, 4137.8, 3747.69], 52.68, -4.88, 18.34, 4491.86, 55.7, 68.6, 129.05, 4601.9, 4732.9, 4747.0, 4680.0, 5902795, 58, "", "EMA 20 Pullback"],
+["TITAN", "Titan Company", "consumer discretionary", 4439.0, 4440.0, 4335.6, 4377.0, 4550.0, 2951280, 3.4, 4.5, [4612.45, 4746.68, 4805.67, 4687.94, 4444.84], 25.37, -46.91, 36.41, 4375.49, -196.48, 6.4, 111.89, 5021.0, 5169.2, 5186.7, 5186.7, 5925166, 17, "", "Reversal"],
+["SHILCTECH", "SHILCTECH", "industrials", 4095.0, 4100.0, 3990.6, 4000.9, 4094.2, 15948.0, 0.891, 0.981, [4051.47, 4065.17, 4123.58, 4166.14, 4159.09], 45.07, 0.702, 10.92, 4023.11, -81.35, 20.99, 115.73, 4212.5, 4684.1, null, 4279.0, null, 9, "", ""],
+["DMART", "Avenue Supermarts (DMart)", "consumer discretionary", 3567.1, 3636.0, 3560.2, 3636.0, 3581.9, 406908, 0.383, 0.671, [3697.58, 3742.57, 3835.21, 3929.93, 4003.82], 39.79, -10.94, 26.59, 3608.62, -138.74, 32.03, 98.42, 3880.0, 4124.9, 4818.0, 3960.0, 2710202, 41, "Bullish Marubozu|Strong Bullish Candle", "Reversal"],
+["MCX", "Multi Commodity Exchange of India", "financials", 3305.0, 3374.6, 3267.8, 3362.6, 3310.0, 2369566, 1.31, 1.27, [3284.93, 3265.91, 3159.04, 3014.25, 2743.22], 57.31, -10.09, 17.34, 3334.92, 68.67, 64.15, 117.71, 3481.4, 3481.4, 3481.4, 3481.4, 20999802, 68, "", "VWAP Reclaim / Hold|Higher High + Higher Low|EMA 20 Pullback"],
+["BSE", "BSE Ltd", "financials", 3265.0, 3372.6, 3246.5, 3356.0, 3305.0, 6608257, 0.586, 1.17, [3223.2, 3240.51, 3349.89, 3413.38, 3270.19], 54.85, 19.67, 20.35, 3320.12, 82.91, 95.54, 117.95, 3394.0, 3664.0, 4446.8, 3474.5, 30101047, 55, "Three White Soldiers|Strong Bullish Candle|EMA 200 Cutting", "EMA 20 Pullback"],
+["PRUDENT", "PRUDENT", "financials", 3172.0, 3247.5, 3170.7, 3223.3, 3204.3, 19841.0, 0.55, 0.647, [3191.14, 3237.56, 3227.2, 3102.52, 2923.26], 48.42, -13.07, 22.22, 3222.94, -31.89, 36.45, 114.77, 3545.0, 4105.5, 4105.5, 4105.5, 429351, 53, "Three Outside Up|Strong Bullish Candle", ""],
+["GLAND", "Gland Pharma", "healthcare", 3026.0, 3171.0, 3019.0, 3150.6, 3006.1, 1341221, 2.85, 2.66, [2974.77, 2936.33, 2817.01, 2604.92, 2337.82], 67.79, 8.54, 26.8, 3113.38, 298.99, 94.19, 98.83, 3150.6, 3150.6, 3171.0, 3171.0, 8760097, 88, "Strong Bullish Candle|Bullish Momentum|52 Week High|Swing Trade", "Momentum|VWAP Reclaim / Hold|Higher High + Higher Low"],
+["ADANIENT", "Adani Enterprises", "services", 2827.0, 2848.3, 2732.0, 2743.0, 2849.9, 1738033, 0.801, 1.09, [2861.01, 2910.47, 2949.84, 2880.54, 2727.54], 37.35, -16.31, 19.76, 2766.27, -176.27, 3.74, 92.05, 3142.0, 3213.5, 3245.0, 3173.7, 12872435, 12, "", "Reversal"],
+["TIIL", "Technocraft Industries (India)", "metals & mining", 2825.5, 2825.5, 2688.1, 2715.4, 2819.1, 40230.0, 1.68, 1.24, [2874.21, 2965.15, 2950.67, 2816.11, 2676.58], 26.41, -39.27, 24.45, 2726.16, -172.42, 5.74, 112.61, 3300.0, 3565.3, 3565.3, 3565.3, 697944, 19, "", "Reversal"],
+["GLAXO", "GlaxoSmithKline Pharmaceuticals", "healthcare", 2760.0, 2760.0, 2613.3, 2634.0, 2755.0, 125296, 2.69, 1.62, [2760.0, 2805.32, 2769.74, 2670.46, 2607.3], 33.76, -24.87, 22.06, 2648.82, -220.79, 5.54, 90.22, 3001.3, 3120.7, 3120.7, 3120.7, 1374693, 20, "", "Reversal"],
+["RATNAMANI", "Ratnamani Metals & Tubes", "industrials", 2617.0, 2617.0, 2511.0, 2524.3, 2601.2, 50917.0, 1.18, 0.966, [2653.5, 2682.11, 2631.3, 2577.0, 2539.96], 40.33, -39.45, 23.49, 2552.44, -179.56, 3.26, 104.55, 2859.2, 2859.2, 3345.0, 2918.4, 1237025, 16, "", ""],
+["EIMCOELECO", "EIMCOELECO", "industrials", 2378.0, 2448.4, 2240.0, 2247.3, 2371.8, 103663, 3.32, 4.14, [2280.66, 2260.53, 2144.73, 1996.72, 1895.18], 51.02, -11.05, 38.36, 2331.65, 123.26, 11.37, 103.61, 2448.4, 2448.4, 2448.4, 2448.4, 2288509, 46, "52 Week High", ""],
+["BALKRISIND", "Balkrishna Industries", "auto", 2079.0, 2079.0, 2002.0, 2006.6, 2082.7, 295283, 1.83, 1.37, [2099.17, 2155.78, 2214.55, 2235.5, 2277.46], 28.46, -12.62, 21.83, 2020.08, -175.06, 1.56, 55.82, 2265.3, 2524.6, 2775.0, 2394.2, 9682350, 12, "", "Reversal"],
+["LAURUSLABS", "Laurus Labs", "healthcare", 2052.0, 2065.2, 2035.6, 2052.8, 2050.0, 1499990, 0.846, 0.862, [2008.46, 1976.81, 1872.08, 1700.41, 1460.0], 66.43, -1.72, 26.85, 2048.81, 141.13, 92.72, 51.09, 2065.2, 2065.2, 2065.2, 2065.2, 30995343, 72, "Three Outside Up|Bullish Momentum|52 Week High|Swing Trade", "Momentum|Higher High + Higher Low"],
+["TATVA", "Tatva Chintan Pharma Chem", "chemicals", 1880.2, 2000.0, 1866.7, 1991.2, 1877.4, 278517, 3.53, 3.56, [1827.78, 1767.56, 1676.11, 1559.67, 1424.58], 70.33, 19.02, 27.62, 1953.88, 222.14, 97.59, 96.11, 1991.2, 1991.2, 2000.0, 2000.0, 3318135, 83, "Strong Bullish Candle|Bullish Momentum|52 Week High|One day Bullish Stock|Swing Trade", "VWAP Reclaim / Hold|Higher High + Higher Low"],
+["RPEL", "Raghav Productivity Enhancers", "building materials", 1859.9, 1925.0, 1751.0, 1820.9, 1835.6, 249601, 2.44, 2.01, [1783.7, 1737.99, 1605.6, 1411.67, 1186.23], 60.82, 4.64, 29.92, 1854.38, 122.15, 73.1, 104.18, 1925.0, 1943.7, 1943.7, 1943.7, 2261148, 50, "Swing Trade", "Momentum"],
+["LGEINDIA", "LG Electronics India", "consumer discretionary", 1757.4, 1790.0, 1751.5, 1780.3, 1758.6, 371600, 0.342, 0.52, [1739.14, 1708.15, 1660.74, 1620.64, 1599.73], 67.44, 7.42, 32.78, 1767.29, 139.72, 78.42, 48.13, 1780.3, 1780.3, null, 1825.0, null, 54, "Bullish Engulfing|Bullish Tweezer Bottom|Swing Trade", "Momentum|Higher High + Higher Low"],
+["SYRMA", "Syrma SGS Technology", "consumer discretionary", 1690.7, 1769.5, 1690.7, 1746.7, 1685.1, 1814188, 1.07, 0.602, [1713.08, 1668.66, 1559.39, 1413.96, 1211.45], 60.48, -4.32, 26.32, 1744.49, 61.5, 75.44, 79.88, 1822.6, 1822.6, 1822.6, 1822.6, 19204808, 56, "Strong Bullish Candle|Swing Trade", "Momentum|Higher High + Higher Low"],
+["PAYTM", "One 97 Communications (Paytm)", "i.t", 1686.5, 1774.0, 1680.1, 1732.0, 1694.0, 5016093, 1.99, 1.19, [1703.14, 1702.7, 1614.38, 1479.79, 1342.57], 54.85, -13.88, 30.05, 1740.81, -6.74, 47.72, 60.38, 1849.9, 1849.9, 1855.5, 1855.5, 52117312, 68, "Bullish Engulfing", "Higher High + Higher Low|EMA 20 Pullback"],
+["TBOTEK", "TBO Tek", "i.t", 1682.0, 1772.5, 1676.4, 1704.5, 1693.2, 1938711, 8.86, 11.68, [1685.07, 1682.97, 1640.64, 1560.29, 1495.02], 54.89, -2.34, 15.97, 1721.52, 123.06, 54.15, 64.71, 1772.5, 1772.5, 1772.5, 1772.5, 5084237, 69, "52 Week High", "Higher High + Higher Low|EMA 20 Pullback"],
+["LGBBROSLTD", "LGBBROSLTD", "auto", 1657.8, 1724.9, 1644.1, 1715.8, 1657.8, 22620.0, 0.795, 0.885, [1705.02, 1705.22, 1672.08, 1653.95, 1635.12], 54.58, -9.77, 23.79, 1699.7, -90.92, 54.93, 48.04, 1778.0, 1778.0, 2048.0, 1778.0, 2406758, 55, "Bullish Engulfing|Bullish Tweezer Bottom|Strong Bullish Candle", "EMA 20 Pullback"],
+["GESHIP", "Great Eastern Shipping", "transportation", 1530.6, 1572.0, 1530.6, 1567.9, 1532.6, 464716, 0.435, 0.47, [1529.5, 1483.12, 1431.9, 1410.26, 1351.77], 68.47, 6.96, 39.18, 1558.45, 101.76, 92.28, 43.37, 1583.0, 1598.9, 1798.0, 1583.0, 18205845, 59, "Bullish Engulfing|Bullish Marubozu|Strong Bullish Candle|Bullish Momentum|Swing Trade", "Momentum|Higher High + Higher Low"],
+["MOLBIO", "Molbio Diagnostics", "healthcare", 1499.0, 1559.9, 1496.4, 1544.7, 1501.1, 1450584, 0.44, 0.34, [1416.78, 1335.72, 1227.57, 1155.02, 1104.93], 68.96, 22.53, 34.4, 1535.89, 138.55, 94.54, 100.2, 1544.7, null, null, 1686.8, null, 59, "Bullish Engulfing|Strong Bullish Candle|Bullish Momentum|Swing Trade", "Momentum|Higher High + Higher Low"],
+["CHENNPETRO", "Chennai Petroleum Corporation", "energy", 1410.0, 1628.7, 1410.0, 1612.3, 1405.7, 20027812, 10.9, 9.86, [1445.42, 1430.24, 1378.33, 1284.68, 1149.97], 66.56, 6.24, 22.79, 1564.34, 111.48, 94.6, 91.2, 1626.4, 1626.4, 1677.5, 1677.5, 34684037, 88, "Bullish Marubozu|Strong Bullish Candle|Bullish Momentum|Swing Trade", "Momentum|VWAP Reclaim / Hold|Higher High + Higher Low|EMA 20 Pullback"],
+["AEGISLOG", "Aegis Logistics", "services", 1399.1, 1481.0, 1383.4, 1460.2, 1395.9, 1713087, 1.92, 1.74, [1389.25, 1368.53, 1315.12, 1197.87, 1042.97], 59.79, 4.02, 21.26, 1450.29, 132.48, 72.48, 72.05, 1528.7, 1528.7, 1528.7, 1528.7, 40729363, 73, "Three Inside Up|Strong Bullish Candle", "VWAP Reclaim / Hold|Higher High + Higher Low"],
+["BHARTIHEXA", "BHARTIHEXA", "telecom-service", 1386.8, 1485.0, 1376.5, 1477.9, 1386.8, 1512590, 6.16, 11.78, [1436.74, 1469.21, 1510.24, 1534.06, 1564.53], 49.12, -4.87, 21.42, 1449.27, -47.29, 59.44, 48.67, 1567.4, 1678.1, 1955.6, 1616.9, 1163665, 58, "Strong Bullish Candle|52 Week Vol Breakout", "EMA 20 Pullback"],
+["TRANSPEK", "TRANSPEK", "chemicals", 1345.1, 1425.0, 1345.1, 1398.1, 1379.5, 1763.0, 1.38, 0.92, [1355.86, 1346.8, 1293.71, 1230.72, 1185.13], 57.94, -1.51, 16.55, 1402.94, 207.68, 82.07, 65.58, 1398.1, 1446.5, null, 1475.0, null, 65, "Strong Bullish Candle", "Higher High + Higher Low|EMA 20 Pullback"],
+["ADANIGREEN", "Adani Green Energy", "power & utilities", 1313.0, 1377.8, 1310.7, 1341.4, 1313.0, 6420423, 2.47, 4.16, [1296.83, 1294.54, 1319.78, 1314.98, 1252.64], 57.39, 7.72, 14.36, 1355.02, 189.87, 76.39, 42.94, 1341.4, 1541.9, 1631.5, 1377.8, 36232727, 56, "", ""],
+["PVRINOX", "PVR INOX", "media", 1287.0, 1374.8, 1276.0, 1343.8, 1249.4, 5065408, 10.28, 6.88, [1262.77, 1251.9, 1204.55, 1143.91, 1100.57], 61.98, -1.23, 24.49, 1339.85, 130.52, 83.99, 58.61, 1349.3, 1349.3, 1374.8, 1374.8, 3208552, 77, "Bullish Momentum|52 Week High|Swing Trade|52 Week Vol Breakout", "Momentum|VWAP Reclaim / Hold|Higher High + Higher Low"],
+["PNBHOUSING", "PNB Housing Finance", "financials", 1105.1, 1139.7, 1105.1, 1131.0, 1102.1, 1125058, 1.3, 1.18, [1112.06, 1121.18, 1119.67, 1084.93, 1029.3], 51.5, -0.666, 16.91, 1128.5, -3.09, 73.54, 34.46, 1189.6, 1211.5, 1211.5, 1211.5, 19954612, 61, "Strong Bullish Candle", "EMA 20 Pullback"],
+["GULFOILLUB", "GULFOILLUB", "chemicals", 1080.8, 1120.0, 1078.5, 1118.6, 1087.9, 48522.0, 1.01, 1.04, [1096.31, 1094.39, 1090.83, 1074.32, 1076.51], 55.38, 3.78, 15.85, 1105.61, 99.23, 87.94, 33.52, 1129.1, 1230.4, 1317.8, 1173.9, 887256, 74, "Three Inside Up|Bullish Marubozu|Strong Bullish Candle", "Higher High + Higher Low|EMA 20 Pullback"],
+["KSHINTL", "KSH International", "metals & mining", 1040.9, 1077.7, 1033.0, 1072.3, 1034.1, 340263, 1.42, 1.16, [1039.13, 1037.65, 995.42, 899.11, 749.28], 56.94, -3.9, 16.81, 1061.03, -7.03, 82.79, 47.16, 1198.0, 1198.0, null, 1198.0, null, 69, "Strong Bullish Candle", "VWAP Reclaim / Hold|Higher High + Higher Low|EMA 20 Pullback"]
 ];
 
-/* ===== Board info & latest news — researched 5 Oct 2026; each item links its source ===== */
+/* ===== Board info & latest news — researched 7 Oct 2026; each item links its source ===== */
 const INFO = {
+"PTCIL":{"board": [["29 Jun 2026", "Board approved an enabling resolution to raise up to ₹1,800 cr (QIP or other routes) and lifted the borrowing limit to ₹600 cr from ₹350 cr.", "https://www.business-standard.com/amp/markets/capital-market-news/ptc-inds-board-approves-rs-1-800-crore-fundraising-plan-higher-debt-limits-126062900294_1.html"]], "news": [["07 Oct 2026", "Launched its QIP with a floor price of ₹22,150/share; stock hit a record ₹24,262.65 intraday. Stated uses include expansion (incl. Aerolloy), acquisitions and debt repayment.", "https://www.business-standard.com/amp/markets/news/ptc-industries-rallies-5-hits-record-high-in-weak-market-here-s-why-126100700207_1.html"]]},
+"CHENNPETRO":{"board": [["23 Jul 2026", "Q1 FY27 standalone PAT ₹1,016.67 cr vs a ₹56.62 cr loss a year ago (−27% QoQ); GRM $8.78/bbl vs $3.22.", "https://www.business-standard.com/markets/capital-market-news/chennai-petroleum-corporation-slips-after-q1-pat-falls-27-qoq-to-rs-1-017-crore-126072300791_1.html"]], "news": [["07 Oct 2026", "Refiners gained with Brent near $101/bbl and expectations of firm Q2 refining margins; volume ~6× average. No company announcement cited.", "https://www.business-standard.com/markets/news/chennai-petroleum-mrpl-shares-defy-market-weakness-gain-up-to-6-126100700216_1.html"]]},
+"PVRINOX":{"board": [["31 Aug 2026", "Board approved a buyback of up to ₹300 cr at ₹1,450/share (up to 20.69 lakh shares) via tender offer.", "https://www.business-standard.com/amp/markets/news/pvr-inox-board-approves-300-crore-share-buyback-at-1-450-per-share-126083101379_1.html"]], "news": [["07 Oct 2026", "Hit a 22-month high (~10% intraday) on >5× volume ahead of Q2 results, linked to strong Hollywood and Indian releases; plans 100–110 new screens in FY27.", "https://www.business-standard.com/markets/news/pvr-inox-rallies-10-stock-hits-22-month-high-in-weak-market-126100700634_1.html"]]},
+"TATVA":{"board": [["17 Jul 2026", "Q1 FY27 consolidated profit ₹15.98 cr (vs ₹6.65 cr) on revenue ₹167.06 cr; approved a ₹200 cr greenfield unit at Dahej (344 KL reactor capacity, ~21 months).", "https://www.whalesbook.com/corporate-news/English/chemicals/Tatva-Chintan-Pharma-Chem-Q1-FY27-Revenue-indian-rupee167-Cr-Profit-indian-rupee16-Cr-Approves-indian-rupee200-Cr-Expansion/6a5a02b00037f0717263cc74"]], "news": []},
+"GLAND":{"board": [["10 Aug 2026", "Q1 FY27 consolidated net profit ₹317 cr (+47% YoY); revenue ₹1,800 cr (+19.5%).", "https://upstox.com/news/market-news/earnings/gland-pharma-q1-fy-27-result-net-profit-jumps-47-yo-y-cdmo-business-contributed-50-of-total-revenues/article-198416/"]], "news": [["07 Oct 2026", "Rose ~4% after a brokerage reiterated a positive view citing the shift toward CDMO, biologics and in-licensing.", "https://www.whalesbook.com/news/English/stock-investment-ideas/Kanohar-Electricals-Surges-16percent-on-Strong-Q1-Gland-Pharma-Rises/6ac5fb2b5aacb956d08ef722"]]},
+"AEGISLOG":{"board": [["06 Aug 2026", "Q1 consolidated net profit ₹484 cr vs ₹131 cr a year ago; revenue ₹2,357 cr (+37%).", "https://businessupturn.com/finance/stock-market/quarterly-results/aegis-logistics-q1-results-net-profit-jumps-270-yoy-to-rs-484-crore-revenue-up-37/"]], "news": []},
+"SYRMA":{"board": [["30 Jul 2026", "Q1 FY27 net profit ₹105.7 cr (+111.8% YoY); revenue ₹1,603.7 cr (+67.1%).", "https://www.autocarpro.in/news/syrma-sgs-technology-reports-112-percent-jump-in-q1-fy27-net-profit-to-rs-106-crore-133805"]], "news": [["17 Sep 2026", "Shares up 125% in 2026; order-book visibility about ₹6,770 cr as of end-June.", "https://www.business-standard.com/amp/markets/news/syrma-sgs-technology-soars-9-up-125-in-2026-what-s-driving-ems-stock-126091700231_1.html"]]},
+"MOLBIO":{"board": [["07 Sep 2026", "First results after listing: Q1 FY27 profit ₹52.74 cr vs a ₹23.94 cr loss; total income ₹411.48 cr.", "https://hdfcsky.com/news/newly-listed-molbio-diagnostics-posts-rs-52-7-cr-profit-in-q1"]], "news": [["17 Aug 2026", "Listed at ₹980, a 21.4% premium to the ₹807 IPO price (₹940 cr issue).", "https://www.business-standard.com/markets/news/solid-debut-molbio-diagnostics-shares-list-at-21-premium-over-ipo-price-126081700195_1.html"]]},
+"PAYTM":{"board": [["20 Jul 2026", "Q1 FY27 net profit ₹220 cr (+79%), revenue ₹2,448 cr (+27.6%). Board decided not to proceed with a bonus issue for now.", "https://www.business-standard.com/companies/quarterly-results/paytm-posts-220-crore-net-profit-in-q1-revenue-from-operations-up-27-6-126072001538_1.html"]], "news": [["07 Oct 2026", "Rose for a third straight session while the Sensex fell; no company announcement cited.", "https://marketsmojo.com/news/stocks-in-action/one-97-communications-ltd-sees-robust-trading-activity-amid-upgraded-mojo-grade-4217208"]]},
+"DIVISLAB":{"board": [["03 Aug 2026", "Q1 FY27 PAT ₹902 cr (+65.5% YoY); revenue ₹3,080 cr (+27.8%).", "https://www.business-standard.com/markets/capital-market-news/divi-s-lab-gains-as-q1-pat-climbs-66-yoy-to-rs-902-crore-126080300216_1.html"]], "news": [["06 Oct 2026", "A broker report named it a possible Nifty 50 entrant at the March 2027 review; NSE's decision is due Feb 2027.", "https://www.sahi.com/news/divi-s-laboratories-emerges-as-nifty-inclusion-contender-with-824-million-inflows"]]},
+"LAURUSLABS":{"board": [["24 Jul 2026", "Q1 FY27 net profit ₹367.6 cr (+126% YoY); revenue ₹2,026.3 cr (+29%).", "https://www.business-standard.com/amp/markets/capital-market-news/laurus-labs-climbs-on-robust-q1-earnings-126072400911_1.html"]], "news": [["06 Oct 2026", "Invested ₹12.09 cr in associate Kurnool Renewables via rights issue, keeping its 26% stake.", "https://scanx.trade/stock-market-news/companies/laurus-labs-invests-12-09-crore-kurnool-renewables-via-rights-issue/52836990"]]},
+"RPEL":{"board": [["05 Jun 2026", "FY26 revenue ₹257.07 cr (+28.8%), PAT ₹54.80 cr (+48.2%); ₹1 dividend; capacity expansion to 534,000 MTPA targeted for 1 Oct 2026.", "https://www.whalesbook.com/corporate-news/English/industrial-goodsservices/Raghav-Productivity-Enhancers-Reports-2876percent-Revenue-Growth-4822percent-Profit-Jump-in-FY26/6a2295c3c75ed156cfa17658"]], "news": []},
+"KSHINTL":{"board": [["20 Aug 2026", "FY26 revenue ₹3,107 cr (+61%), PAT ₹110.1 cr (+62%).", "https://www.whalesbook.com/corporate-news/English/industrial-goodsservices/KSH-International-Sees-Revenue-Jump-61percent-to-Rs-3107-Cr-in-FY26/6a87020f6817e697e7d3db2e"]], "news": []},
+"PNBHOUSING":{"board": [["04 Aug 2026", "Q1 FY27 net profit ₹557 cr (+4% YoY); AUM ₹93,021 cr (+13%).", "https://www.psuconnect.in/financial/pnb-housing-finance-q1-results-pat-up-4-aum-at-93-021-cr"]], "news": [["06 Oct 2026", "CRISIL upgraded long-term rating to AAA/Stable from AA+/Stable.", "https://www.whalesbook.com/corporate-news/English/bankingfinance/PNB-Housing-Finance-Credit-Rating-Upgraded-to-AAAStable-by-CRISIL/6ac5128f61666c732ba5fd37"]]},
+"ADANIGREEN":{"board": [["22 Jul 2026", "Q1 FY27 net profit ₹983 cr (+19% YoY); revenue ₹4,663 cr; added 848 MW in the quarter.", "https://www.business-standard.com/companies/quarterly-results/companies-quarterly-results-adani-green-q1fy27-profit-revenue-capacity-ebitda-126072200982_1.html"]], "news": [["07 Oct 2026", "Up ~3% intraday, the best Adani Group performer; no reason reported.", "https://businessupturn.com/finance/stock-market/adani-group-stocks-today-october-7-adani-green-jumps-3-20-adani-power-falls-1-adani-ports-down-0-90/"]]},
+"MCX":{"board": [["05 Aug 2026", "Q1 FY27 net profit ₹413 cr (+103% YoY, −22% QoQ); revenue ₹702 cr (+88%).", "https://www.indiainfoline.com/news/companies/mcx-q1-fy27-results-net-profit-rises-103-yoy-to-413-crore-revenue-jumps-88-despite-sequential-decline"]], "news": []},
+"BSE":{"board": [["05 Aug 2026", "Q1 FY27 consolidated PAT ₹873 cr (+62.3%); revenue from operations ₹1,566 cr (+63.5%).", "https://www.business-standard.com/markets/capital-market-news/bse-q1-pat-rises-62-yoy-126080500302_1.html"]], "news": []},
+"RADICO":{"board": [["Q1 FY27", "Q1 FY27 net profit ₹226 cr, up nearly 70% YoY.", "https://www.whalesbook.com/news/English/consumer-products/Radico-Khaitan-Boosts-Premium-Portfolio-Targets-Net-Debt-Free-Status-by-2027/6ac12a575aacb956d08a87de"]], "news": [["03 Oct 2026", "Prioritising premium launches in India (e.g. single malt Virasat) and working toward net-debt-free status.", "https://www.whalesbook.com/news/English/consumer-products/Radico-Khaitan-Boosts-Premium-Portfolio-Targets-Net-Debt-Free-Status-by-2027/6ac12a575aacb956d08a87de"]]},
+"TBOTEK":{"board": [["01 Sep 2026", "Shareholders approved re-appointment of four independent directors.", "https://scanx.trade/stock-news/tbo-tek-ltd"]], "news": [["07 Oct 2026", "Hit a 52-week high of ₹1,771 intraday on ~7.8× average volume; no company-specific reason given.", "https://upstox.com/news/market-news/stocks/tbo-tek-chennai-petroleum-pvr-inox-shares-surge-amid-spike-in-volumes-check-full-list/article-201444/"]]},
+"TITAN":{"board": [["07 Aug 2026", "Q1 FY27 consolidated net profit ₹1,777 cr (+63% YoY), including ₹407 cr customs-duty gains on gold.", "https://www.kotakneo.com/news/stocks/titan-q1-fy-2026-27-results-net-profit-rises/"]], "news": [["07 Oct 2026", "Q2 FY27 update: consumer businesses grew ~25%, jewellery ~21% — below some street expectations; stock fell over 4%.", "https://www.indmoney.com/blog/stocks/why-titan-share-fell-today"]]},
+"RATNAMANI":{"board": [["22 Aug 2026", "Shareholders approved ₹10/share dividend; Q1 FY27 net profit fell 15.8% on weaker domestic demand (8 Aug).", "https://scanx.trade/stock-news/ratnamani-metals-and-tubes-ltd"]], "news": [["25 Aug 2026", "Cut current-year growth guidance to 10% from 20%; secured a ₹2,700 cr export contract (24 Aug).", "https://scanx.trade/stock-news/ratnamani-metals-and-tubes-ltd"]]},
+"BALKRISIND":{"board": [["30 Jul 2026", "Q1 FY27 PAT ₹432.1 cr (+50.5%); revenue ₹3,444.7 cr (+24.8%); interim dividend ₹4/share.", "https://www.business-standard.com/amp/markets/capital-market-news/balkrishna-inds-surges-after-q1-pat-rises-50-yoy-to-rs-432-cr-126073000610_1.html"]], "news": [["07 Oct 2026", "Among the top auto-index losers as rate-sensitive stocks fell ahead of the RBI policy decision.", "https://www.businesstoday.in/markets/trending-stocks/story/auto-banking-real-estate-shares-fall-ahead-of-rbi-policy-outcome-560017-2026-10-07"]]},
+"ADANIENT":{"board": [["29 Jul 2026", "Q1 FY27 revenue ₹32,924 cr (+50% YoY) but a net loss of about ₹1,160 cr due to a one-time settlement-related exceptional expense.", "https://moneyguruplus.com/quarterly-results/adani-enterprises-q1-fy27-fy26-27-result-review-revenue-surges-50-one-time-charge-pushes-company-into-loss/"]], "news": []},
+"TIIL":{"board": [["28 May 2026", "Q4 FY26 consolidated net profit about ₹76 cr; board recommended an interim dividend for FY26.", "https://in.marketscreener.com/quote/stock/TECHNOCRAFT-INDUSTRIES-IN-9059635/news/"]], "news": []},
+"GLAXO":{"board": [["03 Aug 2026", "Q1 FY27 standalone profit ₹253.3 cr on revenue ₹924.4 cr; Bhushan Akshikar re-appointed MD for 2 years from 1 Dec 2026.", "https://www.investywise.com/glaxosmithkline-pharmaceuticals-board-meeting-outcome-leadership-changes/"]], "news": []},
 DYNAMATECH:{board:[
  ["19 May 2026","FY26 results: consolidated revenue ₹1,621 cr. Final dividend ₹5/share (₹10 total for FY26).","https://www.investywise.com/dynamatic-technologies-limited-financial-results-and-leadership-changes/"],
  ["19 May 2026","Udayant Malhoutra re-appointed CEO & MD for 5 years from 1 Oct 2026; UK hydraulics unit being restructured with production moving to India.","https://www.investywise.com/dynamatic-technologies-limited-financial-results-and-leadership-changes/"]],
  news:[["Oct 2026","Stock made a fresh 52-week high; no specific company announcement identified as the trigger.","https://www.marketsmojo.com/news/stocks-in-action/dynamatic-technologies-ltd-hits-new-52-week-high-at-rs14120-4214298"]]},
-STLTECH:{board:[
- ["Jul 2026","Q1 FY27: revenue ₹1,910 cr (vs ₹1,019 cr), net profit ₹197 cr (vs ₹10 cr). Net-debt-free after ₹1,500 cr QIP; order book ₹18,618 cr.","https://www.freepressjournal.in/business/sterlite-technologies-q1-fy27-consolidated-net-profit-jumps-to-197-crore-revenue-up-87-yoy"]],
- news:[["05 Oct 2026","Market cap crossed ₹50,000 cr; rally linked to a ~$1.2 bn long-term optical connectivity supply agreement for data centres (execution to Dec 2030).","https://www.business-standard.com/markets/news/sterlite-tech-stock-zooms-1069-from-jan-low-m-cap-tops-50-000-crore-126100500529_1.html"]]},
-ATLANTAELE:{board:[
- ["May 2026","Board meeting on 9 May 2026 to approve FY26 results and consider ESOS 2026.","https://scanx.trade/stock-market-news/companies/atlanta-electricals-limited-schedules-board-meeting-on-may-9-2026-to-approve-fy26-financial-results-and-consider-esos-2026/39624207"]],
- news:[["22 Jul 2026","Q1 FY27: revenue ₹466.33 cr (+48% YoY), PAT ₹46.84 cr (+50.4%). Order book ₹3,116.63 cr; fresh orders ₹972.42 cr in the quarter.","https://solarquarter.com/2026/07/22/atlanta-electricals-reports-48-revenue-growth-in-q1-fy27-order-book-crosses-inr-3100-crore/"],
- ["14 May 2026","Disclosed a 2-year debarment by South Bihar Power Distribution Co. over a <₹3 cr transformer contract; company disputes it and calls it not material.","https://scanx.trade/stock-market-news/companies/atlanta-electricals-limited-receives-two-year-debarment-order-from-south-bihar-power-distribution-company-limited/40295731"]]},
 LGEINDIA:{board:[
  ["13 Aug 2026","Q1 FY27 results: net profit up 27.2% to ₹652.86 cr; revenue up 15.5%.","https://www.business-standard.com/companies/quarterly-results/lg-electronics-india-q1-fy27-results-net-profit-rises-27-2-to-653-crore-126081301905_1.html"]],
  news:[["05 Oct 2026","Stock hit a record high of ₹1,825 (+6% intraday); reports cite healthy business outlook, AC price hikes and export growth above 30%.","https://www.business-standard.com/amp/markets/news/lg-electronics-surges-6-at-record-high-what-s-driving-stock-price-126100500286_1.html"]]},
-CYIENT:{board:[
- ["23 Apr 2026","Board approved a buyback of 64 lakh shares at ₹1,125 each (₹720 cr) via tender offer, subject to shareholder approval.","https://www.cyient.com/hubfs/2027/Investors/Buyback/Outcome-of-Board-Meeting-Buyback.pdf"]],
- news:[["30 Sep 2026","Stock rose 7.41% intraday to ₹1,137.65 and closed +4.72%; no company announcement cited as the trigger.","https://marketsmojo.com/news/stocks-in-action/cyient-ltd-gains-097-5-key-factors-driving-the-weeks-momentum-4212981"]]},
-RAYMOND:{board:[
- ["03 Oct 2026","Shareholders approved preferential issue of 33,28,686 share warrants to Minerva Ventures Fund (99.998% in favour).","https://www.whalesbook.com/corporate-news/English/consumer-products/Raymond-Shareholders-Approve-Preferential-Issue-of-33-Million-Share-Warrants/6ac1011a61666c732ba396fd"]],
- news:[["30 Sep 2026","Fresh 52-week / all-time high of ₹1,241.40 intraday; no company announcement cited for the move.","https://marketsmojo.com/news/stocks-in-action/raymond-ltd-gains-257-midweek-despite-market-downturn-4-key-factors-driving-the-move-4213369"]]},
-ROSSTECH:{board:[
- ["Sep 2026","Board approved private placement of 25.72 lakh shares at ₹1,166 (₹299.99 cr) to SBI Mutual Fund and SBI Optimal Equity Fund; EGM on 15 Oct 2026.","https://www.business-standard.com/amp/markets/capital-market-news/rossell-techsys-to-raise-rs-300-crore-from-sbi-mutual-fund-sbi-optimal-equity-fund-126091900359_1.html"]],
- news:[["16 Sep 2026","Shares up 101% in six months, hitting a new high.","https://www.business-standard.com/markets/news/rossell-techsys-share-price-zoom-101-in-six-months-hit-new-high-here-s-why-126091600544_1.html"]]},
 GESHIP:{board:[
  ["03 Aug 2026","Q1 FY27 PAT ₹1,308.84 cr; interim dividend ₹14.40/share (record date 7 Aug 2026).","https://www.investywise.com/the-great-eastern-shipping-company-limited-q1-fy27-financial-results-and-interim-dividend-declared/"]],
  news:[["2026","Contracted to buy a secondhand 2015-built Kamsarmax dry bulk carrier (81,886 dwt), delivery 7 Aug 2026, funded from internal accruals.","https://scanx.trade/stock-market-news/companies/ge-shipping-contracts-to-buy-secondhand-kamsarmax-dry-bulk-carrier/47654129"]]},
-RRKABEL:{board:[
- ["27 Jul 2026","Q1 FY27 results approved; final dividend ₹5.50/share for FY26.","https://bottomstreet.com/news/r-r-kabel-outcome-of-board-meeting-2026-07-27/"]],
- news:[]},
-MANORAMA:{board:[
- ["14 Aug 2026","Q1 FY27: net profit ₹78.66 cr (+67.6% YoY); sales ₹404.01 cr (+39.5%).","https://www.business-standard.com/amp/markets/capital-market-news/manorama-industries-consolidated-net-profit-rises-67-58-in-the-june-2026-quarter-126081400418_1.html"]],
- news:[]},
-QPOWER:{board:[
- ["2026","Board cleared 100% acquisition of Winwin Speciality Insulators for ₹272.34 cr (cash + shares) and a QIP of up to ₹700 cr; EGM on 19 Oct 2026.","https://www.tipranks.com/news/company-announcements/quality-power-electrical-equipments-clears-winwin-acquisition-700-crore-qip"]],
- news:[]},
-NPST:{board:[
- ["28 May 2026","FY26: total income ₹209.40 cr (+16%), net profit ₹40.82 cr (−9.7%); company pivoting to international markets.","https://www.whalesbook.com/corporate-news/English/technology/Network-People-Services-Technologies-Ltd-Posts-FY26-Profit-of-indian-rupee4082-Cr-Pivots-to-International-Markets/6a1852a00c0232fe81aa38de"]],
- news:[]},
-MOTILALOFS:{board:[
- ["14 Jul 2026","AGM approved ₹6/share dividend, borrowing limit raised to ₹22,500 cr, and reclassification of 11 promoter-group members to public.","https://scanx.trade/stock-market-news/companies/motilal-oswal-financial-services-approves-6-dividend-at-agm/45598624"]],
- news:[]},
-NUVAMA:{board:[
- ["30 Jul 2026","Q1 FY27: consolidated total income ₹1,381.96 cr, net profit ₹305.79 cr.","https://www.investywise.com/nuvama-wealth-management-board-meeting-outcome-strategic-moves/"],
- ["30 Jul 2026","Approved NCDs up to ₹500 cr; Pickright Technologies made wholly owned; up to ₹100 cr investment in Nuvama Asset Management.","https://www.investywise.com/nuvama-wealth-management-board-meeting-outcome-strategic-moves/"]],
- news:[["05 Oct 2026","Rose up to 9.5% on ~6.4× volume, in line with other capital-market stocks; no company-specific trigger reported.","https://upstox.com/news/market-news/stocks/shipping-corporation-nuvama-wealth-bharti-hexacom-shares-surge-amid-spike-in-volumes/article-201283/"],
- ["02 Sep 2026","HSBC reported to join CVC, Permira and EQT in bidding for PAG's ~54% stake (~$1.8 bn); a deal would trigger a 26% open offer.","https://www.sahi.com/news/nuvama-wealth-hsbc-joins-private-equity-firms-bidding-for-54-stake-valued-at-1-8-billion-3556-PE1_COR"]]},
-KRISHNADEF:{board:[
- ["15 Jul 2026","AGM approved ₹1.25/share dividend; MD Ankur Shah re-appointed for 5 years. FY26 net profit up 73% to ₹38.1 cr.","https://scanx.trade/stock-market-news/companies/krishna-defence-declares-12-5-dividend-for-fy-2025-26/45695393"]],
- news:[["05 Oct 2026","Hit 20% upper circuit after Antique Stock Broking initiated coverage, calling it a shipbuilding 'picks-and-shovels' play; order book ₹117 cr.","https://businesstoday.in/markets/stocks/story/krishna-defence-shares-soar-20-as-picks-and-shovels-play-gets-72-upside-target-559467-2026-10-05"],
- ["17 Jun 2026","Won ₹45.64 cr Ministry of Defence order for special steel for a shipbuilding project (8-month execution).","https://www.business-standard.com/markets/capital-market-news/krishna-defence-rises-after-securing-rs-45-64-crore-defence-order-126061700231_1.html"]]},
-DCMSHRIRAM:{board:[
- ["28 Jul 2026","Q1 FY27: revenue ₹3,564 cr (+9%); PAT ₹147 cr excluding exceptional items (+28%). Chemicals revenue +33%.","https://www.investywise.com/dcm-shriram-q1-fy27-earnings-conference-call-transcript/"]],
- news:[["05 Oct 2026","Hit 20% upper circuit; no specific reason was reported for the move.","https://tradebrains.in/indian-markets/dcm-shriram-krishna-defence-and-8-other-stocks-that-hit-the-20-upper-circuit-today-are-you-holding-any-12625809"]]},
-UNIVCABLES:{board:[
- ["07 Aug 2026","Power cable capex raised to ~₹617 cr; JV Birla Furukawa plans ~$500 mn optical fibre expansion by Dec 2028; Nishant Saigal named CFO from 21 Oct 2026.","https://www.tipranks.com/news/company-announcements/universal-cables-greenlights-major-capacity-expansions-and-cfo-transition"]],
- news:[["08 Aug 2026","Q1 FY27: net profit ₹70.14 cr (+108.75% YoY); sales ₹945.06 cr (+57.5%).","https://www.business-standard.com/amp/markets/capital-market-news/universal-cables-consolidated-net-profit-rises-108-75-in-the-june-2026-quarter-126080800202_1.html"]]},
-PERSISTENT:{board:[
- ["02 Aug 2026","Q1 FY27: revenue ₹4,303 cr (+29.1%), net profit ₹483 cr (+13.7%). Approved acquiring up to 100% of Nagarro SE at €81/share with €1.4 bn bridge financing.","https://scanx.trade/stock-market-news/companies/persistent-systems-q1-results-net-profit-up-13-7-yoy-nagarro-deal-approved/47208155"]],
- news:[["Oct 2026","Holds 83.25% of Nagarro; additional acceptance period runs to 6 Oct; shareholder vote on 5 Oct on the deal financing.","https://www.ad-hoc-news.de/boerse/news/nebenwerte/persistent-secures-83-25-percent-nagarro-stake-persistent-stock-faces/70209497"]]},
-CPPLUS:{board:[
- ["13 Aug 2026","Q1 FY27: revenue ₹1,402 cr (+89.5%), PAT ₹142 cr (+332.5%). FY27 revenue guidance ₹6,000–6,500 cr maintained.","https://www.investing.com/news/company-news/aditya-infotech-q1-fy27-slides-tripledigit-growth-market-share-doubles-93CH-4856798"]],
- news:[]},
-ECLERX:{board:[
- ["17 Aug 2026","FY26 net profit ₹706 cr (+30.5%); final dividend ₹1/share; AGM held 8 Sep 2026.","https://scanx.trade/stock-market-news/companies/eclerx-services-fy26-results-net-profit-up-30-5-inr-7-062-million-yoy/48518924"]],
- news:[]},
-ICICIGI:{board:[
- ["Q1 FY27","Q1 FY27 net profit fell 46% YoY to ₹403 cr; combined ratio 107.2%.","https://www.whalesbook.com/news/English/insurance/ICICI-Lombard-Shares-Rise-4percent-As-Tech-Pivot-Targets-Margins/6abe02e95aacb956d087ba99"]],
- news:[["01 Oct 2026","Unveiled digital plan targeting 90% digital servicing by FY29 and faster product launches; stock rose 4%.","https://www.whalesbook.com/news/English/insurance/ICICI-Lombard-Shares-Rise-4percent-As-Tech-Pivot-Targets-Margins/6abe02e95aacb956d087ba99"]]},
 DMART:{board:[
  ["10 Oct 2026","Full Q2 FY27 results due.","https://www.indmoney.com/blog/stocks/avenue-supermarts-q2-fy27-business-update-analysis"]],
- news:[["Oct 2026","Q2 FY27 business update: standalone revenue ₹19,206 cr (+18.4% YoY), 518 stores. Shares fell on concerns over growth quality and missing profit data.","https://www.indmoney.com/blog/stocks/avenue-supermarts-q2-fy27-business-update-analysis"]]},
-BHARTIHEXA:{board:[
- ["04 Aug 2026","Q1 FY27: revenue ₹2,509 cr (+10.9%), PAT ₹482 cr (+23.2%).","https://univest.in/blogs/bharti-hexacom-share-price-q1-fy27-results-4-august-2026"]],
- news:[["05 Oct 2026","Volume jumped ~4.6× average with a 1.2% intraday gain; no specific catalyst reported.","https://upstox.com/news/market-news/stocks/shipping-corporation-nuvama-wealth-bharti-hexacom-shares-surge-amid-spike-in-volumes/article-201283/"]]},
-RELIANCE:{board:[
- ["17 Jul 2026","Board approved Q1 FY27 results; consolidated profit reported at ₹23,196 cr.","https://www.psuconnect.in/financial/reliance-q1-fy27-results-consolidated-profit-at-23-196-cr"]],
- news:[["04 Oct 2026","Report says the Jio Platforms IPO is expected around early November 2026; size and pricing not officially confirmed.","https://telecomtalk.info/reliance-jio-ipo-update-in-october2026-one/1012490/"]]},
-LT:{board:[
- ["Q1 FY27","Q1 FY27: PAT ₹4,123 cr (+14%), revenue ₹67,942 cr (+7%), order inflow ₹1,08,014 cr; order book ₹7.79 lakh cr.","https://www.whalesbook.com/corporate-news/English/industrial-goodsservices/Larsen-and-Toubro-Q1-FY27-Profit-Up-14percent-to-indian-rupee4123-Cr-Order-Inflows-Rise-14percent/6a74a5aa10bce1fd20425ea0"]],
- news:[["05 Oct 2026","Won power transmission & distribution orders of about ₹10,000 cr across Saudi Arabia, UAE and India.","https://www.business-standard.com/companies/news/larsen-toubro-power-transmission-orders-saudi-uae-india-renewable-energy-126100500349_1.html"]]},
-PIDILITIND:{board:[
- ["04 Aug 2026","Q1 FY27: net profit ₹872.41 cr (+29.7%), revenue ₹4,551.55 cr (+21.3%).","https://www.kotakneo.com/news/stocks/pidilite-industries-q1-2026-27-results-pat-rises-30-to-rs-872-crore-revenue-up-21/"]],
- news:[["28 Sep 2026","Partnered with South Korea's Hwaseung Chemical for high-performance sports footwear adhesives in India.","https://ad-hoc-news.de/boerse/news/nebenwerte/pidilite-partners-with-hwaseung-chemical-as-motilal-oswal-rates-pidilite-stock-neutral/70229539"]]},
-"360ONE":{board:[
- ["23 Sep 2026","Board appointed Aashish Agarwal (ex-Jefferies) as CEO from 15 Feb 2027; Karan Bhagat to become Vice Chairman and remain MD.","https://www.business-standard.com/amp/markets/capital-market-news/360-one-wam-climbs-after-appointing-aashish-agarwal-as-ceo-126092300322_1.html"],
- ["16 Jul 2026","Q1 FY27: net profit ₹330.53 cr (+16.1%), total income ₹1,273 cr (+29.9%); AUM ₹7.77 lakh cr.","https://www.business-standard.com/companies/quarterly-results/360-one-wam-q1fy27-profit-revenue-aum-results-126071600821_1.html"]],
- news:[]},
-GILLETTE:{board:[
- ["27 May 2026","FY26: PAT ₹654 cr on revenue ₹3,100 cr; total dividend ₹240/share for the year.","https://www.whalesbook.com/corporate-news/English/consumer-products/Gillette-India-Reports-indian-rupee654-Cr-Profit-for-FY26-Declares-indian-rupee240-Dividend/6a77102310bce1fd20464e73"]],
- news:[]},
-BHARTIARTL:{board:[
- ["Jul 2026","Final dividend ₹24/share for FY26, record date 24 Jul 2026.","https://www.businesstoday.in/markets/stocks/story/rs-24-dividend-per-share-bharti-airtel-fixes-record-date-for-payment-check-details-542177-2026-07-10"]],
- news:[["01 Oct 2026","Traded near its 52-week low despite Q1 FY27 revenue +18.4% to ₹58,539 cr and adjusted PAT +35.5%; bundled Apple services with premium postpaid plans.","https://www.ad-hoc-news.de/boerse/news/corporate-news/bharti-airtel-stock-traded-near-its-52-week-low-after-q1-growth/70226131"]]},
-UNITDSPR:{board:[
- ["Oct 2026","EVP & Financial Controller Nimish Shah to leave effective 12 Oct 2026.","https://www.ad-hoc-news.de/boerse/news/corporate-news/united-spirits-stock-gains-2-16-percent-as-cautious-signals-build/70231434"]],
- news:[["05 Oct 2026","Q1 FY27 net sales ₹2,708 cr with profit below its recent average; stock up 2.16% on the day.","https://www.ad-hoc-news.de/boerse/news/corporate-news/united-spirits-stock-gains-2-16-percent-as-cautious-signals-build/70231434"]]},
-"NAM-INDIA":{board:[
- ["23 Jul 2026","Q1 FY27: net profit ₹503.70 cr (+27.2%), revenue ₹766.87 cr (+26.4%).","https://www.business-standard.com/amp/markets/capital-market-news/nippon-life-india-asset-management-consolidated-net-profit-rises-27-16-in-the-june-2026-quarter-126072300126_1.html"]],
- news:[]}
+ news:[["Oct 2026","Q2 FY27 business update: standalone revenue ₹19,206 cr (+18.4% YoY), 518 stores. Shares fell on concerns over growth quality and missing profit data.","https://www.indmoney.com/blog/stocks/avenue-supermarts-q2-fy27-business-update-analysis"]]}
 };
 
 
@@ -649,7 +600,7 @@ function renderScreener(){
       :`<div class="empty">No stocks in this group today.</div>`}
   </div>`};
   document.getElementById("screener").innerHTML=`
-  <div class="ph"><div class="name">STOCK SCREENER</div><div class="meta">Scanner snapshot 5 Oct 2026 · 3:29 PM · tap a name for its card</div></div>
+  <div class="ph"><div class="name">STOCK SCREENER</div><div class="meta">Scanner snapshot 7 Oct 2026 · 3:29 PM · tap a name for its card</div></div>
   <div class="scols">${col("SB")}${col("DB")}${col("SR")}${col("DR")}</div>
   <div class="strip" style="border-bottom:none;border-top:1px solid var(--line)">
     <span class="k"><b>Rule:</b> Strong = price above (bullish) or below (bearish) all 5 EMAs with ADX ≥ 20. Developing = above / below EMA 9, 20 &amp; 50. Turnover under ₹10 cr excluded.</span>
@@ -698,7 +649,7 @@ function openStock(sym){
       ${S.setup.map(t=>`<span class="tg">${t}</span>`).join("")}
       ${S.tags.map(t=>`<span class="tg" style="background:rgba(37,99,235,.08);color:var(--blue)">${t}</span>`).join("")}
     </div>
-    <div class="note" style="color:var(--muted)">Scanner snapshot 05 Oct 2026 · 3:29 PM · turnover ₹${f(S.turnover,1)} cr</div>
+    <div class="note" style="color:var(--muted)">Scanner snapshot 07 Oct 2026 · 3:29 PM · turnover ₹${f(S.turnover,1)} cr</div>
   </div>
 
   <div class="sec">
@@ -749,7 +700,7 @@ function openStock(sym){
     <ul class="obs">${obs.map(o=>`<li>${o}</li>`).join("")}</ul>
   </div>
 
-  <div class="foot"><b>STWP · Simple Trade With Patience</b><br>For educational purposes only. Not investment advice or a recommendation to buy/sell. News and board items are summarised from the linked public sources as of 5 Oct 2026; verify before relying on them.</div>
+  <div class="foot"><b>STWP · Simple Trade With Patience</b><br>For educational purposes only. Not investment advice or a recommendation to buy/sell. News and board items are summarised from the linked public sources as of 7 Oct 2026; verify before relying on them.</div>
   </div>`;
   const m=document.getElementById("modal"); m.classList.add("open"); m.scrollTop=0;
   document.body.style.overflow="hidden";
